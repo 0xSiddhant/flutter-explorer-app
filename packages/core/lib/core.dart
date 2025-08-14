@@ -1,6 +1,8 @@
 /// Core package exports
 export 'src/router/app_router.dart';
 export 'src/router/navigation_observer.dart';
+export 'src/router/route_observer.dart';
+export 'src/router/route_aware_mixin.dart';
 export 'src/theme/app_theme.dart';
 export 'src/theme/theme_provider.dart';
 export 'src/isolate/isolate_manager.dart';

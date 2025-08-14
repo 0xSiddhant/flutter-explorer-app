@@ -306,7 +306,7 @@ class _BackgroundTasksScreenState extends State<BackgroundTasksScreen> {
       }
     });
 
-    final result = await IsolateManager.multiplyMatrices(100);
+    final _ = await IsolateManager.multiplyMatrices(100);
 
     stopwatch.stop();
     progressTimer.cancel();
@@ -343,7 +343,7 @@ class _BackgroundTasksScreenState extends State<BackgroundTasksScreen> {
       }
     });
 
-    final result = await IsolateManager.sortLargeArray(10000);
+    final _ = await IsolateManager.sortLargeArray(10000);
 
     stopwatch.stop();
     progressTimer.cancel();

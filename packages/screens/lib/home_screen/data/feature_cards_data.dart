@@ -62,6 +62,20 @@ class FeatureCardsData {
         color: Colors.deepOrange,
         onTap: () => AppRouteManager.navigateToAdvancedProcessing(context),
       ),
+      FeatureCardModel(
+        title: 'Navigation Analytics',
+        subtitle: 'Route Tracking',
+        icon: Icons.analytics,
+        color: Colors.cyan,
+        onTap: () => AppRouteManager.navigateToNavigationAnalytics(context),
+      ),
+      FeatureCardModel(
+        title: 'Lifecycle Management',
+        subtitle: 'Widget States',
+        icon: Icons.auto_awesome,
+        color: Colors.amber,
+        onTap: () => AppRouteManager.navigateToLifecycleManagement(context),
+      ),
     ];
   }
 }

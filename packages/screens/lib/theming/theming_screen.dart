@@ -8,7 +8,7 @@ class ThemingScreen extends StatefulWidget {
   State<ThemingScreen> createState() => _ThemingScreenState();
 }
 
-class _ThemingScreenState extends State<ThemingScreen> {
+class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
   final ThemeProvider _themeProvider = ThemeProvider.instance;
 
   @override
@@ -18,6 +18,30 @@ class _ThemingScreenState extends State<ThemingScreen> {
     _themeProvider.setThemeChangedCallback(() {
       setState(() {});
     });
+  }
+
+  @override
+  void onScreenVisible() {
+    super.onScreenVisible();
+    print('🎨 Theming screen became visible');
+  }
+
+  @override
+  void onScreenInvisible() {
+    super.onScreenInvisible();
+    print('🎨 Theming screen became invisible');
+  }
+
+  @override
+  void onScreenPushed() {
+    super.onScreenPushed();
+    print('🎨 Theming screen was pushed');
+  }
+
+  @override
+  void onScreenPopped() {
+    super.onScreenPopped();
+    print('🎨 Theming screen was popped');
   }
 
   @override

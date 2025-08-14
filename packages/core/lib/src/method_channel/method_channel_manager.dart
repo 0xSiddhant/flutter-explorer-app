@@ -46,7 +46,7 @@ class MethodChannelManager {
       } else {
         return -1; // Return -1 to indicate error
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return -1; // Return -1 to indicate error
     }
   }
@@ -70,7 +70,7 @@ class MethodChannelManager {
       } else {
         return false;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }
@@ -90,7 +90,7 @@ class MethodChannelManager {
       } else {
         return false;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }

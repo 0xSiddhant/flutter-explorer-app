@@ -1,7 +1,6 @@
 import 'dart:isolate';
 import 'dart:typed_data';
 import 'dart:io';
-import 'dart:convert';
 
 /// Image downloading operations using isolate
 class ImageDownloader {
@@ -23,7 +22,7 @@ class ImageDownloader {
   static Uint8List _downloadImageBytes(String url) {
     try {
       final httpClient = HttpClient();
-      final request = httpClient.getUrl(Uri.parse(url));
+      final _ = httpClient.getUrl(Uri.parse(url));
 
       // Simulate image download (in real app, this would be async)
       final bytes = <int>[];
