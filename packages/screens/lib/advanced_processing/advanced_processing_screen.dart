@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:core/core.dart';
 
 /// Advanced isolate examples demo screen
-class AdvancedIsolateDemo extends StatefulWidget {
-  const AdvancedIsolateDemo({super.key});
+class AdvancedProcessingScreen extends StatefulWidget {
+  const AdvancedProcessingScreen({super.key});
 
   @override
-  State<AdvancedIsolateDemo> createState() => _AdvancedIsolateDemoState();
+  State<AdvancedProcessingScreen> createState() => _AdvancedProcessingScreenState();
 }
 
-class _AdvancedIsolateDemoState extends State<AdvancedIsolateDemo> {
+class _AdvancedProcessingScreenState extends State<AdvancedProcessingScreen> {
   String _result = 'No operation performed yet';
   bool _isProcessing = false;
   double _progress = 0.0;
@@ -26,7 +26,7 @@ class _AdvancedIsolateDemoState extends State<AdvancedIsolateDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Advanced Isolate Examples'),
+        title: const Text('Advanced Processing'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(

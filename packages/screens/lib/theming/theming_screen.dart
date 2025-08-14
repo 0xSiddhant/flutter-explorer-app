@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
 
-class ThemeDemoScreen extends StatefulWidget {
-  const ThemeDemoScreen({super.key});
+class ThemingScreen extends StatefulWidget {
+  const ThemingScreen({super.key});
 
   @override
-  State<ThemeDemoScreen> createState() => _ThemeDemoScreenState();
+  State<ThemingScreen> createState() => _ThemingScreenState();
 }
 
-class _ThemeDemoScreenState extends State<ThemeDemoScreen> {
+class _ThemingScreenState extends State<ThemingScreen> {
   final ThemeProvider _themeProvider = ThemeProvider.instance;
 
   @override
@@ -24,7 +24,7 @@ class _ThemeDemoScreenState extends State<ThemeDemoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Theme Demo'),
+        title: const Text('Theming'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(

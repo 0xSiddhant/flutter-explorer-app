@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Flutter Core Features Demo',
+      title: 'Flutter Explorer',
       theme: _themeProvider.currentTheme,
       routerConfig: AppRouteManager.router,
       builder: (context, child) {

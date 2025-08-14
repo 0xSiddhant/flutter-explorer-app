@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 
-class SemanticDemo extends StatefulWidget {
-  const SemanticDemo({super.key});
+class AccessibilityScreen extends StatefulWidget {
+  const AccessibilityScreen({super.key});
 
   @override
-  State<SemanticDemo> createState() => _SemanticDemoState();
+  State<AccessibilityScreen> createState() => _AccessibilityScreenState();
 }
 
-class _SemanticDemoState extends State<SemanticDemo> {
+class _AccessibilityScreenState extends State<AccessibilityScreen> {
   bool _isScreenReaderEnabled = false;
   bool _isHighContrastEnabled = false;
   bool _isLargeTextEnabled = false;
@@ -19,7 +19,7 @@ class _SemanticDemoState extends State<SemanticDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Semantic UI Demo'),
+        title: const Text('Accessibility'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(

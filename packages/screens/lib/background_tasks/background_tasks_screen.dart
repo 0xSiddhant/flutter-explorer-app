@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:core/core.dart';
 
 /// Demo screen for isolate operations
-class IsolateDemo extends StatefulWidget {
-  const IsolateDemo({super.key});
+class BackgroundTasksScreen extends StatefulWidget {
+  const BackgroundTasksScreen({super.key});
 
   @override
-  State<IsolateDemo> createState() => _IsolateDemoState();
+  State<BackgroundTasksScreen> createState() => _BackgroundTasksScreenState();
 }
 
-class _IsolateDemoState extends State<IsolateDemo> {
+class _BackgroundTasksScreenState extends State<BackgroundTasksScreen> {
   String _result = 'No calculation performed yet';
   List<int> _primeNumbers = [];
   bool _isCalculating = false;
@@ -22,7 +22,7 @@ class _IsolateDemoState extends State<IsolateDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Isolate Demo'),
+        title: const Text('Background Tasks'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(

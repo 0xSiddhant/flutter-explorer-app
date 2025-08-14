@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
 
-class LocalizationDemo extends StatefulWidget {
-  const LocalizationDemo({super.key});
+class InternationalizationScreen extends StatefulWidget {
+  const InternationalizationScreen({super.key});
 
   @override
-  State<LocalizationDemo> createState() => _LocalizationDemoState();
+  State<InternationalizationScreen> createState() => _InternationalizationScreenState();
 }
 
-class _LocalizationDemoState extends State<LocalizationDemo> {
+class _InternationalizationScreenState extends State<InternationalizationScreen> {
   String _currentLanguage = 'en';
 
   String get _currentLanguageName {
@@ -20,9 +20,7 @@ class _LocalizationDemoState extends State<LocalizationDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          AppLocalizations.getString('localization_demo', _currentLanguage),
-        ),
+        title: const Text('Internationalization'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(

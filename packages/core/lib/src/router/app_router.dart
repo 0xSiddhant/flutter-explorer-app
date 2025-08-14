@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:screens/detail_screen/detail_screen.dart';
 import 'package:screens/tab_screen/tab_screen.dart';
-import 'package:screens/theme_demo_screen/theme_demo_screen.dart';
-import 'package:screens/method_channel_demo/method_channel_demo.dart';
-import 'package:screens/isolate_demo/isolate_demo.dart';
-import 'package:screens/localization_demo/localization_demo.dart';
-import 'package:screens/semantic_demo/semantic_demo.dart';
-import 'package:screens/file_storage_demo/file_storage_demo.dart';
-import 'package:screens/advanced_isolate_demo/advanced_isolate_demo.dart';
+import 'package:screens/theming/theming_screen.dart';
+import 'package:screens/native_communication/native_communication_screen.dart';
+import 'package:screens/background_tasks/background_tasks_screen.dart';
+import 'package:screens/internationalization/internationalization_screen.dart';
+import 'package:screens/accessibility/accessibility_screen.dart';
+import 'package:screens/file_management/file_management_screen.dart';
+import 'package:screens/advanced_processing/advanced_processing_screen.dart';
 
 class AppRouteManager {
   AppRouteManager._();
@@ -30,45 +30,45 @@ class AppRouteManager {
             },
           ),
           GoRoute(
-            path: 'theme-demo',
+            path: 'theming',
             builder: (BuildContext context, GoRouterState state) {
-              return const ThemeDemoScreen();
+              return const ThemingScreen();
             },
           ),
           GoRoute(
-            path: 'method-channel-demo',
+            path: 'native-communication',
             builder: (BuildContext context, GoRouterState state) {
-              return const MethodChannelDemo();
+              return const NativeCommunicationScreen();
             },
           ),
           GoRoute(
-            path: 'isolate-demo',
+            path: 'background-tasks',
             builder: (BuildContext context, GoRouterState state) {
-              return const IsolateDemo();
+              return const BackgroundTasksScreen();
             },
           ),
           GoRoute(
-            path: 'localization-demo',
+            path: 'internationalization',
             builder: (BuildContext context, GoRouterState state) {
-              return const LocalizationDemo();
+              return const InternationalizationScreen();
             },
           ),
           GoRoute(
-            path: 'semantic-demo',
+            path: 'accessibility',
             builder: (BuildContext context, GoRouterState state) {
-              return const SemanticDemo();
+              return const AccessibilityScreen();
             },
           ),
           GoRoute(
-            path: 'file-storage-demo',
+            path: 'file-management',
             builder: (BuildContext context, GoRouterState state) {
-              return const FileStorageDemo();
+              return const FileManagementScreen();
             },
           ),
           GoRoute(
-            path: 'advanced-isolate-demo',
+            path: 'advanced-processing',
             builder: (BuildContext context, GoRouterState state) {
-              return const AdvancedIsolateDemo();
+              return const AdvancedProcessingScreen();
             },
           ),
         ],
@@ -80,31 +80,31 @@ class AppRouteManager {
     context.go('/details');
   }
 
-  static void navigateToThemeDemo(BuildContext context) {
-    context.go('/theme-demo');
+  static void navigateToTheming(BuildContext context) {
+    context.go('/theming');
   }
 
-  static void navigateToMethodChannelDemo(BuildContext context) {
-    context.go('/method-channel-demo');
+  static void navigateToNativeCommunication(BuildContext context) {
+    context.go('/native-communication');
   }
 
-  static void navigateToIsolateDemo(BuildContext context) {
-    context.go('/isolate-demo');
+  static void navigateToBackgroundTasks(BuildContext context) {
+    context.go('/background-tasks');
   }
 
-  static void navigateToLocalizationDemo(BuildContext context) {
-    context.go('/localization-demo');
+  static void navigateToInternationalization(BuildContext context) {
+    context.go('/internationalization');
   }
 
-  static void navigateToSemanticDemo(BuildContext context) {
-    context.go('/semantic-demo');
+  static void navigateToAccessibility(BuildContext context) {
+    context.go('/accessibility');
   }
 
-  static void navigateToFileStorageDemo(BuildContext context) {
-    context.go('/file-storage-demo');
+  static void navigateToFileManagement(BuildContext context) {
+    context.go('/file-management');
   }
 
-  static void navigateToAdvancedIsolateDemo(BuildContext context) {
-    context.go('/advanced-isolate-demo');
+  static void navigateToAdvancedProcessing(BuildContext context) {
+    context.go('/advanced-processing');
   }
 }

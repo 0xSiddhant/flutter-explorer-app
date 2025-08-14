@@ -31,8 +31,8 @@ import UIKit
       case "vibrate":
         let args = call.arguments as? [String: Any]
         let duration = args?["duration"] as? Int ?? 500
-        self.vibrate(duration: duration)
-        result("Vibration completed")
+        let success = self.vibrate(duration: duration)
+        result(success)
       default:
         result(FlutterMethodNotImplemented)
       }
@@ -42,18 +42,19 @@ import UIKit
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
-  private func getDeviceInfo() -> String {
+  private func getDeviceInfo() -> [String: String] {
     let device = UIDevice.current
     let systemInfo = UIDevice.current.systemName + " " + UIDevice.current.systemVersion
     let model = UIDevice.current.model
     let name = UIDevice.current.name
 
-    return """
-      Device: \(name)
-      iOS Version: \(systemInfo)
-      Model: \(model)
-      Platform: iOS
-      """
+    return [
+      "platform": "iOS",
+      "version": UIDevice.current.systemVersion,
+      "device": name,
+      "model": model,
+      "systemInfo": systemInfo,
+    ]
   }
 
   private func getBatteryLevel() -> Int {
@@ -63,34 +64,39 @@ import UIKit
   }
 
   private func showNativeDialog(
-    title: String, message: String, completion: @escaping (String) -> Void
+    title: String, message: String, completion: @escaping (Bool) -> Void
   ) {
     DispatchQueue.main.async {
       let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
       alert.addAction(
         UIAlertAction(title: "OK", style: .default) { _ in
-          completion("User clicked OK")
+          completion(true)
         })
 
       alert.addAction(
         UIAlertAction(title: "Cancel", style: .cancel) { _ in
-          completion("User clicked Cancel")
+          completion(false)
         })
 
       self.window?.rootViewController?.present(alert, animated: true)
     }
   }
 
-  private func vibrate(duration: Int) {
+  private func vibrate(duration: Int) -> Bool {
     // iOS doesn't have a direct vibration API like Android
     // We use AudioToolbox for haptic feedback
-    if #available(iOS 10.0, *) {
-      let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-      impactFeedback.impactOccurred()
-    } else {
-      // Fallback for older iOS versions
-      AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+    do {
+      if #available(iOS 10.0, *) {
+        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedback.impactOccurred()
+      } else {
+        // Fallback for older iOS versions
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+      }
+      return true
+    } catch {
+      return false
     }
   }
 }

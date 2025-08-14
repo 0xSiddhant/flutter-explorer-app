@@ -38,8 +38,8 @@ class MainActivity: FlutterActivity() {
                 }
                 "vibrate" -> {
                     val duration = call.argument<Int>("duration") ?: 500
-                    vibrate(duration)
-                    result.success("Vibration completed")
+                    val success = vibrate(duration)
+                    result.success(success)
                 }
                 else -> {
                     result.notImplemented()
@@ -48,14 +48,15 @@ class MainActivity: FlutterActivity() {
         }
     }
 
-    private fun getDeviceInfo(): String {
-        return buildString {
-            append("Device: ${Build.MANUFACTURER} ${Build.MODEL}\n")
-            append("Android Version: ${Build.VERSION.RELEASE}\n")
-            append("SDK Level: ${Build.VERSION.SDK_INT}\n")
-            append("Hardware: ${Build.HARDWARE}\n")
-            append("Product: ${Build.PRODUCT}")
-        }
+    private fun getDeviceInfo(): Map<String, String> {
+        return mapOf(
+            "platform" to "Android",
+            "version" to Build.VERSION.RELEASE,
+            "device" to "${Build.MANUFACTURER} ${Build.MODEL}",
+            "sdkLevel" to Build.VERSION.SDK_INT.toString(),
+            "hardware" to Build.HARDWARE,
+            "product" to Build.PRODUCT
+        )
     }
 
     private fun getBatteryLevel(): Int {
@@ -64,38 +65,43 @@ class MainActivity: FlutterActivity() {
         return (Math.random() * 100).toInt()
     }
 
-    private fun showNativeDialog(title: String, message: String, callback: (String) -> Unit) {
+    private fun showNativeDialog(title: String, message: String, callback: (Boolean) -> Unit) {
         runOnUiThread {
             AlertDialog.Builder(this)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK") { dialog, which ->
-                    callback("User clicked OK")
+                    callback(true)
                 }
                 .setNegativeButton("Cancel") { dialog, which ->
-                    callback("User clicked Cancel")
+                    callback(false)
                 }
                 .setOnCancelListener {
-                    callback("Dialog was cancelled")
+                    callback(false)
                 }
                 .show()
         }
     }
 
-    private fun vibrate(duration: Int) {
-        val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-            vibratorManager.defaultVibrator
-        } else {
-            @Suppress("DEPRECATION")
-            getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        }
+    private fun vibrate(duration: Int): Boolean {
+        return try {
+            val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+                vibratorManager.defaultVibrator
+            } else {
+                @Suppress("DEPRECATION")
+                getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(duration.toLong(), VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            @Suppress("DEPRECATION")
-            vibrator.vibrate(duration.toLong())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(duration.toLong(), VibrationEffect.DEFAULT_AMPLITUDE))
+            } else {
+                @Suppress("DEPRECATION")
+                vibrator.vibrate(duration.toLong())
+            }
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 }

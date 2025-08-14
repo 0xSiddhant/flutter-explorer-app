@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:common/common.dart';
 
-class FileStorageDemo extends StatefulWidget {
-  const FileStorageDemo({super.key});
+class FileManagementScreen extends StatefulWidget {
+  const FileManagementScreen({super.key});
 
   @override
-  State<FileStorageDemo> createState() => _FileStorageDemoState();
+  State<FileManagementScreen> createState() => _FileManagementScreenState();
 }
 
-class _FileStorageDemoState extends State<FileStorageDemo> {
+class _FileManagementScreenState extends State<FileManagementScreen> {
   final TextEditingController _fileNameController = TextEditingController();
   final TextEditingController _fileContentController = TextEditingController();
   List<String> _files = [];
@@ -35,9 +35,7 @@ class _FileStorageDemoState extends State<FileStorageDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          AppLocalizations.getString('file_storage_demo', _currentLanguage),
-        ),
+        title: const Text('File Management'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(
