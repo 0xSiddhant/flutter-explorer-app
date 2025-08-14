@@ -17,7 +17,7 @@ import io.flutter.plugin.common.MethodChannel
     super.configureFlutterEngine(flutterEngine)
     
     // Main channel for basic operations
-    MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "flutter_demo_channel")
+    MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "flutter_main_channel")
       .setMethodCallHandler { call, result ->
         mainChannelService.handleMethodCall(call, result, this)
       }

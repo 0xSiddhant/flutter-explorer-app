@@ -36,15 +36,15 @@ class AppLocalizations {
 
       // Features
       'theme': 'Theme',
-      'theme_demo': 'Theme Demo',
+      'theming': 'Theming',
       'method_channel': 'Method Channel',
-      'method_channel_demo': 'Method Channel Demo',
+      'native_communication': 'Native Communication',
       'isolates': 'Isolates',
-      'isolate_demo': 'Isolate Demo',
+      'background_tasks': 'Background Tasks',
       'localization': 'Localization',
-      'localization_demo': 'Localization Demo',
+      'internationalization': 'Internationalization',
       'semantic_ui': 'Semantic UI',
-      'semantic_demo': 'Semantic Demo',
+      'accessibility': 'Accessibility',
 
       // Theme
       'dark_mode': 'Dark Mode',
@@ -100,7 +100,7 @@ class AppLocalizations {
 
       // Settings
       'appearance': 'Appearance',
-      'accessibility': 'Accessibility',
+      'accessibility_settings': 'Accessibility',
       'about': 'About',
       'app_version': 'App Version',
       'screen_reader': 'Screen Reader',
@@ -115,8 +115,7 @@ class AppLocalizations {
           'Increase text size for better readability',
 
       // File Storage
-      'file_storage': 'File Storage',
-      'file_storage_demo': 'File Storage Demo',
+      'file_management': 'File Management',
       'save_file': 'Save File',
       'load_file': 'Load File',
       'delete_file': 'Delete File',
@@ -156,7 +155,7 @@ class AppLocalizations {
       'theme': 'Tema',
       'theme_demo': 'Demo de Tema',
       'method_channel': 'Canal de Método',
-      'method_channel_demo': 'Demo de Canal de Método',
+      'native_communication': 'Comunicación Nativa',
       'isolates': 'Aislados',
       'isolate_demo': 'Demo de Aislados',
       'localization': 'Localización',
@@ -274,7 +273,7 @@ class AppLocalizations {
       'theme': 'Thème',
       'theme_demo': 'Démo de Thème',
       'method_channel': 'Canal de Méthode',
-      'method_channel_demo': 'Démo de Canal de Méthode',
+      'native_communication': 'Communication Native',
       'isolates': 'Isolats',
       'isolate_demo': 'Démo d\'Isolats',
       'localization': 'Localisation',
@@ -392,7 +391,7 @@ class AppLocalizations {
       'theme': 'Thema',
       'theme_demo': 'Thema Demo',
       'method_channel': 'Methodenkanal',
-      'method_channel_demo': 'Methodenkanal Demo',
+      'native_communication': 'Native Kommunikation',
       'isolates': 'Isolate',
       'isolate_demo': 'Isolate Demo',
       'localization': 'Lokalisierung',

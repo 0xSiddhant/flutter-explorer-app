@@ -12,7 +12,7 @@ import 'services/network_service.dart';
 /// Central manager for all method channel operations
 class MethodChannelManager {
   // Main channel for basic operations
-  static const String _channelName = 'flutter_demo_channel';
+  static const String _channelName = 'flutter_main_channel';
   static const MethodChannel _channel = MethodChannel(_channelName);
 
   // Separate channels for different services
@@ -71,6 +71,26 @@ class MethodChannelManager {
         'error': 'Failed to get device info: ${e.message}',
         'platform': 'Unknown',
         'version': 'Unknown',
+      };
+    }
+  }
+
+  /// Get app version information
+  static Future<Map<String, dynamic>> getAppVersion() async {
+    try {
+      final result = await _channel.invokeMethod('getAppVersion');
+      if (result is Map) {
+        return Map<String, dynamic>.from(result);
+      } else {
+        return {
+          'success': false,
+          'error': 'Unexpected result type: ${result.runtimeType}',
+        };
+      }
+    } on PlatformException catch (e) {
+      return {
+        'success': false,
+        'error': 'Failed to get app version: ${e.message}',
       };
     }
   }

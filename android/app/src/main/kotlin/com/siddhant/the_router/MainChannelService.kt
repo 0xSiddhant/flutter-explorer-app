@@ -21,6 +21,10 @@ class MainChannelService {
         val deviceInfo = getDeviceInfo()
         result.success(deviceInfo)
       }
+      "getAppVersion" -> {
+        val appVersion = getAppVersion(activity)
+        result.success(appVersion)
+      }
       "getBatteryLevel" -> {
         val batteryLevel = getBatteryLevel()
         result.success(batteryLevel)
@@ -52,6 +56,24 @@ class MainChannelService {
       "hardware" to Build.HARDWARE,
       "product" to Build.PRODUCT
     )
+  }
+
+  private fun getAppVersion(activity: MainActivity): Map<String, Any> {
+    return try {
+      val packageInfo = activity.packageManager.getPackageInfo(activity.packageName, 0)
+      mapOf(
+        "success" to true,
+        "versionName" to (packageInfo.versionName ?: "Unknown"),
+        "versionCode" to packageInfo.longVersionCode,
+        "packageName" to activity.packageName,
+        "appName" to activity.packageManager.getApplicationLabel(packageInfo.applicationInfo).toString()
+      )
+    } catch (e: Exception) {
+      mapOf(
+        "success" to false,
+        "error" to "Failed to get app version: ${e.message}"
+      )
+    }
   }
 
   private fun getBatteryLevel(): Int {

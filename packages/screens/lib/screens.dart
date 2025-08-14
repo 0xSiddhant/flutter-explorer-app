@@ -1,4 +1,4 @@
-
+export './splash_screen/splash_screen.dart';
 export './home_screen/home_screen.dart';
 export './settings_screen/settings_screen.dart';
 export './tab_screen/tab_screen.dart';

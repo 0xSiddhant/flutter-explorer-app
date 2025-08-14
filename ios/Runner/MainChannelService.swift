@@ -13,6 +13,9 @@ class MainChannelService {
         case "getDeviceInfo":
             let deviceInfo = getDeviceInfo()
             result(deviceInfo)
+        case "getAppVersion":
+            let appVersion = getAppVersion()
+            result(appVersion)
         case "getBatteryLevel":
             let batteryLevel = getBatteryLevel()
             result(batteryLevel)
@@ -45,6 +48,30 @@ class MainChannelService {
             "device": name,
             "model": model,
             "systemInfo": systemInfo,
+        ]
+    }
+
+    private func getAppVersion() -> [String: Any] {
+        guard let infoDictionary = Bundle.main.infoDictionary else {
+            return [
+                "success": false,
+                "error": "Failed to get app info dictionary",
+            ]
+        }
+
+        let versionName = infoDictionary["CFBundleShortVersionString"] as? String ?? "Unknown"
+        let versionCode = infoDictionary["CFBundleVersion"] as? String ?? "Unknown"
+        let bundleIdentifier = Bundle.main.bundleIdentifier ?? "Unknown"
+        let appName =
+            infoDictionary["CFBundleDisplayName"] as? String ?? infoDictionary["CFBundleName"]
+            as? String ?? "Unknown"
+
+        return [
+            "success": true,
+            "versionName": versionName,
+            "versionCode": versionCode,
+            "packageName": bundleIdentifier,
+            "appName": appName,
         ]
     }
 

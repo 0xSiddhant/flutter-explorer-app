@@ -1,10 +1,5 @@
-import AVFoundation
-import AudioToolbox
-import CoreLocation
 import Flutter
-import Photos
 import UIKit
-import UserNotifications
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -23,7 +18,7 @@ import UserNotifications
 
     // Main channel for basic operations
     let mainChannel = FlutterMethodChannel(
-      name: "flutter_demo_channel",
+      name: "flutter_main_channel",
       binaryMessenger: controller.binaryMessenger)
     mainChannel.setMethodCallHandler { call, result in
       self.mainChannelService.handleMethodCall(call: call, result: result, activity: self)

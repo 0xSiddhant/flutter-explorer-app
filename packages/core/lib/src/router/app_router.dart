@@ -13,6 +13,7 @@ import 'package:screens/file_management/file_management_screen.dart';
 import 'package:screens/advanced_processing/advanced_processing_screen.dart';
 import 'package:screens/navigation_analytics/navigation_analytics_screen.dart';
 import 'package:screens/lifecycle_management/lifecycle_management_screen.dart';
+import 'package:screens/splash_screen/splash_screen.dart';
 
 class AppRouteManager {
   AppRouteManager._();
@@ -28,7 +29,15 @@ class AppRouteManager {
       MyNavigatorObserver(),
       _routeObserver, // Add custom route observer
     ],
+    initialLocation: '/splash',
     routes: <RouteBase>[
+      GoRoute(
+        path: '/splash',
+        name: 'splash',
+        builder: (BuildContext context, GoRouterState state) {
+          return const SplashScreen();
+        },
+      ),
       GoRoute(
         path: '/',
         name: 'home',
@@ -171,5 +180,10 @@ class AppRouteManager {
 
   static void clearNavigationHistory() {
     _routeObserver.clearHistory();
+  }
+
+  /// Navigate to home screen
+  static void navigateToHome(BuildContext context) {
+    context.go('/');
   }
 }
