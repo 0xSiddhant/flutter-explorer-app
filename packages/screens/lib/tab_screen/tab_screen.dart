@@ -16,7 +16,7 @@ class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
   late final TabController _tabController;
   int _currentIndex = 0;
   final List<TabItemWidgetModel> tabList = [
-    TabItemWidgetModel(icon: Icons.wallpaper, label: 'Home', index: 0),
+    TabItemWidgetModel(icon: Icons.home, label: 'Home', index: 0),
     TabItemWidgetModel(icon: Icons.settings, label: 'Settings', index: 1),
   ];
 

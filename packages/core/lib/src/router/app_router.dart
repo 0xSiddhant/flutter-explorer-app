@@ -3,22 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:screens/detail_screen/detail_screen.dart';
 import 'package:screens/tab_screen/tab_screen.dart';
+import 'package:screens/theme_demo_screen/theme_demo_screen.dart';
+import 'package:screens/method_channel_demo/method_channel_demo.dart';
+import 'package:screens/isolate_demo/isolate_demo.dart';
+import 'package:screens/localization_demo/localization_demo.dart';
+import 'package:screens/semantic_demo/semantic_demo.dart';
+import 'package:screens/file_storage_demo/file_storage_demo.dart';
 
 class AppRouteManager {
   AppRouteManager._();
 
   static final GoRouter router = GoRouter(
-    redirect: (BuildContext context, GoRouterState state) {
-      final isAuthenticated =
-          false; // your logic to check if user is authenticated
-      if (!isAuthenticated) {
-        return '/login';
-      } else {
-        return '/'; // return "null" to display the intended route without redirecting
-      }
-    },
     observers: [MyNavigatorObserver()],
-    // errorBuilder: (context, state) => ErrorPage(state.error),
     routes: <RouteBase>[
       GoRoute(
         path: '/',
@@ -32,31 +28,42 @@ class AppRouteManager {
               return const DetailScreen();
             },
           ),
-          //         GoRoute(
-          // path: '/fruits/:id',
-          // builder: (context, state) {
-          //    final id = state.pathParameters["id"]! // Get "id" param from URL
-          //    return FruitsPage(id: id);
-          // },)
-          // GoRoute(
-          //   path: '/fruit-details',
-          //   pageBuilder: (context, state) {
-          //     return CustomTransitionPage(
-          //       key: state.pageKey,
-          //       child: FruitDetailsScreen(),
-          //       transitionsBuilder:
-          //           (context, animation, secondaryAnimation, child) {
-          //             // Change the opacity of the screen using a Curve based on the the animation's value
-          //             return FadeTransition(
-          //               opacity: CurveTween(
-          //                 curve: Curves.easeInOutCirc,
-          //               ).animate(animation),
-          //               child: child,
-          //             );
-          //           },
-          //     );
-          //   },
-          // ),
+          GoRoute(
+            path: 'theme-demo',
+            builder: (BuildContext context, GoRouterState state) {
+              return const ThemeDemoScreen();
+            },
+          ),
+          GoRoute(
+            path: 'method-channel-demo',
+            builder: (BuildContext context, GoRouterState state) {
+              return const MethodChannelDemo();
+            },
+          ),
+          GoRoute(
+            path: 'isolate-demo',
+            builder: (BuildContext context, GoRouterState state) {
+              return const IsolateDemo();
+            },
+          ),
+          GoRoute(
+            path: 'localization-demo',
+            builder: (BuildContext context, GoRouterState state) {
+              return const LocalizationDemo();
+            },
+          ),
+          GoRoute(
+            path: 'semantic-demo',
+            builder: (BuildContext context, GoRouterState state) {
+              return const SemanticDemo();
+            },
+          ),
+          GoRoute(
+            path: 'file-storage-demo',
+            builder: (BuildContext context, GoRouterState state) {
+              return const FileStorageDemo();
+            },
+          ),
         ],
       ),
     ],
@@ -65,6 +72,28 @@ class AppRouteManager {
   static void navigateToDetailScreen(BuildContext context) {
     context.go('/details');
   }
-}
 
-// Go Router with tab bar
+  static void navigateToThemeDemo(BuildContext context) {
+    context.go('/theme-demo');
+  }
+
+  static void navigateToMethodChannelDemo(BuildContext context) {
+    context.go('/method-channel-demo');
+  }
+
+  static void navigateToIsolateDemo(BuildContext context) {
+    context.go('/isolate-demo');
+  }
+
+  static void navigateToLocalizationDemo(BuildContext context) {
+    context.go('/localization-demo');
+  }
+
+  static void navigateToSemanticDemo(BuildContext context) {
+    context.go('/semantic-demo');
+  }
+
+  static void navigateToFileStorageDemo(BuildContext context) {
+    context.go('/file-storage-demo');
+  }
+}
