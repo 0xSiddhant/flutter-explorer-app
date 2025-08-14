@@ -1,8 +1,11 @@
-export './tab_screen/tab_item_widget.dart';
 export './detail_screen/detail_screen.dart';
+export './home_screen/home_screen.dart';
+export './settings_screen/settings_screen.dart';
+export './tab_screen/tab_screen.dart';
 export './theme_demo_screen/theme_demo_screen.dart';
 export './method_channel_demo/method_channel_demo.dart';
 export './isolate_demo/isolate_demo.dart';
 export './localization_demo/localization_demo.dart';
 export './semantic_demo/semantic_demo.dart';
 export './file_storage_demo/file_storage_demo.dart';
+export './advanced_isolate_demo/advanced_isolate_demo.dart';

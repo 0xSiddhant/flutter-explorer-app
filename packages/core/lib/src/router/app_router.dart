@@ -9,6 +9,7 @@ import 'package:screens/isolate_demo/isolate_demo.dart';
 import 'package:screens/localization_demo/localization_demo.dart';
 import 'package:screens/semantic_demo/semantic_demo.dart';
 import 'package:screens/file_storage_demo/file_storage_demo.dart';
+import 'package:screens/advanced_isolate_demo/advanced_isolate_demo.dart';
 
 class AppRouteManager {
   AppRouteManager._();
@@ -64,6 +65,12 @@ class AppRouteManager {
               return const FileStorageDemo();
             },
           ),
+          GoRoute(
+            path: 'advanced-isolate-demo',
+            builder: (BuildContext context, GoRouterState state) {
+              return const AdvancedIsolateDemo();
+            },
+          ),
         ],
       ),
     ],
@@ -95,5 +102,9 @@ class AppRouteManager {
 
   static void navigateToFileStorageDemo(BuildContext context) {
     context.go('/file-storage-demo');
+  }
+
+  static void navigateToAdvancedIsolateDemo(BuildContext context) {
+    context.go('/advanced-isolate-demo');
   }
 }

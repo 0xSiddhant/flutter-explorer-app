@@ -1,6 +1,5 @@
 import 'dart:async';
-import 'dart:isolate';
-import 'dart:math';
+import 'dart:typed_data';
 
 import 'examples/examples.dart';
 
@@ -43,6 +42,68 @@ class IsolateManager {
     return await ComplexCalculator.calculateInIsolate(iterations);
   }
 
+  /// Download image using isolate
+  static Future<Uint8List> downloadImage(String url) async {
+    return await ImageDownloader.downloadImage(url);
+  }
+
+  /// Process image using isolate
+  static Future<Uint8List> processImage(
+    Uint8List imageData, {
+    int? maxWidth,
+    int? maxHeight,
+    int quality = 80,
+  }) async {
+    return await ImageDownloader.processImage(
+      imageData,
+      maxWidth: maxWidth,
+      maxHeight: maxHeight,
+      quality: quality,
+    );
+  }
+
+  /// Process text file using isolate
+  static Future<Map<String, int>> processTextFile(String content) async {
+    return await FileProcessor.processTextFile(content);
+  }
+
+  /// Compress data using isolate
+  static Future<Uint8List> compressData(Uint8List data) async {
+    return await FileProcessor.compressData(data);
+  }
+
+  /// Parse CSV data using isolate
+  static Future<List<Map<String, String>>> parseCSV(String csvData) async {
+    return await FileProcessor.parseCSV(csvData);
+  }
+
+  /// Generate dataset using isolate
+  static Future<List<Map<String, dynamic>>> generateDataset(int size) async {
+    return await FileProcessor.generateDataset(size);
+  }
+
+  /// Analyze dataset using isolate
+  static Future<Map<String, dynamic>> analyzeDataset(
+    List<Map<String, dynamic>> data,
+  ) async {
+    return await DataAnalyzer.analyzeDataset(data);
+  }
+
+  /// Perform clustering using isolate
+  static Future<List<List<int>>> performClustering(
+    List<List<double>> points,
+    int k,
+  ) async {
+    return await DataAnalyzer.performClustering(points, k);
+  }
+
+  /// Analyze time series using isolate
+  static Future<Map<String, dynamic>> analyzeTimeSeries(
+    List<double> values,
+  ) async {
+    return await DataAnalyzer.analyzeTimeSeries(values);
+  }
+
   /// Get calculation history for performance comparison
   static List<String> getCalculationHistory() {
     return [
@@ -52,6 +113,10 @@ class IsolateManager {
       'Matrix Multiplication(100x100) - Isolate: ~20ms',
       'Array Sort(10,000) - Isolate: ~5ms',
       'Complex Calculation(100,000) - Isolate: ~100ms',
+      'Image Download - Isolate: ~200ms',
+      'Text Processing(10,000 words) - Isolate: ~30ms',
+      'Data Analysis(1,000 records) - Isolate: ~80ms',
+      'Clustering(500 points) - Isolate: ~150ms',
     ];
   }
 
@@ -66,6 +131,9 @@ class IsolateManager {
       '  • Complex mathematical operations',
       '  • File operations',
       '  • Network requests with heavy processing',
+      '  • Image processing and downloads',
+      '  • Machine learning algorithms',
+      '  • Data analysis and clustering',
       'Small calculations may be faster on UI thread due to isolate overhead',
     ];
   }
