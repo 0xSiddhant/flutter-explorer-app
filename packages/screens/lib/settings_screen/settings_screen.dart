@@ -10,6 +10,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final ThemeProvider _themeProvider = ThemeProvider.instance;
+  bool _isRTLEnabled = false;
 
   @override
   void initState() {
@@ -39,6 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _buildTextScaleSlider(),
               const SizedBox(height: 24),
               _buildSectionHeader('Accessibility'),
+              _buildRTLToggle(),
               _buildAccessibilitySettings(),
               const SizedBox(height: 24),
               _buildSectionHeader('About'),
@@ -127,6 +129,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildRTLToggle() {
+    return ListTile(
+      leading: Icon(
+        _isRTLEnabled ? Icons.arrow_back : Icons.arrow_forward,
+        color: Theme.of(context).colorScheme.primary,
+      ),
+      title: const Text('Text Direction'),
+      subtitle: const Text('Switch between RTL and LTR'),
+      trailing: Switch(
+        value: _isRTLEnabled,
+        onChanged: (value) {
+          setState(() {
+            _isRTLEnabled = value;
+          });
+          // TODO: Implement app-wide RTL/LTR switching
+        },
+      ),
     );
   }
 

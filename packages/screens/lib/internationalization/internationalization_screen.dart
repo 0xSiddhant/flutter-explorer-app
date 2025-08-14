@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
+import 'data/internationalization_data.dart';
+import 'models/formatting_example_model.dart';
+import 'widgets/language_selector_widget.dart';
+import 'widgets/rtl_toggle_widget.dart';
+import 'widgets/formatting_examples_widget.dart';
+import 'widgets/feature_list_widget.dart';
 
 class InternationalizationScreen extends StatefulWidget {
   const InternationalizationScreen({super.key});
@@ -11,71 +17,94 @@ class InternationalizationScreen extends StatefulWidget {
 
 class _InternationalizationScreenState
     extends State<InternationalizationScreen> {
-  String _currentLanguage = 'en';
+  String _currentLanguage = InternationalizationData.currentLanguage;
+  bool _isRTLEnabled = InternationalizationData.isRTLEnabled;
+  FormattingDataModel? _formattingData;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Internationalization'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildLanguageSelector(),
-              const SizedBox(height: 16),
-              _buildWelcomeSection(),
-              const SizedBox(height: 16),
-              _buildFormattingExamples(),
-              const SizedBox(height: 16),
-              _buildFeatureList(),
-              const SizedBox(height: 24), // Add bottom padding
-            ],
-          ),
-        ),
+  void initState() {
+    super.initState();
+    _loadFormattingData();
+  }
+
+  void _loadFormattingData() {
+    setState(() {
+      _formattingData = InternationalizationData.getFormattingData();
+    });
+  }
+
+  void _onLanguageChanged(String languageCode) {
+    setState(() {
+      _currentLanguage = languageCode;
+      InternationalizationData.setLanguage(languageCode);
+      _isRTLEnabled = InternationalizationData.isRTLEnabled;
+      _loadFormattingData();
+    });
+  }
+
+  void _onRTLChanged(bool enabled) {
+    setState(() {
+      _isRTLEnabled = enabled;
+      InternationalizationData.setRTL(enabled);
+    });
+  }
+
+  void _onFeatureTap(String route) {
+    // TODO: Implement navigation to respective features
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Navigating to $route'),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
 
-  Widget _buildLanguageSelector() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.getString('select_language', _currentLanguage),
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: _isRTLEnabled ? TextDirection.rtl : TextDirection.ltr,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            AppLocalizations.getString(
+              'internationalization',
+              _currentLanguage,
             ),
-            const SizedBox(height: 16),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: AppLocalizations.supportedLanguages.asMap().entries.map(
-                (entry) {
-                  final languageCode = entry.value;
-                  final languageName =
-                      AppLocalizations.supportedLanguageNames[entry.key];
-                  return ChoiceChip(
-                    label: Text(languageName),
-                    selected: _currentLanguage == languageCode,
-                    onSelected: (selected) {
-                      if (selected) {
-                        setState(() {
-                          _currentLanguage = languageCode;
-                        });
-                      }
-                    },
-                  );
-                },
-              ).toList(),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                LanguageSelectorWidget(
+                  currentLanguage: _currentLanguage,
+                  onLanguageChanged: _onLanguageChanged,
+                ),
+                const SizedBox(height: 16),
+                RTLToggleWidget(
+                  isRTLEnabled: _isRTLEnabled,
+                  onRTLChanged: _onRTLChanged,
+                ),
+                const SizedBox(height: 16),
+                _buildWelcomeSection(),
+                const SizedBox(height: 16),
+                if (_formattingData != null)
+                  FormattingExamplesWidget(
+                    currentLanguage: _currentLanguage,
+                    examples: _formattingData!.examples,
+                  ),
+                const SizedBox(height: 16),
+                FeatureListWidget(
+                  currentLanguage: _currentLanguage,
+                  onFeatureTap: _onFeatureTap,
+                ),
+                const SizedBox(height: 24),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -89,141 +118,17 @@ class _InternationalizationScreenState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('app_title', _currentLanguage),
+              InternationalizationData.getWelcomeMessage(),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
-              'This app demonstrates various Flutter core features including localization support.',
+              InternationalizationData.getDescription(),
               style: const TextStyle(fontSize: 14),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildFormattingExamples() {
-    final now = DateTime.now();
-    final number = 1234567.89;
-
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.getString(
-                'formatting_examples',
-                _currentLanguage,
-              ),
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            _buildFormatRow(
-              AppLocalizations.getString('current_time', _currentLanguage),
-              AppLocalizations.formatTime(now, _currentLanguage),
-            ),
-            _buildFormatRow(
-              AppLocalizations.getString('date_format', _currentLanguage),
-              AppLocalizations.formatDate(now, _currentLanguage),
-            ),
-            _buildFormatRow(
-              AppLocalizations.getString('number_format', _currentLanguage),
-              AppLocalizations.formatNumber(number, _currentLanguage),
-            ),
-            _buildFormatRow(
-              AppLocalizations.getString('currency_format', _currentLanguage),
-              AppLocalizations.formatCurrency(number, _currentLanguage),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFormatRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 120,
-            child: Text(
-              label,
-              style: const TextStyle(fontWeight: FontWeight.w500),
-            ),
-          ),
-          Expanded(
-            child: Text(value, style: const TextStyle(fontFamily: 'monospace')),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFeatureList() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.getString('core_features', _currentLanguage),
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 200, // Fixed height for feature list
-              child: ListView(
-                children: [
-                  _buildFeatureItem(
-                    AppLocalizations.getString('navigation', _currentLanguage),
-                    Icons.navigation,
-                  ),
-                  _buildFeatureItem(
-                    AppLocalizations.getString('theme', _currentLanguage),
-                    Icons.palette,
-                  ),
-                  _buildFeatureItem(
-                    AppLocalizations.getString(
-                      'method_channel',
-                      _currentLanguage,
-                    ),
-                    Icons.phone_android,
-                  ),
-                  _buildFeatureItem(
-                    AppLocalizations.getString('isolates', _currentLanguage),
-                    Icons.sync,
-                  ),
-                  _buildFeatureItem(
-                    AppLocalizations.getString('semantic_ui', _currentLanguage),
-                    Icons.accessibility,
-                  ),
-                  _buildFeatureItem(
-                    AppLocalizations.getString('settings', _currentLanguage),
-                    Icons.settings,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFeatureItem(String title, IconData icon) {
-    return ListTile(
-      leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
-      title: Text(title),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-      onTap: () {
-        // TODO: Navigate to respective feature demo
-      },
     );
   }
 }

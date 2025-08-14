@@ -3,13 +3,22 @@ class AppLocalizations {
   AppLocalizations._();
 
   // Supported locales
-  static const List<String> supportedLanguages = ['en', 'es', 'fr', 'de'];
+  static const List<String> supportedLanguages = [
+    'en',
+    'es',
+    'fr',
+    'de',
+    'ar',
+    'ja',
+  ];
 
   static const List<String> supportedLanguageNames = [
     'English',
     'Spanish',
     'French',
     'German',
+    'Arabic',
+    'Japanese',
   ];
 
   // Translation maps
@@ -485,6 +494,248 @@ class AppLocalizations {
       'enter_file_name': 'Dateiname eingeben',
       'enter_file_content': 'Dateiinhalt eingeben',
     },
+    'ar': {
+      // Common
+      'app_title': 'عرض ميزات Flutter الأساسية',
+      'ok': 'موافق',
+      'cancel': 'إلغاء',
+      'save': 'حفظ',
+      'delete': 'حذف',
+      'edit': 'تعديل',
+      'loading': 'جاري التحميل...',
+      'error': 'خطأ',
+      'success': 'نجح',
+
+      // Navigation
+      'home': 'الرئيسية',
+      'settings': 'الإعدادات',
+      'navigation': 'التنقل',
+      'back': 'رجوع',
+      'next': 'التالي',
+      'previous': 'السابق',
+
+      // Features
+      'theme': 'المظهر',
+      'theming': 'المظهر',
+      'method_channel': 'قناة الطريقة',
+      'native_communication': 'التواصل الأصلي',
+      'isolates': 'العزلات',
+      'background_tasks': 'المهام الخلفية',
+      'localization': 'التوطين',
+      'internationalization': 'التدويل',
+      'semantic_ui': 'واجهة المستخدم الدلالية',
+      'accessibility': 'إمكانية الوصول',
+
+      // Theme
+      'dark_mode': 'الوضع المظلم',
+      'light_mode': 'الوضع الفاتح',
+      'high_contrast': 'تباين عالي',
+      'text_scale': 'مقياس النص',
+      'theme_controls': 'أدوات التحكم في المظهر',
+      'theme_preview': 'معاينة المظهر',
+      'current_theme_info': 'معلومات المظهر الحالي',
+
+      // Method Channel
+      'device_info': 'معلومات الجهاز',
+      'battery_level': 'مستوى البطارية',
+      'native_method_calls': 'استدعاءات الطريقة الأصلية',
+      'get_device_info': 'الحصول على معلومات الجهاز',
+      'get_battery_level': 'الحصول على مستوى البطارية',
+      'show_native_dialog': 'عرض مربع حوار أصلي',
+      'vibrate': 'اهتزاز',
+      'last_method_call': 'آخر استدعاء طريقة',
+
+      // Isolates
+      'calculations': 'الحسابات',
+      'progress': 'التقدم',
+      'results': 'النتائج',
+      'fibonacci_ui_thread': 'فيبوناتشي (خيط واجهة المستخدم)',
+      'fibonacci_isolate': 'فيبوناتشي (عزلة)',
+      'find_prime_numbers': 'البحث عن الأعداد الأولية',
+      'calculate_pi': 'حساب باي',
+      'calculation_time': 'وقت الحساب',
+      'prime_numbers_found': 'الأعداد الأولية الموجودة',
+
+      // Localization
+      'language': 'اللغة',
+      'select_language': 'اختر اللغة',
+      'current_time': 'الوقت الحالي',
+      'date_format': 'تنسيق التاريخ',
+      'number_format': 'تنسيق الرقم',
+      'currency_format': 'تنسيق العملة',
+      'formatting_examples': 'أمثلة التنسيق',
+      'core_features': 'الميزات الأساسية',
+      'internationalization_description':
+          'هذا التطبيق يوضح ميزات Flutter الأساسية المختلفة بما في ذلك دعم التوطين.',
+
+      // Semantic UI
+      'accessibility_controls': 'أدوات التحكم في إمكانية الوصول',
+      'screen_reader_mode': 'وضع قارئ الشاشة',
+      'large_text': 'نص كبير',
+      'semantic_ui_examples': 'أمثلة واجهة المستخدم الدلالية',
+      'semantic_button': 'زر دلالي',
+      'semantic_image': 'صورة دلالية',
+      'semantic_tab_bar': 'شريط التبويب الدلالي',
+      'semantic_form': 'نموذج دلالي',
+      'semantic_list': 'قائمة دلالية',
+      'last_action': 'آخر إجراء',
+
+      // Settings
+      'appearance': 'المظهر',
+      'accessibility_settings': 'إمكانية الوصول',
+      'about': 'حول',
+      'app_version': 'إصدار التطبيق',
+      'screen_reader': 'قارئ الشاشة',
+      'large_touch_targets': 'أهداف اللمس الكبيرة',
+      'enable_voice_feedback': 'تمكين التغذية الراجعة الصوتية',
+      'increase_button_sizes': 'زيادة أحجام الأزرار',
+      'switch_between_light_and_dark_themes':
+          'التبديل بين السمات الفاتحة والداكنة',
+      'increase_contrast_for_better_visibility': 'زيادة التباين لرؤية أفضل',
+      'increase_text_size_for_better_readability': 'زيادة حجم النص لقراءة أفضل',
+
+      // File Storage
+      'file_management': 'إدارة الملفات',
+      'save_file': 'حفظ الملف',
+      'load_file': 'تحميل الملف',
+      'delete_file': 'حذف الملف',
+      'file_name': 'اسم الملف',
+      'file_content': 'محتوى الملف',
+      'file_saved_successfully': 'تم حفظ الملف بنجاح',
+      'file_loaded_successfully': 'تم تحميل الملف بنجاح',
+      'file_deleted_successfully': 'تم حذف الملف بنجاح',
+      'error_saving_file': 'خطأ في حفظ الملف',
+      'error_loading_file': 'خطأ في تحميل الملف',
+      'error_deleting_file': 'خطأ في حذف الملف',
+      'no_files_found': 'لم يتم العثور على ملفات',
+      'enter_file_name': 'أدخل اسم الملف',
+      'enter_file_content': 'أدخل محتوى الملف',
+
+      // RTL Support
+      'text_direction': 'اتجاه النص',
+      'rtl_description':
+          'تبديل بين اتجاه النص من اليمين إلى اليسار ومن اليسار إلى اليمين',
+    },
+    'ja': {
+      // Common
+      'app_title': 'Flutterコア機能デモ',
+      'ok': 'OK',
+      'cancel': 'キャンセル',
+      'save': '保存',
+      'delete': '削除',
+      'edit': '編集',
+      'loading': '読み込み中...',
+      'error': 'エラー',
+      'success': '成功',
+
+      // Navigation
+      'home': 'ホーム',
+      'settings': '設定',
+      'navigation': 'ナビゲーション',
+      'back': '戻る',
+      'next': '次へ',
+      'previous': '前へ',
+
+      // Features
+      'theme': 'テーマ',
+      'theming': 'テーマ',
+      'method_channel': 'メソッドチャンネル',
+      'native_communication': 'ネイティブ通信',
+      'isolates': 'アイソレート',
+      'background_tasks': 'バックグラウンドタスク',
+      'localization': 'ローカライゼーション',
+      'internationalization': '国際化',
+      'semantic_ui': 'セマンティックUI',
+      'accessibility': 'アクセシビリティ',
+
+      // Theme
+      'dark_mode': 'ダークモード',
+      'light_mode': 'ライトモード',
+      'high_contrast': 'ハイコントラスト',
+      'text_scale': 'テキストスケール',
+      'theme_controls': 'テーマコントロール',
+      'theme_preview': 'テーマプレビュー',
+      'current_theme_info': '現在のテーマ情報',
+
+      // Method Channel
+      'device_info': 'デバイス情報',
+      'battery_level': 'バッテリーレベル',
+      'native_method_calls': 'ネイティブメソッド呼び出し',
+      'get_device_info': 'デバイス情報を取得',
+      'get_battery_level': 'バッテリーレベルを取得',
+      'show_native_dialog': 'ネイティブダイアログを表示',
+      'vibrate': '振動',
+      'last_method_call': '最後のメソッド呼び出し',
+
+      // Isolates
+      'calculations': '計算',
+      'progress': '進捗',
+      'results': '結果',
+      'fibonacci_ui_thread': 'フィボナッチ（UIスレッド）',
+      'fibonacci_isolate': 'フィボナッチ（アイソレート）',
+      'find_prime_numbers': '素数を見つける',
+      'calculate_pi': '円周率を計算',
+      'calculation_time': '計算時間',
+      'prime_numbers_found': '見つかった素数',
+
+      // Localization
+      'language': '言語',
+      'select_language': '言語を選択',
+      'current_time': '現在時刻',
+      'date_format': '日付形式',
+      'number_format': '数値形式',
+      'currency_format': '通貨形式',
+      'formatting_examples': 'フォーマット例',
+      'core_features': 'コア機能',
+      'internationalization_description':
+          'このアプリは、ローカライゼーションサポートを含むFlutterの様々なコア機能をデモンストレーションします。',
+
+      // Semantic UI
+      'accessibility_controls': 'アクセシビリティコントロール',
+      'screen_reader_mode': 'スクリーンリーダーモード',
+      'large_text': '大きなテキスト',
+      'semantic_ui_examples': 'セマンティックUI例',
+      'semantic_button': 'セマンティックボタン',
+      'semantic_image': 'セマンティック画像',
+      'semantic_tab_bar': 'セマンティックタブバー',
+      'semantic_form': 'セマンティックフォーム',
+      'semantic_list': 'セマンティックリスト',
+      'last_action': '最後のアクション',
+
+      // Settings
+      'appearance': '外観',
+      'accessibility_settings': 'アクセシビリティ',
+      'about': 'について',
+      'app_version': 'アプリバージョン',
+      'screen_reader': 'スクリーンリーダー',
+      'large_touch_targets': '大きなタッチターゲット',
+      'enable_voice_feedback': '音声フィードバックを有効にする',
+      'increase_button_sizes': 'ボタンサイズを大きくする',
+      'switch_between_light_and_dark_themes': 'ライトテーマとダークテーマを切り替える',
+      'increase_contrast_for_better_visibility': '視認性向上のためコントラストを上げる',
+      'increase_text_size_for_better_readability': '可読性向上のためテキストサイズを大きくする',
+
+      // File Storage
+      'file_management': 'ファイル管理',
+      'save_file': 'ファイルを保存',
+      'load_file': 'ファイルを読み込み',
+      'delete_file': 'ファイルを削除',
+      'file_name': 'ファイル名',
+      'file_content': 'ファイル内容',
+      'file_saved_successfully': 'ファイルが正常に保存されました',
+      'file_loaded_successfully': 'ファイルが正常に読み込まれました',
+      'file_deleted_successfully': 'ファイルが正常に削除されました',
+      'error_saving_file': 'ファイル保存エラー',
+      'error_loading_file': 'ファイル読み込みエラー',
+      'error_deleting_file': 'ファイル削除エラー',
+      'no_files_found': 'ファイルが見つかりません',
+      'enter_file_name': 'ファイル名を入力',
+      'enter_file_content': 'ファイル内容を入力',
+
+      // RTL Support
+      'text_direction': 'テキスト方向',
+      'rtl_description': '右から左、左から右のテキスト方向を切り替える',
+    },
   };
 
   /// Get translation for a key in the specified language
@@ -510,6 +761,10 @@ class AppLocalizations {
         return '${date.day}/${date.month}/${date.year}';
       case 'de':
         return '${date.day}.${date.month}.${date.year}';
+      case 'ar':
+        return '${date.day}/${date.month}/${date.year}';
+      case 'ja':
+        return '${date.year}年$date.month月$date.day日';
       default:
         return '${date.month}/${date.day}/${date.year}';
     }
@@ -527,6 +782,10 @@ class AppLocalizations {
         return '${hour}h$minute';
       case 'de':
         return '$hour:$minute Uhr';
+      case 'ar':
+        return '$hour:$minute';
+      case 'ja':
+        return '$hour時$minute分';
       default:
         return '$hour:$minute';
     }
@@ -541,6 +800,10 @@ class AppLocalizations {
         return '1 234 567,89';
       case 'de':
         return '1.234.567,89';
+      case 'ar':
+        return '1,234,567.89';
+      case 'ja':
+        return '1,234,567.89';
       default:
         return '1,234,567.89';
     }
@@ -555,6 +818,10 @@ class AppLocalizations {
         return '1 234 567,89 €';
       case 'de':
         return '1.234.567,89 €';
+      case 'ar':
+        return '1,234,567.89 ر.س';
+      case 'ja':
+        return '¥1,234,567.89';
       default:
         return '\$1,234,567.89';
     }
