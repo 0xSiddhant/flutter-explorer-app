@@ -5,16 +5,13 @@ class InternationalizationScreen extends StatefulWidget {
   const InternationalizationScreen({super.key});
 
   @override
-  State<InternationalizationScreen> createState() => _InternationalizationScreenState();
+  State<InternationalizationScreen> createState() =>
+      _InternationalizationScreenState();
 }
 
-class _InternationalizationScreenState extends State<InternationalizationScreen> {
+class _InternationalizationScreenState
+    extends State<InternationalizationScreen> {
   String _currentLanguage = 'en';
-
-  String get _currentLanguageName {
-    final index = AppLocalizations.supportedLanguages.indexOf(_currentLanguage);
-    return AppLocalizations.supportedLanguageNames[index];
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -21,7 +21,7 @@ class StorageService {
       } else {
         return false;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }
@@ -35,7 +35,7 @@ class StorageService {
       } else {
         return null;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return null;
     }
   }
@@ -52,7 +52,7 @@ class StorageService {
       } else {
         return false;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }
@@ -69,7 +69,7 @@ class StorageService {
       } else {
         return false;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }

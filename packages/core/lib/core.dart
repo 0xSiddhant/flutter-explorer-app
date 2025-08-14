@@ -1,4 +1,3 @@
-/// Core package exports
 export 'src/router/app_router.dart';
 export 'src/router/navigation_observer.dart';
 export 'src/router/route_observer.dart';

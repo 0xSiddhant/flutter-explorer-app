@@ -9,7 +9,8 @@ class AdvancedProcessingScreen extends StatefulWidget {
   const AdvancedProcessingScreen({super.key});
 
   @override
-  State<AdvancedProcessingScreen> createState() => _AdvancedProcessingScreenState();
+  State<AdvancedProcessingScreen> createState() =>
+      _AdvancedProcessingScreenState();
 }
 
 class _AdvancedProcessingScreenState extends State<AdvancedProcessingScreen> {
@@ -17,7 +18,7 @@ class _AdvancedProcessingScreenState extends State<AdvancedProcessingScreen> {
   bool _isProcessing = false;
   double _progress = 0.0;
   int _processingTime = 0;
-  List<String> _operationHistory = [];
+  final List<String> _operationHistory = [];
   Uint8List? _downloadedImage;
   Map<String, dynamic>? _analysisResult;
   List<Map<String, dynamic>>? _generatedData;

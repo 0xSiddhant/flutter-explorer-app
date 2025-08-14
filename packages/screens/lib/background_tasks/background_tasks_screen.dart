@@ -16,7 +16,7 @@ class _BackgroundTasksScreenState extends State<BackgroundTasksScreen> {
   bool _isCalculating = false;
   double _progress = 0.0;
   int _calculationTime = 0;
-  List<String> _calculationHistory = [];
+  final List<String> _calculationHistory = [];
 
   @override
   Widget build(BuildContext context) {

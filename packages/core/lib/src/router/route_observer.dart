@@ -90,9 +90,6 @@ class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
   Duration _calculateSessionDuration() {
     if (_navigationHistory.isEmpty) return Duration.zero;
 
-    final firstNavigation = _navigationHistory.first;
-    final lastNavigation = _navigationHistory.last;
-
     // This is a simplified calculation - in a real app, you'd store timestamps
     return Duration(minutes: _navigationHistory.length * 2); // Estimate
   }

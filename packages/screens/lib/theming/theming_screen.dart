@@ -212,7 +212,7 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
             _buildColorInfo('On Primary', colorScheme.onPrimary),
             _buildColorInfo('Secondary', colorScheme.secondary),
             _buildColorInfo('Surface', colorScheme.surface),
-            _buildColorInfo('Background', colorScheme.background),
+            _buildColorInfo('Surface', colorScheme.surface),
             _buildColorInfo('Error', colorScheme.error),
             const SizedBox(height: 16),
             Text(
@@ -246,7 +246,7 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
           const SizedBox(width: 8),
           Expanded(
             child: Text(
-              '$label: ${color.value.toRadixString(16).toUpperCase()}',
+              '$label: #${color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}',
               style: const TextStyle(fontFamily: 'monospace'),
             ),
           ),

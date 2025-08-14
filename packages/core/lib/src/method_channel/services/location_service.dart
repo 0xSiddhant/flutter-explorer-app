@@ -38,7 +38,7 @@ class LocationService {
       } else {
         return false;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }
@@ -55,7 +55,7 @@ class LocationService {
       } else {
         return false;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }
@@ -72,7 +72,7 @@ class LocationService {
       } else {
         return false;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }

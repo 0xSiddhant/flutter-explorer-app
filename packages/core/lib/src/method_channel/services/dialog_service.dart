@@ -25,7 +25,7 @@ class DialogService {
       } else {
         return false;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }

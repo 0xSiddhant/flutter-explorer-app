@@ -14,7 +14,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
   final TextEditingController _fileNameController = TextEditingController();
   final TextEditingController _fileContentController = TextEditingController();
   List<String> _files = [];
-  String _currentLanguage = 'en';
+  final String _currentLanguage = 'en';
   bool _isLoading = false;
   String _lastOperation = 'No operation performed';
 
@@ -226,7 +226,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
               width: double.infinity,
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceVariant,
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(

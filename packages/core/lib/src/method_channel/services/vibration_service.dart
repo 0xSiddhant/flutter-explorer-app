@@ -21,7 +21,7 @@ class VibrationService {
       } else {
         return false;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return false;
     }
   }

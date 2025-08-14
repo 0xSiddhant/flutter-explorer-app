@@ -15,7 +15,6 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
     with RouteAwareMixin {
   AnalyticsModel? _analytics;
   List<String> _navigationHistory = [];
-  Map<String, int> _screenVisitCount = {};
   List<MapEntry<String, int>> _mostVisitedScreens = [];
 
   @override
@@ -34,7 +33,6 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
     setState(() {
       _analytics = AnalyticsData.getAnalytics();
       _navigationHistory = AnalyticsData.getNavigationHistory();
-      _screenVisitCount = AnalyticsData.getScreenVisitCount();
       _mostVisitedScreens = AnalyticsData.getMostVisitedScreens();
     });
   }

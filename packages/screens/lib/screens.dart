@@ -1,4 +1,4 @@
-/// Screens package exports
+
 export './home_screen/home_screen.dart';
 export './settings_screen/settings_screen.dart';
 export './tab_screen/tab_screen.dart';

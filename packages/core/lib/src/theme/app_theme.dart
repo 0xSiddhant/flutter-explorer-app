@@ -55,11 +55,9 @@ class AppTheme {
         primary: Colors.black,
         secondary: Colors.white,
         surface: Colors.white,
-        background: Colors.white,
         onPrimary: Colors.white,
         onSecondary: Colors.black,
         onSurface: Colors.black,
-        onBackground: Colors.black,
       ),
     );
   }
@@ -71,11 +69,9 @@ class AppTheme {
         primary: Colors.white,
         secondary: Colors.black,
         surface: Colors.black,
-        background: Colors.black,
         onPrimary: Colors.black,
         onSecondary: Colors.white,
         onSurface: Colors.white,
-        onBackground: Colors.white,
       ),
     );
   }

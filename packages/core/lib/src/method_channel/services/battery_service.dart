@@ -18,7 +18,7 @@ class BatteryService {
       } else {
         return -1; // Return -1 to indicate error
       }
-    } on PlatformException catch (e) {
+    } on PlatformException {
       return -1; // Return -1 to indicate error
     }
   }
