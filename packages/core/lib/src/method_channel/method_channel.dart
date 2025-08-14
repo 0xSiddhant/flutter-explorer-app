@@ -4,3 +4,8 @@ export 'services/device_service.dart';
 export 'services/battery_service.dart';
 export 'services/dialog_service.dart';
 export 'services/vibration_service.dart';
+export 'services/camera_service.dart';
+export 'services/location_service.dart';
+export 'services/notification_service.dart';
+export 'services/storage_service.dart';
+export 'services/network_service.dart';

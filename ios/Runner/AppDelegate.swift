@@ -1,102 +1,76 @@
+import AVFoundation
 import AudioToolbox
+import CoreLocation
 import Flutter
+import Photos
 import UIKit
+import UserNotifications
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
+  private let mainChannelService = MainChannelService()
+  private let cameraService = CameraService()
+  private let locationService = LocationService()
+  private let notificationService = NotificationService()
+  private let storageService = StorageService()
+  private let networkService = NetworkService()
+
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     let controller: FlutterViewController = window?.rootViewController as! FlutterViewController
-    let channel = FlutterMethodChannel(
+
+    // Main channel for basic operations
+    let mainChannel = FlutterMethodChannel(
       name: "flutter_demo_channel",
       binaryMessenger: controller.binaryMessenger)
-    channel.setMethodCallHandler({
-      (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
-      switch call.method {
-      case "getDeviceInfo":
-        let deviceInfo = self.getDeviceInfo()
-        result(deviceInfo)
-      case "getBatteryLevel":
-        let batteryLevel = self.getBatteryLevel()
-        result(batteryLevel)
-      case "showNativeDialog":
-        let args = call.arguments as? [String: Any]
-        let title = args?["title"] as? String ?? "Flutter Demo"
-        let message = args?["message"] as? String ?? "This is a native dialog!"
-        self.showNativeDialog(title: title, message: message) { response in
-          result(response)
-        }
-      case "vibrate":
-        let args = call.arguments as? [String: Any]
-        let duration = args?["duration"] as? Int ?? 500
-        let success = self.vibrate(duration: duration)
-        result(success)
-      default:
-        result(FlutterMethodNotImplemented)
-      }
-    })
+    mainChannel.setMethodCallHandler { call, result in
+      self.mainChannelService.handleMethodCall(call: call, result: result, activity: self)
+    }
+
+    // Camera channel
+    let cameraChannel = FlutterMethodChannel(
+      name: "flutter_camera_channel",
+      binaryMessenger: controller.binaryMessenger)
+    cameraChannel.setMethodCallHandler { call, result in
+      self.cameraService.handleMethodCall(call: call, result: result, activity: self)
+    }
+
+    // Location channel
+    let locationChannel = FlutterMethodChannel(
+      name: "flutter_location_channel",
+      binaryMessenger: controller.binaryMessenger)
+    locationChannel.setMethodCallHandler { call, result in
+      self.locationService.handleMethodCall(call: call, result: result, activity: self)
+    }
+
+    // Notification channel
+    let notificationChannel = FlutterMethodChannel(
+      name: "flutter_notification_channel",
+      binaryMessenger: controller.binaryMessenger)
+    notificationChannel.setMethodCallHandler { call, result in
+      self.notificationService.handleMethodCall(call: call, result: result, activity: self)
+    }
+
+    // Storage channel
+    let storageChannel = FlutterMethodChannel(
+      name: "flutter_storage_channel",
+      binaryMessenger: controller.binaryMessenger)
+    storageChannel.setMethodCallHandler { call, result in
+      self.storageService.handleMethodCall(call: call, result: result, activity: self)
+    }
+
+    // Network channel
+    let networkChannel = FlutterMethodChannel(
+      name: "flutter_network_channel",
+      binaryMessenger: controller.binaryMessenger)
+    networkChannel.setMethodCallHandler { call, result in
+      self.networkService.handleMethodCall(call: call, result: result, activity: self)
+    }
 
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
-  private func getDeviceInfo() -> [String: String] {
-    let device = UIDevice.current
-    let systemInfo = UIDevice.current.systemName + " " + UIDevice.current.systemVersion
-    let model = UIDevice.current.model
-    let name = UIDevice.current.name
-
-    return [
-      "platform": "iOS",
-      "version": UIDevice.current.systemVersion,
-      "device": name,
-      "model": model,
-      "systemInfo": systemInfo,
-    ]
-  }
-
-  private func getBatteryLevel() -> Int {
-    // This is a simplified implementation
-    // In a real app, you'd use UIDevice.batteryLevel to get actual battery level
-    return Int.random(in: 0...100)
-  }
-
-  private func showNativeDialog(
-    title: String, message: String, completion: @escaping (Bool) -> Void
-  ) {
-    DispatchQueue.main.async {
-      let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-      alert.addAction(
-        UIAlertAction(title: "OK", style: .default) { _ in
-          completion(true)
-        })
-
-      alert.addAction(
-        UIAlertAction(title: "Cancel", style: .cancel) { _ in
-          completion(false)
-        })
-
-      self.window?.rootViewController?.present(alert, animated: true)
-    }
-  }
-
-  private func vibrate(duration: Int) -> Bool {
-    // iOS doesn't have a direct vibration API like Android
-    // We use AudioToolbox for haptic feedback
-    do {
-      if #available(iOS 10.0, *) {
-        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-        impactFeedback.impactOccurred()
-      } else {
-        // Fallback for older iOS versions
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-      }
-      return true
-    } catch {
-      return false
-    }
-  }
 }
