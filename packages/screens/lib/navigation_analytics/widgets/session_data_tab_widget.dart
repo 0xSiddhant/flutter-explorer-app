@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
-import '../data/analytics_data.dart';
 
 class SessionDataTabWidget extends StatelessWidget {
   final Map<String, dynamic>? comprehensiveAnalytics;
@@ -20,13 +19,13 @@ class SessionDataTabWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('session_data', 'en'),
+              AppLocalizations.getString('session_data'),
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 16),
             _buildMetricCard(
               context: context,
-              title: AppLocalizations.getString('session_duration', 'en'),
+              title: AppLocalizations.getString('session_duration'),
               value: _formatDuration(
                 comprehensiveAnalytics!['sessionDuration'],
               ),
@@ -36,10 +35,7 @@ class SessionDataTabWidget extends StatelessWidget {
             const SizedBox(height: 16),
             _buildMetricCard(
               context: context,
-              title: AppLocalizations.getString(
-                'total_session_navigations',
-                'en',
-              ),
+              title: AppLocalizations.getString('total_session_navigations'),
               value: '${comprehensiveAnalytics!['totalSessionNavigations']}',
               icon: Icons.navigation,
               color: Colors.green,
@@ -47,14 +43,14 @@ class SessionDataTabWidget extends StatelessWidget {
             const SizedBox(height: 16),
             _buildMetricCard(
               context: context,
-              title: AppLocalizations.getString('last_visited_screen', 'en'),
+              title: AppLocalizations.getString('last_visited_screen'),
               value: comprehensiveAnalytics!['lastVisitedScreen'] ?? 'None',
               icon: Icons.my_location,
               color: Colors.orange,
             ),
             const SizedBox(height: 16),
             Text(
-              AppLocalizations.getString('navigation_patterns', 'en'),
+              AppLocalizations.getString('navigation_patterns'),
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),
@@ -66,7 +62,7 @@ class SessionDataTabWidget extends StatelessWidget {
                       leading: const Icon(Icons.route),
                       title: Text(pattern),
                       subtitle: Text(
-                        AppLocalizations.getString('navigation_pattern', 'en'),
+                        AppLocalizations.getString('navigation_pattern'),
                       ),
                     ),
                   );
@@ -94,7 +90,7 @@ class SessionDataTabWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(icon, color: color, size: 24),

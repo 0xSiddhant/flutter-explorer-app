@@ -154,7 +154,7 @@ class LifecycleCard extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.getString('close', 'en')),
+            child: Text(AppLocalizations.getString('close')),
           ),
         ],
       ),

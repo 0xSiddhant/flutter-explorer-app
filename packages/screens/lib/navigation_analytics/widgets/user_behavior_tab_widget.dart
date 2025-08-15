@@ -28,13 +28,13 @@ class UserBehaviorTabWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('user_behavior_metrics', 'en'),
+              AppLocalizations.getString('user_behavior_metrics'),
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 16),
             _buildMetricCard(
               context: context,
-              title: AppLocalizations.getString('total_back_navigations', 'en'),
+              title: AppLocalizations.getString('total_back_navigations'),
               value: '${userBehavior['totalBackNavigations']}',
               icon: Icons.arrow_back,
               color: Colors.blue,
@@ -42,10 +42,7 @@ class UserBehaviorTabWidget extends StatelessWidget {
             const SizedBox(height: 16),
             _buildMetricCard(
               context: context,
-              title: AppLocalizations.getString(
-                'average_session_duration',
-                'en',
-              ),
+              title: AppLocalizations.getString('average_session_duration'),
               value: '${userBehavior['averageSessionDuration']} minutes',
               icon: Icons.access_time,
               color: Colors.orange,
@@ -53,7 +50,7 @@ class UserBehaviorTabWidget extends StatelessWidget {
             const SizedBox(height: 16),
             _buildMetricCard(
               context: context,
-              title: AppLocalizations.getString('user_engagement_score', 'en'),
+              title: AppLocalizations.getString('user_engagement_score'),
               value:
                   '${userBehavior['userEngagementScore'].toStringAsFixed(2)}',
               icon: Icons.trending_up,
@@ -62,7 +59,7 @@ class UserBehaviorTabWidget extends StatelessWidget {
             const SizedBox(height: 16),
             _buildMetricCard(
               context: context,
-              title: AppLocalizations.getString('navigation_efficiency', 'en'),
+              title: AppLocalizations.getString('navigation_efficiency'),
               value:
                   '${(userBehavior['navigationEfficiency'] * 100).toStringAsFixed(1)}%',
               icon: Icons.speed,
@@ -70,10 +67,7 @@ class UserBehaviorTabWidget extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              AppLocalizations.getString(
-                'screens_with_highest_time_spent',
-                'en',
-              ),
+              AppLocalizations.getString('screens_with_highest_time_spent'),
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),
@@ -120,7 +114,7 @@ class UserBehaviorTabWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(icon, color: color, size: 24),

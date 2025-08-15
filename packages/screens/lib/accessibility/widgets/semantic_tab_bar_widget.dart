@@ -20,30 +20,30 @@ class SemanticTabBarWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.getString('semantic_tab_bar', 'en'),
+          AppLocalizations.getString('semantic_tab_bar'),
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 8),
         Semantics(
           label:
-              '${AppLocalizations.getString('tab_navigation', 'en')} $selectedTab ${AppLocalizations.getString('tabs', 'en')}',
+              '${AppLocalizations.getString('tab_navigation')} $selectedTab ${AppLocalizations.getString('tabs')}',
           child: Row(
             children: [
               _buildSemanticTab(
                 context,
-                AppLocalizations.getString('home', 'en'),
+                AppLocalizations.getString('home'),
                 0,
                 Icons.home,
               ),
               _buildSemanticTab(
                 context,
-                AppLocalizations.getString('profile', 'en'),
+                AppLocalizations.getString('profile'),
                 1,
                 Icons.person,
               ),
               _buildSemanticTab(
                 context,
-                AppLocalizations.getString('settings', 'en'),
+                AppLocalizations.getString('settings'),
                 2,
                 Icons.settings,
               ),
@@ -63,7 +63,7 @@ class SemanticTabBarWidget extends StatelessWidget {
     final isSelected = selectedTab == index;
     return Expanded(
       child: Semantics(
-        label: '$label ${AppLocalizations.getString('tab', 'en')}',
+        label: '$label ${AppLocalizations.getString('tab')}',
         selected: isSelected,
         button: true,
         child: GestureDetector(

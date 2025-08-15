@@ -13,25 +13,25 @@ class SemanticListWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.getString('semantic_list', 'en'),
+          AppLocalizations.getString('semantic_list'),
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 8),
         Semantics(
-          label: AppLocalizations.getString('list_of_items', 'en'),
+          label: AppLocalizations.getString('list_of_items'),
           child: Column(
             children: [
               _buildSemanticListItem(
-                AppLocalizations.getString('first_item', 'en'),
-                AppLocalizations.getString('first_item_description', 'en'),
+                AppLocalizations.getString('first_item'),
+                AppLocalizations.getString('first_item_description'),
               ),
               _buildSemanticListItem(
-                AppLocalizations.getString('second_item', 'en'),
-                AppLocalizations.getString('second_item_description', 'en'),
+                AppLocalizations.getString('second_item'),
+                AppLocalizations.getString('second_item_description'),
               ),
               _buildSemanticListItem(
-                AppLocalizations.getString('third_item', 'en'),
-                AppLocalizations.getString('third_item_description', 'en'),
+                AppLocalizations.getString('third_item'),
+                AppLocalizations.getString('third_item_description'),
               ),
             ],
           ),

@@ -145,7 +145,7 @@ class _LifecycleManagementScreenState extends State<LifecycleManagementScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.getString('lifecycle_management', 'en')),
+        title: Text(AppLocalizations.getString('lifecycle_management')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         bottom: TabBar(
           controller: _tabController,
@@ -450,7 +450,7 @@ class _LifecycleManagementScreenState extends State<LifecycleManagementScreen>
                 TextButton.icon(
                   onPressed: _clearEvents,
                   icon: const Icon(Icons.clear_all, size: 16),
-                  label: Text(AppLocalizations.getString('clear_all', 'en')),
+                  label: Text(AppLocalizations.getString('clear_all')),
                 ),
             ],
           ),

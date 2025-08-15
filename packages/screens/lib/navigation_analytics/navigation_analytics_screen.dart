@@ -66,29 +66,29 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.getString('navigation_analytics', 'en')),
+        title: Text(AppLocalizations.getString('navigation_analytics')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
           tabs: [
-            Tab(text: AppLocalizations.getString('overview', 'en')),
-            Tab(text: AppLocalizations.getString('performance', 'en')),
-            Tab(text: AppLocalizations.getString('user_behavior', 'en')),
-            Tab(text: AppLocalizations.getString('session_data', 'en')),
-            Tab(text: AppLocalizations.getString('errors', 'en')),
+            Tab(text: AppLocalizations.getString('overview')),
+            Tab(text: AppLocalizations.getString('performance')),
+            Tab(text: AppLocalizations.getString('user_behavior')),
+            Tab(text: AppLocalizations.getString('session_data')),
+            Tab(text: AppLocalizations.getString('errors')),
           ],
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: _loadAnalytics,
-            tooltip: AppLocalizations.getString('refresh_analytics', 'en'),
+            tooltip: AppLocalizations.getString('refresh_analytics'),
           ),
           IconButton(
             icon: const Icon(Icons.clear_all),
             onPressed: _clearHistory,
-            tooltip: AppLocalizations.getString('clear_analytics', 'en'),
+            tooltip: AppLocalizations.getString('clear_analytics'),
           ),
         ],
       ),
@@ -117,14 +117,14 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.getString('clear_analytics', 'en')),
+        title: Text(AppLocalizations.getString('clear_analytics')),
         content: Text(
-          AppLocalizations.getString('clear_analytics_confirmation', 'en'),
+          AppLocalizations.getString('clear_analytics_confirmation'),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.getString('cancel', 'en')),
+            child: Text(AppLocalizations.getString('cancel')),
           ),
           TextButton(
             onPressed: () {
@@ -135,12 +135,12 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    AppLocalizations.getString('analytics_cleared', 'en'),
+                    AppLocalizations.getString('analytics_cleared'),
                   ),
                 ),
               );
             },
-            child: Text(AppLocalizations.getString('clear', 'en')),
+            child: Text(AppLocalizations.getString('clear')),
           ),
         ],
       ),

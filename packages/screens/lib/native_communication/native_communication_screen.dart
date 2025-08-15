@@ -23,7 +23,7 @@ class _NativeCommunicationScreenState extends State<NativeCommunicationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.getString('native_communication', 'en')),
+        title: Text(AppLocalizations.getString('native_communication')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(
@@ -79,14 +79,14 @@ class _NativeCommunicationScreenState extends State<NativeCommunicationScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.getString('results', 'en'),
+            AppLocalizations.getString('results'),
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
           if (_isLoading) ...[
             const LinearProgressIndicator(),
             const SizedBox(height: 8),
-            Text(AppLocalizations.getString('processing', 'en')),
+            Text(AppLocalizations.getString('processing')),
           ],
           const SizedBox(height: 8),
           Container(

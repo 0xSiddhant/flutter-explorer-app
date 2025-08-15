@@ -11,12 +11,12 @@ class SemanticImageWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.getString('semantic_image', 'en'),
+          AppLocalizations.getString('semantic_image'),
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 8),
         Semantics(
-          label: AppLocalizations.getString('flutter_logo_description', 'en'),
+          label: AppLocalizations.getString('flutter_logo_description'),
           image: true,
           child: Container(
             width: 100,

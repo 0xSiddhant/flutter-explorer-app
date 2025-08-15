@@ -14,7 +14,6 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
   final TextEditingController _fileNameController = TextEditingController();
   final TextEditingController _fileContentController = TextEditingController();
   List<String> _files = [];
-  final String _currentLanguage = 'en';
   bool _isLoading = false;
   String _lastOperation = 'No operation performed';
 
@@ -35,7 +34,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.getString('file_management', 'en')),
+        title: Text(AppLocalizations.getString('file_management')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(
@@ -67,17 +66,14 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('file_name', _currentLanguage),
+              AppLocalizations.getString('file_name'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             TextField(
               controller: _fileNameController,
               decoration: InputDecoration(
-                hintText: AppLocalizations.getString(
-                  'enter_file_name',
-                  _currentLanguage,
-                ),
+                hintText: AppLocalizations.getString('enter_file_name'),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -85,7 +81,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              AppLocalizations.getString('file_content', _currentLanguage),
+              AppLocalizations.getString('file_content'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
@@ -93,10 +89,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
               controller: _fileContentController,
               maxLines: 4,
               decoration: InputDecoration(
-                hintText: AppLocalizations.getString(
-                  'enter_file_content',
-                  _currentLanguage,
-                ),
+                hintText: AppLocalizations.getString('enter_file_content'),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -126,26 +119,20 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
               children: [
                 ElevatedButton(
                   onPressed: _isLoading ? null : _saveFile,
-                  child: Text(
-                    AppLocalizations.getString('save_file', _currentLanguage),
-                  ),
+                  child: Text(AppLocalizations.getString('save_file')),
                 ),
                 ElevatedButton(
                   onPressed: _isLoading ? null : _loadFile,
-                  child: Text(
-                    AppLocalizations.getString('load_file', _currentLanguage),
-                  ),
+                  child: Text(AppLocalizations.getString('load_file')),
                 ),
                 ElevatedButton(
                   onPressed: _isLoading ? null : _deleteFile,
-                  child: Text(
-                    AppLocalizations.getString('delete_file', _currentLanguage),
-                  ),
+                  child: Text(AppLocalizations.getString('delete_file')),
                 ),
                 ElevatedButton(
                   onPressed: _isLoading ? null : _createSampleFiles,
                   child: Text(
-                    AppLocalizations.getString('create_sample_files', 'en'),
+                    AppLocalizations.getString('create_sample_files'),
                   ),
                 ),
               ],
@@ -173,10 +160,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
               child: _files.isEmpty
                   ? Center(
                       child: Text(
-                        AppLocalizations.getString(
-                          'no_files_found',
-                          _currentLanguage,
-                        ),
+                        AppLocalizations.getString('no_files_found'),
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
@@ -261,10 +245,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
       await file.writeAsString(_fileContentController.text);
 
       setState(() {
-        _lastOperation = AppLocalizations.getString(
-          'file_saved_successfully',
-          _currentLanguage,
-        );
+        _lastOperation = AppLocalizations.getString('file_saved_successfully');
         _fileNameController.clear();
         _fileContentController.clear();
       });
@@ -273,7 +254,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
     } catch (e) {
       setState(() {
         _lastOperation =
-            '${AppLocalizations.getString('error_saving_file', _currentLanguage)}: $e';
+            '${AppLocalizations.getString('error_saving_file')}: $e';
       });
     } finally {
       setState(() {
@@ -304,7 +285,6 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
         setState(() {
           _lastOperation = AppLocalizations.getString(
             'file_loaded_successfully',
-            _currentLanguage,
           );
         });
       } else {
@@ -315,7 +295,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
     } catch (e) {
       setState(() {
         _lastOperation =
-            '${AppLocalizations.getString('error_loading_file', _currentLanguage)}: $e';
+            '${AppLocalizations.getString('error_loading_file')}: $e';
       });
     } finally {
       setState(() {
@@ -345,7 +325,6 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
         setState(() {
           _lastOperation = AppLocalizations.getString(
             'file_deleted_successfully',
-            _currentLanguage,
           );
           _fileNameController.clear();
           _fileContentController.clear();
@@ -359,7 +338,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
     } catch (e) {
       setState(() {
         _lastOperation =
-            '${AppLocalizations.getString('error_deleting_file', _currentLanguage)}: $e';
+            '${AppLocalizations.getString('error_deleting_file')}: $e';
       });
     } finally {
       setState(() {
@@ -384,7 +363,6 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
         setState(() {
           _lastOperation = AppLocalizations.getString(
             'file_loaded_successfully',
-            _currentLanguage,
           );
         });
       } else {
@@ -395,7 +373,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
     } catch (e) {
       setState(() {
         _lastOperation =
-            '${AppLocalizations.getString('error_loading_file', _currentLanguage)}: $e';
+            '${AppLocalizations.getString('error_loading_file')}: $e';
       });
     } finally {
       setState(() {
@@ -418,7 +396,6 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
         setState(() {
           _lastOperation = AppLocalizations.getString(
             'file_deleted_successfully',
-            _currentLanguage,
           );
         });
         await _loadFiles();
@@ -430,7 +407,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
     } catch (e) {
       setState(() {
         _lastOperation =
-            '${AppLocalizations.getString('error_deleting_file', _currentLanguage)}: $e';
+            '${AppLocalizations.getString('error_deleting_file')}: $e';
       });
     } finally {
       setState(() {

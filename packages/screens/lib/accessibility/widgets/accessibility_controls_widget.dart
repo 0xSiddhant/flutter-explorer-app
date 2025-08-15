@@ -17,7 +17,7 @@ class AccessibilityControlsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('accessibility_controls', 'en'),
+              AppLocalizations.getString('accessibility_controls'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),

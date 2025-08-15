@@ -23,7 +23,7 @@ class PerformanceTabWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('screen_performance', 'en'),
+              AppLocalizations.getString('screen_performance'),
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 16),
@@ -32,7 +32,7 @@ class PerformanceTabWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
-                    AppLocalizations.getString('no_performance_data', 'en'),
+                    AppLocalizations.getString('no_performance_data'),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),

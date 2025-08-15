@@ -40,22 +40,22 @@ class FormattingDataModel {
       examples: [
         FormattingExampleModel(
           label: 'current_time',
-          value: AppLocalizations.formatTime(now, languageCode),
+          value: AppLocalizations.formatTime(TimeOfDay.fromDateTime(now)),
           icon: Icons.access_time,
         ),
         FormattingExampleModel(
           label: 'date_format',
-          value: AppLocalizations.formatDate(now, languageCode),
+          value: AppLocalizations.formatDate(now),
           icon: Icons.calendar_today,
         ),
         FormattingExampleModel(
           label: 'number_format',
-          value: AppLocalizations.formatNumber(number, languageCode),
+          value: AppLocalizations.formatNumber(number),
           icon: Icons.numbers,
         ),
         FormattingExampleModel(
           label: 'currency_format',
-          value: AppLocalizations.formatCurrency(number, languageCode),
+          value: AppLocalizations.formatCurrency(number),
           icon: Icons.attach_money,
         ),
       ],

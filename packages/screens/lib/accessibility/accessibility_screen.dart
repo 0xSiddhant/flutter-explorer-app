@@ -78,7 +78,7 @@ class _AccessibilityScreenState extends State<AccessibilityScreen> {
       data: theme,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.getString('accessibility', 'en')),
+          title: Text(AppLocalizations.getString('accessibility')),
           backgroundColor: theme.colorScheme.inversePrimary,
         ),
         body: SafeArea(
@@ -129,18 +129,18 @@ class _AccessibilityScreenState extends State<AccessibilityScreen> {
   Widget _buildAccessibilityStatus() {
     final List<String> activeFeatures = [];
     if (_isScreenReaderEnabled) {
-      activeFeatures.add(AppLocalizations.getString('screen_reader', 'en'));
+      activeFeatures.add(AppLocalizations.getString('screen_reader'));
     }
     if (_isHighContrastEnabled) {
-      activeFeatures.add(AppLocalizations.getString('high_contrast', 'en'));
+      activeFeatures.add(AppLocalizations.getString('high_contrast'));
     }
     if (_isLargeTextEnabled) {
-      activeFeatures.add(AppLocalizations.getString('large_text', 'en'));
+      activeFeatures.add(AppLocalizations.getString('large_text'));
     }
 
     return Semantics(
       label:
-          '${AppLocalizations.getString('active_accessibility_features', 'en')}: ${activeFeatures.join(', ')}',
+          '${AppLocalizations.getString('active_accessibility_features')}: ${activeFeatures.join(', ')}',
       child: Card(
         color: Theme.of(context).colorScheme.primaryContainer,
         child: Padding(
@@ -160,7 +160,6 @@ class _AccessibilityScreenState extends State<AccessibilityScreen> {
                     child: Text(
                       AppLocalizations.getString(
                         'active_accessibility_features',
-                        'en',
                       ),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

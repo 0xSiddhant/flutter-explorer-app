@@ -16,7 +16,7 @@ class ActionFeedbackWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('last_action', 'en'),
+              AppLocalizations.getString('last_action'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),

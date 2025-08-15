@@ -49,7 +49,7 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.getString('theming', 'en')),
+        title: Text(AppLocalizations.getString('theming')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(
@@ -84,11 +84,10 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
             ),
             const SizedBox(height: 16),
             SwitchListTile(
-              title: Text(AppLocalizations.getString('dark_mode', 'en')),
+              title: Text(AppLocalizations.getString('dark_mode')),
               subtitle: Text(
                 AppLocalizations.getString(
                   'switch_between_light_and_dark_themes',
-                  'en',
                 ),
               ),
               value: _themeProvider.isDarkMode,
@@ -97,11 +96,10 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
               },
             ),
             SwitchListTile(
-              title: Text(AppLocalizations.getString('high_contrast', 'en')),
+              title: Text(AppLocalizations.getString('high_contrast')),
               subtitle: Text(
                 AppLocalizations.getString(
                   'increase_contrast_for_better_visibility',
-                  'en',
                 ),
               ),
               value: _themeProvider.isHighContrast,
@@ -110,7 +108,7 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
               },
             ),
             ListTile(
-              title: Text(AppLocalizations.getString('text_scale', 'en')),
+              title: Text(AppLocalizations.getString('text_scale')),
               subtitle: Text(
                 'Current: ${_themeProvider.textScaleFactor.toStringAsFixed(1)}x',
               ),
@@ -163,18 +161,14 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {},
-                    child: Text(
-                      AppLocalizations.getString('elevated_button', 'en'),
-                    ),
+                    child: Text(AppLocalizations.getString('elevated_button')),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () {},
-                    child: Text(
-                      AppLocalizations.getString('outlined_button', 'en'),
-                    ),
+                    child: Text(AppLocalizations.getString('outlined_button')),
                   ),
                 ),
               ],
@@ -193,14 +187,14 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
             Row(
               children: [
                 Checkbox(value: true, onChanged: (value) {}),
-                Text(AppLocalizations.getString('checkbox', 'en')),
+                Text(AppLocalizations.getString('checkbox')),
                 const SizedBox(width: 16),
                 Radio<bool>(
                   value: true,
                   groupValue: true,
                   onChanged: (value) {},
                 ),
-                Text(AppLocalizations.getString('radio', 'en')),
+                Text(AppLocalizations.getString('radio')),
               ],
             ),
           ],

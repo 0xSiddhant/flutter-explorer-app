@@ -12,7 +12,7 @@ class DetailScreen extends StatelessWidget {
         child: Container(
           color: Colors.redAccent,
           child: Center(
-            child: Text(AppLocalizations.getString('detail', 'en')),
+            child: Text(AppLocalizations.getString('detail')),
           ),
         ),
       ),

@@ -157,7 +157,7 @@ class OverviewTabWidget extends StatelessWidget {
                 Icons.star,
               ),
             ] else ...[
-              Text(AppLocalizations.getString('no_analytics_available', 'en')),
+              Text(AppLocalizations.getString('no_analytics_available')),
             ],
           ],
         ),
@@ -191,7 +191,7 @@ class OverviewTabWidget extends StatelessWidget {
                 (entry) => _buildVisitCountRow(context, entry.key, entry.value),
               ),
             ] else ...[
-              Text(AppLocalizations.getString('no_screen_visits', 'en')),
+              Text(AppLocalizations.getString('no_screen_visits')),
             ],
           ],
         ),
@@ -254,7 +254,7 @@ class OverviewTabWidget extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        '${AppLocalizations.getString('navigation_number', 'en')} ${index + 1}',
+                        '${AppLocalizations.getString('navigation_number')} ${index + 1}',
                       ),
                       trailing: isCurrentRoute
                           ? Icon(
@@ -268,7 +268,7 @@ class OverviewTabWidget extends StatelessWidget {
                 ),
               ),
             ] else ...[
-              Text(AppLocalizations.getString('no_navigation_history', 'en')),
+              Text(AppLocalizations.getString('no_navigation_history')),
             ],
           ],
         ),
@@ -300,10 +300,12 @@ class OverviewTabWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceVariant,
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.outline.withValues(alpha: 0.3),
                 ),
               ),
               child: Column(

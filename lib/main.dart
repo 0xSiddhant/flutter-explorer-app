@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import 'package:common/common.dart';
 
-void main() {
+void main() async {
+  // Ensure Flutter bindings are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize localization system
+  await AppLocalizations.initialize();
+
   runApp(const MyApp());
 }
 

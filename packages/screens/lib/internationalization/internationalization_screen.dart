@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
+import 'package:core/core.dart';
 import 'data/internationalization_data.dart';
 import 'models/formatting_example_model.dart';
 import 'widgets/language_selector_widget.dart';
-import 'widgets/rtl_toggle_widget.dart';
 import 'widgets/formatting_examples_widget.dart';
 import 'widgets/feature_list_widget.dart';
 
@@ -17,14 +17,23 @@ class InternationalizationScreen extends StatefulWidget {
 
 class _InternationalizationScreenState
     extends State<InternationalizationScreen> {
-  String _currentLanguage = InternationalizationData.currentLanguage;
-  bool _isRTLEnabled = InternationalizationData.isRTLEnabled;
+  String _currentLanguage = AppLocalizations.currentLanguageCode;
   FormattingDataModel? _formattingData;
+  final String _originalLanguage = AppLocalizations.currentLanguageCode;
 
   @override
   void initState() {
     super.initState();
     _loadFormattingData();
+  }
+
+  @override
+  void dispose() {
+    // Reset to original language when widget is disposed
+    if (_currentLanguage != _originalLanguage) {
+      AppLocalizations.changeLanguage(_originalLanguage);
+    }
+    super.dispose();
   }
 
   void _loadFormattingData() {
@@ -33,46 +42,57 @@ class _InternationalizationScreenState
     });
   }
 
-  void _onLanguageChanged(String languageCode) {
+  void _onLanguageChanged(String languageCode) async {
+    // Change the app's locale using AppLocalizations
+    await AppLocalizations.changeLanguage(languageCode);
+
     setState(() {
       _currentLanguage = languageCode;
-      InternationalizationData.setLanguage(languageCode);
-      _isRTLEnabled = InternationalizationData.isRTLEnabled;
       _loadFormattingData();
     });
   }
 
-  void _onRTLChanged(bool enabled) {
-    setState(() {
-      _isRTLEnabled = enabled;
-      InternationalizationData.setRTL(enabled);
-    });
-  }
-
   void _onFeatureTap(String route) {
-    // TODO: Implement navigation to respective features
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          '${AppLocalizations.getString('navigating_to', 'en')} $route',
-        ),
-        duration: const Duration(seconds: 2),
-      ),
-    );
+    // Navigate to the respective feature using app router with push navigation
+    switch (route) {
+      case '/navigation':
+        AppRouteManager.navigateToNavigationAnalytics(context, usePush: true);
+        break;
+      case '/theming':
+        AppRouteManager.navigateToTheming(context, usePush: true);
+        break;
+      case '/native-communication':
+        AppRouteManager.navigateToNativeCommunication(context, usePush: true);
+        break;
+      case '/background-tasks':
+        AppRouteManager.navigateToBackgroundTasks(context, usePush: true);
+        break;
+      case '/accessibility':
+        AppRouteManager.navigateToAccessibility(context, usePush: true);
+        break;
+      case '/file-management':
+        AppRouteManager.navigateToFileManagement(context, usePush: true);
+        break;
+      default:
+        // Show snackbar for unknown routes
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              '${AppLocalizations.getString('navigating_to')} $route',
+            ),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: _isRTLEnabled ? TextDirection.rtl : TextDirection.ltr,
+      textDirection: AppLocalizations.textDirection,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            AppLocalizations.getString(
-              'internationalization',
-              _currentLanguage,
-            ),
-          ),
+          title: Text(AppLocalizations.getString('internationalization')),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
         body: SafeArea(
@@ -84,11 +104,6 @@ class _InternationalizationScreenState
                 LanguageSelectorWidget(
                   currentLanguage: _currentLanguage,
                   onLanguageChanged: _onLanguageChanged,
-                ),
-                const SizedBox(height: 16),
-                RTLToggleWidget(
-                  isRTLEnabled: _isRTLEnabled,
-                  onRTLChanged: _onRTLChanged,
                 ),
                 const SizedBox(height: 16),
                 _buildWelcomeSection(),

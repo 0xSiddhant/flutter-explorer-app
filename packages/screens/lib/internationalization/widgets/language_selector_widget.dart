@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:common/common.dart';
-import '../models/language_model.dart';
 
 /// Widget for selecting languages with RTL support
 class LanguageSelectorWidget extends StatelessWidget {
@@ -22,23 +21,16 @@ class LanguageSelectorWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('select_language', currentLanguage),
+              AppLocalizations.getString('select_language'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: LanguageModel.supportedLanguages.map((language) {
+              children: AppLocalizations.supportedLanguages.map((language) {
                 return ChoiceChip(
-                  label: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(language.flag),
-                      const SizedBox(width: 8),
-                      Text(language.nativeName),
-                    ],
-                  ),
+                  label: Text(language.nativeName),
                   selected: currentLanguage == language.code,
                   onSelected: (selected) {
                     if (selected) {

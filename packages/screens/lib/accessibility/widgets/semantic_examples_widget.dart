@@ -28,7 +28,7 @@ class SemanticExamplesWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('semantic_ui_examples', 'en'),
+              AppLocalizations.getString('semantic_ui_examples'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),

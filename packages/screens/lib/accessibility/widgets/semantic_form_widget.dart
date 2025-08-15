@@ -13,20 +13,20 @@ class SemanticFormWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.getString('semantic_form', 'en'),
+          AppLocalizations.getString('semantic_form'),
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 8),
         Semantics(
-          label: AppLocalizations.getString('contact_form', 'en'),
+          label: AppLocalizations.getString('contact_form'),
           child: Column(
             children: [
               Semantics(
-                label: AppLocalizations.getString('name_input_field', 'en'),
+                label: AppLocalizations.getString('name_input_field'),
                 textField: true,
                 child: TextField(
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.getString('name', 'en'),
+                    labelText: AppLocalizations.getString('name'),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -38,11 +38,11 @@ class SemanticFormWidget extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Semantics(
-                label: AppLocalizations.getString('email_input_field', 'en'),
+                label: AppLocalizations.getString('email_input_field'),
                 textField: true,
                 child: TextField(
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.getString('email', 'en'),
+                    labelText: AppLocalizations.getString('email'),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

@@ -24,7 +24,7 @@ class FeatureListWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('core_features', currentLanguage),
+              AppLocalizations.getString('core_features'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
@@ -53,7 +53,7 @@ class FeatureListWidget extends StatelessWidget {
       leading: Icon(icon, color: Colors.blue),
       title: Text(title),
       subtitle: Text(
-        '${AppLocalizations.getString('tap_to_navigate', 'en')} $title',
+        '${AppLocalizations.getString('tap_to_navigate')} $title',
       ),
       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
       onTap: () => onFeatureTap(route),

@@ -26,7 +26,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.getString('settings', 'en')),
+        title: Text(AppLocalizations.getString('settings')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(
@@ -74,12 +74,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _themeProvider.isDarkMode ? Icons.dark_mode : Icons.light_mode,
         color: Theme.of(context).colorScheme.primary,
       ),
-      title: Text(AppLocalizations.getString('dark_mode', 'en')),
+      title: Text(AppLocalizations.getString('dark_mode')),
       subtitle: Text(
-        AppLocalizations.getString(
-          'switch_between_light_and_dark_themes',
-          'en',
-        ),
+        AppLocalizations.getString('switch_between_light_and_dark_themes'),
       ),
       trailing: Switch(
         value: _themeProvider.isDarkMode,
@@ -96,12 +93,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Icons.contrast,
         color: Theme.of(context).colorScheme.primary,
       ),
-      title: Text(AppLocalizations.getString('high_contrast', 'en')),
+      title: Text(AppLocalizations.getString('high_contrast')),
       subtitle: Text(
-        AppLocalizations.getString(
-          'increase_contrast_for_better_visibility',
-          'en',
-        ),
+        AppLocalizations.getString('increase_contrast_for_better_visibility'),
       ),
       trailing: Switch(
         value: _themeProvider.isHighContrast,
@@ -121,9 +115,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Icons.text_fields,
             color: Theme.of(context).colorScheme.primary,
           ),
-          title: Text(AppLocalizations.getString('text_scale', 'en')),
+          title: Text(AppLocalizations.getString('text_scale')),
           subtitle: Text(
-            '${AppLocalizations.getString('current_scale', 'en')} ${_themeProvider.textScaleFactor.toStringAsFixed(1)}x',
+            '${AppLocalizations.getString('current_scale')} ${_themeProvider.textScaleFactor.toStringAsFixed(1)}x',
           ),
         ),
         Padding(
@@ -149,10 +143,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _isRTLEnabled ? Icons.arrow_back : Icons.arrow_forward,
         color: Theme.of(context).colorScheme.primary,
       ),
-      title: Text(AppLocalizations.getString('text_direction', 'en')),
-      subtitle: Text(
-        AppLocalizations.getString('switch_between_rtl_ltr', 'en'),
-      ),
+      title: Text(AppLocalizations.getString('text_direction')),
+      subtitle: Text(AppLocalizations.getString('switch_between_rtl_ltr')),
       trailing: Switch(
         value: _isRTLEnabled,
         onChanged: (value) {
@@ -169,20 +161,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Column(
       children: [
         SwitchListTile(
-          title: Text(AppLocalizations.getString('screen_reader', 'en')),
-          subtitle: Text(
-            AppLocalizations.getString('enable_voice_feedback', 'en'),
-          ),
+          title: Text(AppLocalizations.getString('screen_reader')),
+          subtitle: Text(AppLocalizations.getString('enable_voice_feedback')),
           value: false,
           onChanged: (value) {
             // TODO: Implement screen reader logic
           },
         ),
         SwitchListTile(
-          title: Text(AppLocalizations.getString('large_touch_targets', 'en')),
-          subtitle: Text(
-            AppLocalizations.getString('increase_button_sizes', 'en'),
-          ),
+          title: Text(AppLocalizations.getString('large_touch_targets')),
+          subtitle: Text(AppLocalizations.getString('increase_button_sizes')),
           value: false,
           onChanged: (value) {
             // TODO: Implement large touch targets logic
@@ -200,24 +188,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('app_version', 'en'),
+              AppLocalizations.getString('app_version'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            Text(AppLocalizations.getString('app_version_info', 'en')),
+            Text(AppLocalizations.getString('app_version_info')),
             const SizedBox(height: 16),
             Text(
-              AppLocalizations.getString('app_description', 'en'),
+              AppLocalizations.getString('app_description'),
               style: const TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 8),
-            Text(AppLocalizations.getString('feature_navigation', 'en')),
-            Text(AppLocalizations.getString('feature_theme', 'en')),
-            Text(AppLocalizations.getString('feature_method_channels', 'en')),
-            Text(AppLocalizations.getString('feature_isolates', 'en')),
-            Text(AppLocalizations.getString('feature_localization', 'en')),
-            Text(AppLocalizations.getString('feature_semantic_ui', 'en')),
-            Text(AppLocalizations.getString('feature_file_storage', 'en')),
+            Text(AppLocalizations.getString('feature_navigation')),
+            Text(AppLocalizations.getString('feature_theme')),
+            Text(AppLocalizations.getString('feature_method_channels')),
+            Text(AppLocalizations.getString('feature_isolates')),
+            Text(AppLocalizations.getString('feature_localization')),
+            Text(AppLocalizations.getString('feature_semantic_ui')),
+            Text(AppLocalizations.getString('feature_file_storage')),
           ],
         ),
       ),

@@ -28,7 +28,7 @@ class _AdvancedProcessingScreenState extends State<AdvancedProcessingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.getString('advanced_processing', 'en')),
+        title: Text(AppLocalizations.getString('advanced_processing')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(
@@ -96,19 +96,19 @@ class _AdvancedProcessingScreenState extends State<AdvancedProcessingScreen> {
                 ElevatedButton(
                   onPressed: _isProcessing ? null : _downloadImage,
                   child: Text(
-                    AppLocalizations.getString('download_image', 'en'),
+                    AppLocalizations.getString('download_image'),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: _isProcessing ? null : _processImage,
                   child: Text(
-                    AppLocalizations.getString('process_image', 'en'),
+                    AppLocalizations.getString('process_image'),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: _isProcessing ? null : _generateThumbnail,
                   child: Text(
-                    AppLocalizations.getString('generate_thumbnail', 'en'),
+                    AppLocalizations.getString('generate_thumbnail'),
                   ),
                 ),
               ],
@@ -152,29 +152,29 @@ class _AdvancedProcessingScreenState extends State<AdvancedProcessingScreen> {
                 ElevatedButton(
                   onPressed: _isProcessing ? null : _processTextFile,
                   child: Text(
-                    AppLocalizations.getString('process_text_file', 'en'),
+                    AppLocalizations.getString('process_text_file'),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: _isProcessing ? null : _generateDataset,
                   child: Text(
-                    AppLocalizations.getString('generate_dataset', 'en'),
+                    AppLocalizations.getString('generate_dataset'),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: _isProcessing ? null : _analyzeData,
-                  child: Text(AppLocalizations.getString('analyze_data', 'en')),
+                  child: Text(AppLocalizations.getString('analyze_data')),
                 ),
                 ElevatedButton(
                   onPressed: _isProcessing ? null : _performClustering,
                   child: Text(
-                    AppLocalizations.getString('perform_clustering', 'en'),
+                    AppLocalizations.getString('perform_clustering'),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: _isProcessing ? null : _compressData,
                   child: Text(
-                    AppLocalizations.getString('compress_data', 'en'),
+                    AppLocalizations.getString('compress_data'),
                   ),
                 ),
               ],
@@ -193,7 +193,7 @@ class _AdvancedProcessingScreenState extends State<AdvancedProcessingScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('results', 'en'),
+              AppLocalizations.getString('results'),
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 12),
@@ -201,27 +201,27 @@ class _AdvancedProcessingScreenState extends State<AdvancedProcessingScreen> {
               LinearProgressIndicator(value: _progress),
               const SizedBox(height: 8),
               Text(
-                '${AppLocalizations.getString('processing', 'en')} ${(_progress * 100).toInt()}%',
+                '${AppLocalizations.getString('processing')} ${(_progress * 100).toInt()}%',
               ),
             ],
             const SizedBox(height: 12),
-            Text('${AppLocalizations.getString('result', 'en')}: $_result'),
+            Text('${AppLocalizations.getString('result')}: $_result'),
             if (_processingTime > 0) ...[
               const SizedBox(height: 8),
               Text(
-                '${AppLocalizations.getString('time', 'en')}: ${_processingTime}ms',
+                '${AppLocalizations.getString('time')}: ${_processingTime}ms',
               ),
             ],
             if (_analysisResult != null) ...[
               const SizedBox(height: 8),
               Text(
-                '${AppLocalizations.getString('analysis', 'en')}: ${_analysisResult.toString()}',
+                '${AppLocalizations.getString('analysis')}: ${_analysisResult.toString()}',
               ),
             ],
             if (_generatedData != null) ...[
               const SizedBox(height: 8),
               Text(
-                '${AppLocalizations.getString('generated_records', 'en')} ${_generatedData!.length}',
+                '${AppLocalizations.getString('generated_records')} ${_generatedData!.length}',
               ),
             ],
             const SizedBox(height: 16),

@@ -14,6 +14,9 @@ dependencies:
   core:
     path: packages/core
 
+  common:
+    path: packages/common
+
   cupertino_icons: ^1.0.8
   path_provider: ^2.1.2
 

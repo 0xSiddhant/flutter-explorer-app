@@ -158,44 +158,111 @@ class AppRouteManager {
   );
 
   // Navigation methods
-  static void navigateToDetailScreen(BuildContext context) {
-    context.go('/details');
+  static void navigateToDetailScreen(
+    BuildContext context, {
+    bool usePush = false,
+  }) {
+    if (usePush) {
+      context.push('/details');
+    } else {
+      context.go('/details');
+    }
   }
 
-  static void navigateToTheming(BuildContext context) {
-    context.go('/theming');
+  static void navigateToTheming(BuildContext context, {bool usePush = false}) {
+    if (usePush) {
+      context.push('/theming');
+    } else {
+      context.go('/theming');
+    }
   }
 
-  static void navigateToNativeCommunication(BuildContext context) {
-    context.go('/native-communication');
+  static void navigateToNativeCommunication(
+    BuildContext context, {
+    bool usePush = false,
+  }) {
+    if (usePush) {
+      context.push('/native-communication');
+    } else {
+      context.go('/native-communication');
+    }
   }
 
-  static void navigateToBackgroundTasks(BuildContext context) {
-    context.go('/background-tasks');
+  static void navigateToBackgroundTasks(
+    BuildContext context, {
+    bool usePush = false,
+  }) {
+    if (usePush) {
+      context.push('/background-tasks');
+    } else {
+      context.go('/background-tasks');
+    }
   }
 
-  static void navigateToInternationalization(BuildContext context) {
-    context.go('/internationalization');
+  static void navigateToInternationalization(
+    BuildContext context, {
+    bool usePush = false,
+  }) {
+    if (usePush) {
+      context.push('/internationalization');
+    } else {
+      context.go('/internationalization');
+    }
   }
 
-  static void navigateToAccessibility(BuildContext context) {
-    context.go('/accessibility');
+  static void navigateToAccessibility(
+    BuildContext context, {
+    bool usePush = false,
+  }) {
+    if (usePush) {
+      context.push('/accessibility');
+    } else {
+      context.go('/accessibility');
+    }
   }
 
-  static void navigateToFileManagement(BuildContext context) {
-    context.go('/file-management');
+  static void navigateToFileManagement(
+    BuildContext context, {
+    bool usePush = false,
+  }) {
+    if (usePush) {
+      context.push('/file-management');
+    } else {
+      context.go('/file-management');
+    }
   }
 
-  static void navigateToAdvancedProcessing(BuildContext context) {
-    context.go('/advanced-processing');
+  static void navigateToAdvancedProcessing(
+    BuildContext context, {
+    bool usePush = false,
+  }) {
+    if (usePush) {
+      context.push('/advanced-processing');
+    } else {
+      context.go('/advanced-processing');
+    }
   }
 
-  static void navigateToNavigationAnalytics(BuildContext context) {
-    context.go('/navigation-analytics');
+  static void navigateToNavigationAnalytics(
+    BuildContext context, {
+    bool usePush = false,
+  }) {
+    if (usePush) {
+      context.push('/navigation-analytics');
+    } else {
+      context.go('/navigation-analytics');
+    }
   }
 
-  static void navigateToLifecycleManagement(BuildContext context) {
-    context.go('/lifecycle-management');
+  static void navigateToLifecycleManagement(
+    BuildContext context, {
+    bool usePush = false,
+  }) {
+    if (usePush) {
+      context.push('/lifecycle-management');
+    } else {
+      context.go('/lifecycle-management');
+    }
   }
 
   // Navigation analytics methods

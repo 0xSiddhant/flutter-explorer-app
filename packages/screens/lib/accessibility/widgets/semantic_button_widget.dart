@@ -13,22 +13,19 @@ class SemanticButtonWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.getString('semantic_button', 'en'),
+          AppLocalizations.getString('semantic_button'),
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 8),
         Semantics(
-          label: AppLocalizations.getString('primary_action_button', 'en'),
-          hint: AppLocalizations.getString(
-            'double_tap_to_perform_action',
-            'en',
-          ),
+          label: AppLocalizations.getString('primary_action_button'),
+          hint: AppLocalizations.getString('double_tap_to_perform_action'),
           button: true,
           child: ElevatedButton(
             onPressed: () {
               onActionPerformed('Primary button pressed');
             },
-            child: Text(AppLocalizations.getString('primary_action', 'en')),
+            child: Text(AppLocalizations.getString('primary_action')),
           ),
         ),
       ],

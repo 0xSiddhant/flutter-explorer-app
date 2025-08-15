@@ -42,7 +42,7 @@ packages:
     source: hosted
     version: "1.19.1"
   common:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "packages/common"
       relative: true

@@ -22,16 +22,13 @@ class FormattingExamplesWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString(
-                'formatting_examples',
-                currentLanguage,
-              ),
+              AppLocalizations.getString('formatting_examples'),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             ...examples.map(
               (example) => _buildFormatRow(
-                AppLocalizations.getString(example.label, currentLanguage),
+                AppLocalizations.getString(example.label),
                 example.value,
                 example.icon,
               ),

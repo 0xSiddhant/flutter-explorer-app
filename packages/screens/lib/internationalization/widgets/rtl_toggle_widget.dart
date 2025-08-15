@@ -28,7 +28,7 @@ class RTLToggleWidget extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  AppLocalizations.getString('text_direction', 'en'),
+                  AppLocalizations.getString('text_direction'),
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -38,7 +38,7 @@ class RTLToggleWidget extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              AppLocalizations.getString('rtl_description', 'en'),
+              AppLocalizations.getString('rtl_description'),
               style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
             const SizedBox(height: 16),

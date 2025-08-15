@@ -23,7 +23,7 @@ class ErrorsTabWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.getString('navigation_errors', 'en'),
+              AppLocalizations.getString('navigation_errors'),
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 16),
@@ -36,7 +36,7 @@ class ErrorsTabWidget extends StatelessWidget {
                       Icon(Icons.check_circle, color: Colors.green, size: 24),
                       const SizedBox(width: 8),
                       Text(
-                        AppLocalizations.getString('no_errors_found', 'en'),
+                        AppLocalizations.getString('no_errors_found'),
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
@@ -54,7 +54,7 @@ class ErrorsTabWidget extends StatelessWidget {
                     leading: Icon(Icons.error, color: Colors.red),
                     title: Text(_formatRouteName(screen)),
                     subtitle: Text(
-                      '${AppLocalizations.getString('error_count', 'en')}: $errorCount',
+                      '${AppLocalizations.getString('error_count')}: $errorCount',
                     ),
                     trailing: Text(
                       '$errorCount',
