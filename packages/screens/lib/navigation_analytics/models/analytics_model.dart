@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 /// Model class representing navigation analytics data
 class AnalyticsModel {
   final int totalNavigations;

@@ -1,5 +1,5 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:common/common.dart';
 import '../data/analytics_data.dart';
 
 class PerformanceTabWidget extends StatelessWidget {

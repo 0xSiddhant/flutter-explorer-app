@@ -13,3 +13,8 @@ export 'src/method_channel/method_channel.dart';
 
 // Configuration exports
 export 'src/config/app_config_service.dart';
+
+// Localization exports
+export 'src/localization/app_localizations.dart';
+export 'src/localization/language_change_listener.dart';
+export 'src/localization/models/language_model.dart';

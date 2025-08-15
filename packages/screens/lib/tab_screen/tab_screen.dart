@@ -1,8 +1,8 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:screens/tab_screen/tab_item_widget.dart';
-
-import '../home_screen/home_screen.dart';
-import '../settings_screen/settings_screen.dart';
+import 'models/tab_item_model.dart';
+import 'services/tab_service.dart';
+import 'widgets/tab_navigation_widget.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
@@ -14,24 +14,62 @@ class TabScreen extends StatefulWidget {
 class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
   late final TabController _tabController;
   int _currentIndex = 0;
-  final List<TabItemWidgetModel> tabList = [
-    TabItemWidgetModel(icon: Icons.home, label: 'Home', index: 0),
-    TabItemWidgetModel(icon: Icons.settings, label: 'Settings', index: 1),
-  ];
+  late List<TabItemModel> _tabItems;
 
   @override
   void initState() {
+    super.initState();
+    _initializeTabs();
+    _setupTabController();
+    _setupLanguageListener();
+  }
+
+  void _initializeTabs() {
+    _tabItems = TabService.getCurrentTabItems();
+    debugPrint('Tab screen initialized with ${_tabItems.length} tabs');
+  }
+
+  void _setupTabController() {
     _tabController = TabController(
-      length: tabList.length,
+      length: _tabItems.length,
       vsync: this,
       initialIndex: _currentIndex,
     );
-    _tabController.addListener(() {
-      setState(() {
-        _currentIndex = _tabController.index;
-      });
+    _tabController.addListener(_onTabChanged);
+  }
+
+  void _setupLanguageListener() {
+    // Listen for language changes to update tab labels
+    LanguageChangeListener.instance.addListener(_onLanguageChanged);
+  }
+
+  void _onTabChanged() {
+    setState(() {
+      _currentIndex = _tabController.index;
     });
-    super.initState();
+  }
+
+  void _onLanguageChanged() {
+    setState(() {
+      _tabItems = TabService.getCurrentTabItems();
+      // Update tab controller length if needed
+      if (_tabController.length != _tabItems.length) {
+        _tabController.dispose();
+        _setupTabController();
+      }
+    });
+  }
+
+  void _onTabSelected(int index) {
+    _tabController.animateTo(index);
+  }
+
+  @override
+  void dispose() {
+    LanguageChangeListener.instance.removeListener(_onLanguageChanged);
+    _tabController.removeListener(_onTabChanged);
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -39,40 +77,11 @@ class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
     return Scaffold(
       body: TabBarView(
         controller: _tabController,
-        children: [HomeScreen(), SettingsScreen()],
+        children: _tabItems.map((tab) => tab.screen).toList(),
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.08),
-              blurRadius: 20,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: tabList.map((e) {
-                return TabItemWidget(
-                  model: e,
-                  isSelected: _currentIndex == e.index,
-                  didSelect: (index) {
-                    _tabController.animateTo(index);
-                  },
-                );
-              }).toList(),
-            ),
-          ),
-        ),
+      bottomNavigationBar: TabNavigationWidget(
+        currentIndex: _currentIndex,
+        onTabSelected: _onTabSelected,
       ),
     );
   }

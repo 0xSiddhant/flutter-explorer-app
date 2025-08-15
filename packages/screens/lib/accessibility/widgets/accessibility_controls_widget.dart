@@ -1,5 +1,5 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:common/common.dart';
 import '../models/accessibility_feature_model.dart';
 
 /// Widget for displaying accessibility controls

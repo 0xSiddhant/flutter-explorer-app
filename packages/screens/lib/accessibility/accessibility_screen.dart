@@ -1,5 +1,5 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:common/common.dart';
 import 'data/accessibility_data.dart';
 import 'widgets/accessibility_controls_widget.dart';
 import 'widgets/semantic_examples_widget.dart';

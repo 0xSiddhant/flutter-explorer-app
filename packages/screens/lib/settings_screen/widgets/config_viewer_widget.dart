@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import 'package:flutter/material.dart';
 
 /// Widget for displaying the raw JSON configuration
 class ConfigViewerWidget extends StatefulWidget {

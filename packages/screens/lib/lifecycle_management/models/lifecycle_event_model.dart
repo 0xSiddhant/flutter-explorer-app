@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 /// Model class representing a lifecycle event
 class LifecycleEventModel {
   final String event;

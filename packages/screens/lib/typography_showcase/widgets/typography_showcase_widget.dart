@@ -1,5 +1,5 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:common/common.dart';
 
 /// Professional typography showcase widget for language-specific font rendering
 class TypographyShowcaseWidget extends StatefulWidget {

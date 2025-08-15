@@ -1,9 +1,8 @@
+import 'package:core/core.dart';
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:core/core.dart';
-import 'package:common/common.dart';
 
 /// Advanced isolate examples demo screen
 class AdvancedProcessingScreen extends StatefulWidget {

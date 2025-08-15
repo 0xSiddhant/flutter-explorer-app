@@ -14,23 +14,15 @@ class LanguageModel {
   /// Text direction for the language
   final TextDirection textDirection;
 
-  /// Primary font family for the language
-  final String primaryFontFamily;
-
-  /// Secondary font family for the language (alternative option)
-  final String secondaryFontFamily;
-
-  /// Available font families for this language
-  final List<String> availableFontFamilies;
+  /// Font family for the language
+  final String fontFamily;
 
   const LanguageModel({
     required this.code,
     required this.name,
     required this.nativeName,
     required this.textDirection,
-    required this.primaryFontFamily,
-    required this.secondaryFontFamily,
-    required this.availableFontFamilies,
+    required this.fontFamily,
   });
 
   /// Get the appropriate font family based on language code
@@ -47,23 +39,6 @@ class LanguageModel {
       case 'de':
       default:
         return 'NotoSans';
-    }
-  }
-
-  /// Get available font families for a language
-  static List<String> getAvailableFontFamilies(String languageCode) {
-    switch (languageCode.toLowerCase()) {
-      case 'ar':
-        return ['NotoSansArabic', 'NotoSans'];
-      case 'ja':
-      case 'jp':
-        return ['NotoSansJapanese', 'NotoSans'];
-      case 'en':
-      case 'es':
-      case 'fr':
-      case 'de':
-      default:
-        return ['NotoSans', 'Roboto', 'Inter'];
     }
   }
 
@@ -94,7 +69,7 @@ class LanguageModel {
 
   @override
   String toString() {
-    return 'LanguageModel(code: $code, name: $name, nativeName: $nativeName, textDirection: $textDirection, primaryFontFamily: $primaryFontFamily, secondaryFontFamily: $secondaryFontFamily)';
+    return 'LanguageModel(code: $code, name: $name, nativeName: $nativeName, textDirection: $textDirection, fontFamily: $fontFamily)';
   }
 
   @override
@@ -105,8 +80,7 @@ class LanguageModel {
         other.name == name &&
         other.nativeName == nativeName &&
         other.textDirection == textDirection &&
-        other.primaryFontFamily == primaryFontFamily &&
-        other.secondaryFontFamily == secondaryFontFamily;
+        other.fontFamily == fontFamily;
   }
 
   @override
@@ -115,7 +89,6 @@ class LanguageModel {
         name.hashCode ^
         nativeName.hashCode ^
         textDirection.hashCode ^
-        primaryFontFamily.hashCode ^
-        secondaryFontFamily.hashCode;
+        fontFamily.hashCode;
   }
 }

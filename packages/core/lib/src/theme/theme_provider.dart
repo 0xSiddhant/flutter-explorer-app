@@ -81,7 +81,7 @@ class ThemeProvider {
   }
 
   /// Set text scale factor
-  void setTextScaleFactor(double value) async {
+  Future<void> setTextScaleFactor(double value) async {
     _textScaleFactor = value;
     _notifyThemeChanged();
 
@@ -93,12 +93,26 @@ class ThemeProvider {
     }
   }
 
+  /// Reset text scale factor to default (1.0)
+  Future<void> resetTextScaleFactor() async {
+    await setTextScaleFactor(1.0);
+  }
+
   /// Reset all theme settings to default
-  void resetToDefault() {
+  void resetToDefault() async {
     _isDarkMode = false;
     _isHighContrast = false;
     _textScaleFactor = 1.0;
     _notifyThemeChanged();
+
+    // Update configuration service
+    try {
+      await AppConfigService.instance.setValue('theme.isDarkMode', false);
+      await AppConfigService.instance.setValue('theme.isHighContrast', false);
+      await AppConfigService.instance.setValue('theme.textScaleFactor', 1.0);
+    } catch (e) {
+      // Silently handle errors to avoid breaking theme changes
+    }
   }
 
   /// Load theme settings from configuration service

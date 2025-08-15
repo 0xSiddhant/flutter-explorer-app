@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:screens/screens.dart';
-import 'package:common/common.dart';
+import 'package:common/common.dart' show ErrorScreen;
 import '../constants/route_constants.dart';
 import '../../page_transitions/page_transitions.dart';
 
@@ -95,7 +95,7 @@ class RouteGenerator {
       GoRoute(
         path: RouteConstants.internationalization.path,
         name: RouteConstants.internationalization.name,
-        pageBuilder: (context, state) => FlipAnimation.buildPage(
+        pageBuilder: (context, state) => SlideUpAnimation.buildPage(
           child: const InternationalizationScreen(),
           state: state,
         ),
@@ -105,7 +105,7 @@ class RouteGenerator {
       GoRoute(
         path: RouteConstants.accessibility.path,
         name: RouteConstants.accessibility.name,
-        pageBuilder: (context, state) => SlideUpAnimation.buildPage(
+        pageBuilder: (context, state) => FlipAnimation.buildPage(
           child: const AccessibilityScreen(),
           state: state,
         ),
@@ -170,7 +170,11 @@ class RouteGenerator {
       name: 'error',
       pageBuilder: (context, state) => CustomTransitionPage(
         key: state.pageKey,
-        child: const ErrorScreen(errorCode: '404', icon: Icons.error_outline),
+        child: const ErrorScreen(
+          errorCode: '404',
+          icon: Icons.error_outline,
+          title: '',
+        ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(opacity: animation, child: child);
         },

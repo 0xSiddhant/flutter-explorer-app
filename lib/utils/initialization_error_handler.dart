@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:common/common.dart';
+import 'package:core/core.dart';
 
 /// Utility class for handling initialization errors and showing error dialogs
 class InitializationErrorHandler {

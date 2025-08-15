@@ -1,5 +1,5 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:common/common.dart';
 import 'widgets/typography_showcase_widget.dart';
 
 /// Professional typography showcase screen

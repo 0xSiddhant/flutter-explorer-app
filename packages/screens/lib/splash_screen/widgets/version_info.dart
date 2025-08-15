@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import '../data/splash_data.dart';
 import '../models/splash_animation_model.dart';

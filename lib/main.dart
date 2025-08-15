@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
-import 'package:common/common.dart';
 import 'flutter_explorer_app.dart';
 import 'utils/utils.dart';
 
@@ -21,11 +20,13 @@ void main() async {
     return;
   }
 
-  // Initialize localization system
+  // Initialize localization system with language from config
   try {
-    await AppLocalizations.initialize();
+    debugPrint('Loading language from config...');
+    await AppLocalizations.initializeFromConfig();
   } catch (e) {
-    // Show error dialog and exit app gracefully
+    // Only exit app if both config-based and default initialization fail
+    debugPrint('Critical error: Localization initialization failed: $e');
     await InitializationErrorHandler.showErrorDialogAndExit(
       'Localization System',
       e.toString(),
@@ -36,6 +37,12 @@ void main() async {
   // Load theme settings from configuration
   try {
     await ThemeProvider.instance.loadFromConfig();
+
+    // Reset text scale factor to default if it's not 1.0
+    if (ThemeProvider.instance.textScaleFactor != 1.0) {
+      debugPrint('Resetting text scale factor to default (1.0)');
+      await ThemeProvider.instance.resetTextScaleFactor();
+    }
   } catch (e) {
     // Log error but continue (theme can work with defaults)
     debugPrint('Warning: Failed to load theme from config: $e');

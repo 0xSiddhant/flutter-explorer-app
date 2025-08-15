@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import '../method_channel/method_channel.dart';
 
 /// Service for managing app configuration from JSON file
 /// Acts as an alternative to SharedPreferences for complex configuration
@@ -87,6 +88,28 @@ class AppConfigService {
       return config;
     } catch (e) {
       rethrow;
+    }
+  }
+
+  /// Get app information from platform (via method channel)
+  Future<Map<String, dynamic>> getAppInfo() async {
+    try {
+      final appVersionInfo = await MethodChannelManager.getAppVersion();
+
+      return {
+        'name': appVersionInfo['appName'] ?? 'Flutter Explorer',
+        'version': appVersionInfo['version'] ?? '1.0.0',
+        'buildNumber': appVersionInfo['buildNumber'] ?? '1',
+        'environment': 'development', // Could be made configurable
+      };
+    } catch (e) {
+      debugPrint('Error getting app info: $e');
+      return {
+        'name': 'Flutter Explorer',
+        'version': '1.0.0',
+        'buildNumber': '1',
+        'environment': 'development',
+      };
     }
   }
 

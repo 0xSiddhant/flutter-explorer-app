@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 /// Model for splash screen animation data
 class SplashAnimationModel {
   final String title;

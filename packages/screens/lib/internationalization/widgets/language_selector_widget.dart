@@ -1,5 +1,5 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:common/common.dart';
 
 /// Widget for selecting languages with RTL support
 class LanguageSelectorWidget extends StatelessWidget {

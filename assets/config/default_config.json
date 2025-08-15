@@ -1,10 +1,4 @@
 {
-  "app": {
-    "name": "Flutter Explorer",
-    "version": "1.0.0",
-    "buildNumber": "1",
-    "environment": "development"
-  },
   "theme": {
     "isDarkMode": false,
     "isHighContrast": false,
@@ -22,13 +16,7 @@
     "sessionTimeoutMinutes": 30
   },
   "internationalization": {
-    "defaultLanguage": "en",
-    "supportedLanguages": ["en", "es", "fr", "de", "ar", "jp"],
-    "enableRTL": false,
-    "enableAutoLanguageDetection": true,
-    "dateFormat": "MM/dd/yyyy",
-    "timeFormat": "HH:mm",
-    "currencyCode": "USD"
+    "defaultLanguage": "en"
   },
   "accessibility": {
     "enableScreenReader": false,

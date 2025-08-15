@@ -1,7 +1,6 @@
+import 'package:core/core.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:core/core.dart';
-import 'package:common/common.dart';
 
 /// Demo screen for isolate operations
 class BackgroundTasksScreen extends StatefulWidget {

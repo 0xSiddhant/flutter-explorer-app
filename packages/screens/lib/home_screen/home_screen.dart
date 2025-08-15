@@ -1,18 +1,51 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'data/feature_cards_data.dart';
 import 'widgets/feature_card.dart';
+import 'models/feature_card_model.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final featureCards = FeatureCardsData.getFeatureCards(context);
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
+class _HomeScreenState extends State<HomeScreen> {
+  List<FeatureCardModel> _featureCards = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFeatureCards();
+
+    // Listen for language changes to update feature cards
+    LanguageChangeListener.instance.addListener(_onLanguageChanged);
+  }
+
+  void _loadFeatureCards() {
+    setState(() {
+      _featureCards = FeatureCardsData.getFeatureCards(context);
+    });
+    debugPrint('Home screen loaded with ${_featureCards.length} feature cards');
+  }
+
+  void _onLanguageChanged() {
+    _loadFeatureCards();
+  }
+
+  @override
+  void dispose() {
+    LanguageChangeListener.instance.removeListener(_onLanguageChanged);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Explore Flutter Capabilities',
+          AppLocalizations.getString('explore_flutter_capabilities'),
           style: Theme.of(
             context,
           ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -33,9 +66,9 @@ class HomeScreen extends StatelessWidget {
                     mainAxisSpacing: 12,
                     childAspectRatio: 1.1,
                   ),
-                  itemCount: featureCards.length,
+                  itemCount: _featureCards.length,
                   itemBuilder: (context, index) {
-                    return FeatureCard(feature: featureCards[index]);
+                    return FeatureCard(feature: _featureCards[index]);
                   },
                 ),
               ),

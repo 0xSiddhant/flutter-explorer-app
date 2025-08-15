@@ -20,6 +20,19 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
     _themeProvider.setThemeChangedCallback(() {
       setState(() {});
     });
+
+    // Listen for language changes to rebuild the app
+    LanguageChangeListener.instance.addListener(_onLanguageChanged);
+  }
+
+  @override
+  void dispose() {
+    LanguageChangeListener.instance.removeListener(_onLanguageChanged);
+    super.dispose();
+  }
+
+  void _onLanguageChanged() {
+    setState(() {});
   }
 
   @override
