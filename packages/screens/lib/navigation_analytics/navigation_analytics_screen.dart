@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import 'package:common/common.dart';
 import 'data/analytics_data.dart';
 import 'models/analytics_model.dart';
 
@@ -41,7 +42,7 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Navigation Analytics'),
+        title: Text(AppLocalizations.getString('navigation_analytics', 'en')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
@@ -102,7 +103,7 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
                 _analytics!.mostVisitedScreen ?? 'None',
               ),
             ] else ...[
-              const Text('No analytics available'),
+              Text(AppLocalizations.getString('no_analytics_available', 'en')),
             ],
           ],
         ),
@@ -127,7 +128,7 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
                 (entry) => _buildVisitCountRow(entry.key, entry.value),
               ),
             ] else ...[
-              const Text('No screen visits recorded'),
+              Text(AppLocalizations.getString('no_screen_visits', 'en')),
             ],
           ],
         ),
@@ -157,14 +158,16 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
                     return ListTile(
                       leading: CircleAvatar(child: Text('${index + 1}')),
                       title: Text(_formatRouteName(route)),
-                      subtitle: Text('Navigation ${index + 1}'),
+                      subtitle: Text(
+                        '${AppLocalizations.getString('navigation_number', 'en')} ${index + 1}',
+                      ),
                       dense: true,
                     );
                   },
                 ),
               ),
             ] else ...[
-              const Text('No navigation history'),
+              Text(AppLocalizations.getString('no_navigation_history', 'en')),
             ],
           ],
         ),
@@ -257,9 +260,11 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
     AnalyticsData.clearHistory();
     _loadAnalytics();
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Navigation history cleared'),
-        duration: Duration(seconds: 2),
+      SnackBar(
+        content: Text(
+          AppLocalizations.getString('navigation_history_cleared', 'en'),
+        ),
+        duration: const Duration(seconds: 2),
       ),
     );
   }

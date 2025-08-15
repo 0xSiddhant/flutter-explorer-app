@@ -35,7 +35,7 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('File Management'),
+        title: Text(AppLocalizations.getString('file_management', 'en')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(
@@ -144,7 +144,9 @@ class _FileManagementScreenState extends State<FileManagementScreen> {
                 ),
                 ElevatedButton(
                   onPressed: _isLoading ? null : _createSampleFiles,
-                  child: const Text('Create Sample Files'),
+                  child: Text(
+                    AppLocalizations.getString('create_sample_files', 'en'),
+                  ),
                 ),
               ],
             ),

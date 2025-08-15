@@ -52,7 +52,9 @@ class FeatureListWidget extends StatelessWidget {
     return ListTile(
       leading: Icon(icon, color: Colors.blue),
       title: Text(title),
-      subtitle: Text('Tap to navigate to $title'),
+      subtitle: Text(
+        '${AppLocalizations.getString('tap_to_navigate', 'en')} $title',
+      ),
       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
       onTap: () => onFeatureTap(route),
     );

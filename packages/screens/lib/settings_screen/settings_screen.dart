@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import 'package:common/common.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -25,7 +26,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(AppLocalizations.getString('settings', 'en')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(
@@ -73,8 +74,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _themeProvider.isDarkMode ? Icons.dark_mode : Icons.light_mode,
         color: Theme.of(context).colorScheme.primary,
       ),
-      title: const Text('Dark Mode'),
-      subtitle: const Text('Switch between light and dark themes'),
+      title: Text(AppLocalizations.getString('dark_mode', 'en')),
+      subtitle: Text(
+        AppLocalizations.getString(
+          'switch_between_light_and_dark_themes',
+          'en',
+        ),
+      ),
       trailing: Switch(
         value: _themeProvider.isDarkMode,
         onChanged: (value) {
@@ -90,8 +96,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Icons.contrast,
         color: Theme.of(context).colorScheme.primary,
       ),
-      title: const Text('High Contrast'),
-      subtitle: const Text('Increase contrast for better visibility'),
+      title: Text(AppLocalizations.getString('high_contrast', 'en')),
+      subtitle: Text(
+        AppLocalizations.getString(
+          'increase_contrast_for_better_visibility',
+          'en',
+        ),
+      ),
       trailing: Switch(
         value: _themeProvider.isHighContrast,
         onChanged: (value) {
@@ -110,9 +121,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Icons.text_fields,
             color: Theme.of(context).colorScheme.primary,
           ),
-          title: const Text('Text Scale'),
+          title: Text(AppLocalizations.getString('text_scale', 'en')),
           subtitle: Text(
-            'Current scale: ${_themeProvider.textScaleFactor.toStringAsFixed(1)}x',
+            '${AppLocalizations.getString('current_scale', 'en')} ${_themeProvider.textScaleFactor.toStringAsFixed(1)}x',
           ),
         ),
         Padding(
@@ -138,8 +149,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _isRTLEnabled ? Icons.arrow_back : Icons.arrow_forward,
         color: Theme.of(context).colorScheme.primary,
       ),
-      title: const Text('Text Direction'),
-      subtitle: const Text('Switch between RTL and LTR'),
+      title: Text(AppLocalizations.getString('text_direction', 'en')),
+      subtitle: Text(
+        AppLocalizations.getString('switch_between_rtl_ltr', 'en'),
+      ),
       trailing: Switch(
         value: _isRTLEnabled,
         onChanged: (value) {
@@ -156,16 +169,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Column(
       children: [
         SwitchListTile(
-          title: const Text('Screen Reader'),
-          subtitle: const Text('Enable voice feedback'),
+          title: Text(AppLocalizations.getString('screen_reader', 'en')),
+          subtitle: Text(
+            AppLocalizations.getString('enable_voice_feedback', 'en'),
+          ),
           value: false,
           onChanged: (value) {
             // TODO: Implement screen reader logic
           },
         ),
         SwitchListTile(
-          title: const Text('Large Touch Targets'),
-          subtitle: const Text('Increase button sizes'),
+          title: Text(AppLocalizations.getString('large_touch_targets', 'en')),
+          subtitle: Text(
+            AppLocalizations.getString('increase_button_sizes', 'en'),
+          ),
           value: false,
           onChanged: (value) {
             // TODO: Implement large touch targets logic
@@ -182,25 +199,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'App Version',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              AppLocalizations.getString('app_version', 'en'),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            const Text('Flutter Core Features Demo v1.0.0'),
+            Text(AppLocalizations.getString('app_version_info', 'en')),
             const SizedBox(height: 16),
-            const Text(
-              'This app demonstrates various Flutter core features including:',
-              style: TextStyle(fontSize: 14),
+            Text(
+              AppLocalizations.getString('app_description', 'en'),
+              style: const TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 8),
-            const Text('• Navigation and Routing'),
-            const Text('• Theme Management'),
-            const Text('• Method Channels'),
-            const Text('• Isolates'),
-            const Text('• Localization'),
-            const Text('• Semantic UI'),
-            const Text('• File Storage'),
+            Text(AppLocalizations.getString('feature_navigation', 'en')),
+            Text(AppLocalizations.getString('feature_theme', 'en')),
+            Text(AppLocalizations.getString('feature_method_channels', 'en')),
+            Text(AppLocalizations.getString('feature_isolates', 'en')),
+            Text(AppLocalizations.getString('feature_localization', 'en')),
+            Text(AppLocalizations.getString('feature_semantic_ui', 'en')),
+            Text(AppLocalizations.getString('feature_file_storage', 'en')),
           ],
         ),
       ),

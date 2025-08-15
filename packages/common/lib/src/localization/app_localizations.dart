@@ -139,6 +139,94 @@ class AppLocalizations {
       'no_files_found': 'No files found',
       'enter_file_name': 'Enter file name',
       'enter_file_content': 'Enter file content',
+
+      // Advanced Processing
+      'advanced_processing': 'Advanced Processing',
+      'download_image': 'Download Image',
+      'process_image': 'Process Image',
+      'generate_thumbnail': 'Generate Thumbnail',
+      'process_text_file': 'Process Text File',
+      'generate_dataset': 'Generate Dataset',
+      'analyze_data': 'Analyze Data',
+      'perform_clustering': 'Perform Clustering',
+      'compress_data': 'Compress Data',
+      'processing': 'Processing...',
+      'result': 'Result',
+      'time': 'Time',
+      'analysis': 'Analysis',
+      'generated_records': 'Generated records',
+
+      // Background Tasks
+      'matrix_multiplication': 'Matrix Multiplication',
+      'sort_large_array': 'Sort Large Array',
+      'complex_calculation': 'Complex Calculation',
+      'calculating': 'Calculating...',
+      'first_10': 'First 10',
+
+      // Navigation Analytics
+      'navigation_analytics': 'Navigation Analytics',
+      'no_analytics_available': 'No analytics available',
+      'no_screen_visits': 'No screen visits recorded',
+      'no_navigation_history': 'No navigation history',
+      'navigation_history_cleared': 'Navigation history cleared',
+
+      // Lifecycle Management
+      'lifecycle_management': 'Lifecycle Management',
+      'clear_all': 'Clear All',
+      'close': 'Close',
+
+      // Detail Screen
+      'detail': 'Detail',
+
+      // UI Elements
+      'elevated_button': 'Elevated Button',
+      'outlined_button': 'Outlined Button',
+      'checkbox': 'Checkbox',
+      'radio': 'Radio',
+      'primary_action': 'Primary Action',
+      'tap_to_navigate': 'Tap to navigate to',
+      'navigating_to': 'Navigating to',
+
+      // About Section
+      'app_version_info': 'Flutter Core Features Demo v1.0.0',
+      'app_description':
+          'This app demonstrates various Flutter core features including:',
+      'feature_navigation': '• Navigation and Routing',
+      'feature_theme': '• Theme Management',
+      'feature_method_channels': '• Method Channels',
+      'feature_isolates': '• Isolates',
+      'feature_localization': '• Localization',
+      'feature_semantic_ui': '• Semantic UI',
+      'feature_file_storage': '• File Storage',
+
+      // File Management
+      'create_sample_files': 'Create Sample Files',
+
+      // Additional UI Strings
+      'navigation_number': 'Navigation',
+      'current_scale': 'Current scale:',
+      'switch_between_rtl_ltr': 'Switch between RTL and LTR',
+      'enable_voice_feedback_for_ui': 'Enable voice feedback for UI elements',
+      'increase_text_size_for_readability':
+          'Increase text size for better readability',
+      'primary_action_button': 'Primary action button',
+      'double_tap_to_perform_action': 'Double tap to perform the main action',
+      'flutter_logo_description':
+          'Flutter logo showing the Flutter framework mascot',
+      'tab_navigation': 'Tab navigation with',
+      'tabs': 'tabs',
+      'tab': 'tab',
+      'contact_form': 'Contact form',
+      'name_input_field': 'Name input field',
+      'email_input_field': 'Email input field',
+      'list_of_items': 'List of items',
+      'first_item': 'First item',
+      'first_item_description': 'This is the first item in the list',
+      'second_item': 'Second item',
+      'second_item_description': 'This is the second item in the list',
+      'third_item': 'Third item',
+      'third_item_description': 'This is the third item in the list',
+      'active_accessibility_features': 'Active Accessibility Features',
     },
     'es': {
       // Common
@@ -257,6 +345,96 @@ class AppLocalizations {
       'no_files_found': 'No se encontraron archivos',
       'enter_file_name': 'Ingrese nombre del archivo',
       'enter_file_content': 'Ingrese contenido del archivo',
+
+      // Advanced Processing
+      'advanced_processing': 'Procesamiento Avanzado',
+      'download_image': 'Descargar Imagen',
+      'process_image': 'Procesar Imagen',
+      'generate_thumbnail': 'Generar Miniatura',
+      'process_text_file': 'Procesar Archivo de Texto',
+      'generate_dataset': 'Generar Conjunto de Datos',
+      'analyze_data': 'Analizar Datos',
+      'perform_clustering': 'Realizar Agrupación',
+      'compress_data': 'Comprimir Datos',
+      'processing': 'Procesando...',
+      'result': 'Resultado',
+      'time': 'Tiempo',
+      'analysis': 'Análisis',
+      'generated_records': 'Registros generados',
+
+      // Background Tasks
+      'matrix_multiplication': 'Multiplicación de Matrices',
+      'sort_large_array': 'Ordenar Array Grande',
+      'complex_calculation': 'Cálculo Complejo',
+      'calculating': 'Calculando...',
+      'first_10': 'Primeros 10',
+
+      // Navigation Analytics
+      'navigation_analytics': 'Análisis de Navegación',
+      'no_analytics_available': 'No hay análisis disponibles',
+      'no_screen_visits': 'No se registraron visitas a pantallas',
+      'no_navigation_history': 'No hay historial de navegación',
+      'navigation_history_cleared': 'Historial de navegación borrado',
+
+      // Lifecycle Management
+      'lifecycle_management': 'Gestión del Ciclo de Vida',
+      'clear_all': 'Borrar Todo',
+      'close': 'Cerrar',
+
+      // Detail Screen
+      'detail': 'Detalle',
+
+      // UI Elements
+      'elevated_button': 'Botón Elevado',
+      'outlined_button': 'Botón Contorneado',
+      'checkbox': 'Casilla de Verificación',
+      'radio': 'Botón de Radio',
+      'primary_action': 'Acción Principal',
+      'tap_to_navigate': 'Toca para navegar a',
+      'navigating_to': 'Navegando a',
+
+      // About Section
+      'app_version_info':
+          'Demo de Características Principales de Flutter v1.0.0',
+      'app_description':
+          'Esta aplicación demuestra varias características principales de Flutter incluyendo:',
+      'feature_navigation': '• Navegación y Enrutamiento',
+      'feature_theme': '• Gestión de Temas',
+      'feature_method_channels': '• Canales de Método',
+      'feature_isolates': '• Aislados',
+      'feature_localization': '• Localización',
+      'feature_semantic_ui': '• UI Semántica',
+      'feature_file_storage': '• Almacenamiento de Archivos',
+
+      // File Management
+      'create_sample_files': 'Crear Archivos de Ejemplo',
+
+      // Additional UI Strings
+      'navigation_number': 'Navegación',
+      'current_scale': 'Escala actual:',
+      'switch_between_rtl_ltr': 'Cambiar entre RTL y LTR',
+      'enable_voice_feedback_for_ui':
+          'Habilitar retroalimentación de voz para elementos de UI',
+      'increase_text_size_for_readability':
+          'Aumentar tamaño de texto para mejor legibilidad',
+      'primary_action_button': 'Botón de acción principal',
+      'double_tap_to_perform_action':
+          'Doble toque para realizar la acción principal',
+      'flutter_logo_description':
+          'Logo de Flutter mostrando la mascota del framework',
+      'tab_navigation': 'Navegación de pestañas con',
+      'tabs': 'pestañas',
+      'tab': 'pestaña',
+      'contact_form': 'Formulario de contacto',
+      'name_input_field': 'Campo de entrada de nombre',
+      'email_input_field': 'Campo de entrada de correo electrónico',
+      'list_of_items': 'Lista de elementos',
+      'first_item': 'Primer elemento',
+      'first_item_description': 'Este es el primer elemento de la lista',
+      'second_item': 'Segundo elemento',
+      'second_item_description': 'Este es el segundo elemento de la lista',
+      'third_item': 'Tercer elemento',
+      'third_item_description': 'Este es el tercer elemento de la lista',
     },
     'fr': {
       // Common
@@ -375,6 +553,78 @@ class AppLocalizations {
       'no_files_found': 'Aucun fichier trouvé',
       'enter_file_name': 'Entrez le nom du fichier',
       'enter_file_content': 'Entrez le contenu du fichier',
+
+      // Advanced Processing
+      'advanced_processing': 'Traitement Avancé',
+      'download_image': 'Télécharger l\'Image',
+      'process_image': 'Traiter l\'Image',
+      'generate_thumbnail': 'Générer la Miniature',
+      'process_text_file': 'Traiter le Fichier Texte',
+      'generate_dataset': 'Générer l\'Ensemble de Données',
+      'analyze_data': 'Analyser les Données',
+      'perform_clustering': 'Effectuer le Clustering',
+      'compress_data': 'Compresser les Données',
+      'processing': 'Traitement...',
+      'result': 'Résultat',
+      'time': 'Temps',
+      'analysis': 'Analyse',
+      'generated_records': 'Enregistrements générés',
+
+      // Background Tasks
+      'matrix_multiplication': 'Multiplication de Matrices',
+      'sort_large_array': 'Trier le Grand Tableau',
+      'complex_calculation': 'Calcul Complexe',
+      'calculating': 'Calcul...',
+      'first_10': 'Premiers 10',
+
+      // Navigation Analytics
+      'navigation_analytics': 'Analytique de Navigation',
+      'no_analytics_available': 'Aucune analytique disponible',
+      'no_screen_visits': 'Aucune visite d\'écran enregistrée',
+      'no_navigation_history': 'Aucun historique de navigation',
+      'navigation_history_cleared': 'Historique de navigation effacé',
+
+      // Lifecycle Management
+      'lifecycle_management': 'Gestion du Cycle de Vie',
+      'clear_all': 'Tout Effacer',
+      'close': 'Fermer',
+
+      // Detail Screen
+      'detail': 'Détail',
+
+      // UI Elements
+      'elevated_button': 'Bouton Élevé',
+      'outlined_button': 'Bouton Contourné',
+      'checkbox': 'Case à Cocher',
+      'radio': 'Bouton Radio',
+      'primary_action': 'Action Principale',
+      'tap_to_navigate': 'Appuyez pour naviguer vers',
+      'navigating_to': 'Navigation vers',
+
+      // About Section
+      'app_version_info':
+          'Démo des Fonctionnalités Principales de Flutter v1.0.0',
+      'app_description':
+          'Cette application démontre diverses fonctionnalités principales de Flutter incluant:',
+      'feature_navigation': '• Navigation et Routage',
+      'feature_theme': '• Gestion des Thèmes',
+      'feature_method_channels': '• Canaux de Méthode',
+      'feature_isolates': '• Isolats',
+      'feature_localization': '• Localisation',
+      'feature_semantic_ui': '• UI Sémantique',
+      'feature_file_storage': '• Stockage de Fichiers',
+
+      // File Management
+      'create_sample_files': 'Créer des Fichiers d\'Exemple',
+
+      // Additional UI Strings
+      'navigation_number': 'Navigation',
+      'current_scale': 'Échelle actuelle:',
+      'switch_between_rtl_ltr': 'Basculer entre RTL et LTR',
+      'enable_voice_feedback_for_ui':
+          'Activer la rétroaction vocale pour les éléments UI',
+      'increase_text_size_for_readability':
+          'Augmenter la taille du texte pour une meilleure lisibilité',
     },
     'de': {
       // Common
@@ -493,6 +743,77 @@ class AppLocalizations {
       'no_files_found': 'Keine Dateien gefunden',
       'enter_file_name': 'Dateiname eingeben',
       'enter_file_content': 'Dateiinhalt eingeben',
+
+      // Advanced Processing
+      'advanced_processing': 'Erweiterte Verarbeitung',
+      'download_image': 'Bild Herunterladen',
+      'process_image': 'Bild Verarbeiten',
+      'generate_thumbnail': 'Vorschaubild Generieren',
+      'process_text_file': 'Textdatei Verarbeiten',
+      'generate_dataset': 'Datensatz Generieren',
+      'analyze_data': 'Daten Analysieren',
+      'perform_clustering': 'Clustering Durchführen',
+      'compress_data': 'Daten Komprimieren',
+      'processing': 'Verarbeitung...',
+      'result': 'Ergebnis',
+      'time': 'Zeit',
+      'analysis': 'Analyse',
+      'generated_records': 'Generierte Datensätze',
+
+      // Background Tasks
+      'matrix_multiplication': 'Matrix-Multiplikation',
+      'sort_large_array': 'Großes Array Sortieren',
+      'complex_calculation': 'Komplexe Berechnung',
+      'calculating': 'Berechnung...',
+      'first_10': 'Erste 10',
+
+      // Navigation Analytics
+      'navigation_analytics': 'Navigations-Analytik',
+      'no_analytics_available': 'Keine Analytik verfügbar',
+      'no_screen_visits': 'Keine Bildschirmbesuche aufgezeichnet',
+      'no_navigation_history': 'Keine Navigationshistorie',
+      'navigation_history_cleared': 'Navigationshistorie gelöscht',
+
+      // Lifecycle Management
+      'lifecycle_management': 'Lebenszyklus-Verwaltung',
+      'clear_all': 'Alles Löschen',
+      'close': 'Schließen',
+
+      // Detail Screen
+      'detail': 'Detail',
+
+      // UI Elements
+      'elevated_button': 'Erhöhter Button',
+      'outlined_button': 'Umrandeter Button',
+      'checkbox': 'Kontrollkästchen',
+      'radio': 'Radio-Button',
+      'primary_action': 'Primäre Aktion',
+      'tap_to_navigate': 'Tippen Sie, um zu navigieren zu',
+      'navigating_to': 'Navigation zu',
+
+      // About Section
+      'app_version_info': 'Flutter Core Features Demo v1.0.0',
+      'app_description':
+          'Diese App demonstriert verschiedene Flutter-Kernfunktionen einschließlich:',
+      'feature_navigation': '• Navigation und Routing',
+      'feature_theme': '• Themenverwaltung',
+      'feature_method_channels': '• Methodenkanäle',
+      'feature_isolates': '• Isolate',
+      'feature_localization': '• Lokalisierung',
+      'feature_semantic_ui': '• Semantische UI',
+      'feature_file_storage': '• Dateispeicher',
+
+      // File Management
+      'create_sample_files': 'Beispieldateien Erstellen',
+
+      // Additional UI Strings
+      'navigation_number': 'Navigation',
+      'current_scale': 'Aktuelle Skalierung:',
+      'switch_between_rtl_ltr': 'Zwischen RTL und LTR wechseln',
+      'enable_voice_feedback_for_ui':
+          'Sprachrückmeldung für UI-Elemente aktivieren',
+      'increase_text_size_for_readability':
+          'Textgröße für bessere Lesbarkeit erhöhen',
     },
     'ar': {
       // Common
@@ -610,6 +931,76 @@ class AppLocalizations {
       'no_files_found': 'لم يتم العثور على ملفات',
       'enter_file_name': 'أدخل اسم الملف',
       'enter_file_content': 'أدخل محتوى الملف',
+
+      // Advanced Processing
+      'advanced_processing': 'المعالجة المتقدمة',
+      'download_image': 'تحميل الصورة',
+      'process_image': 'معالجة الصورة',
+      'generate_thumbnail': 'إنشاء صورة مصغرة',
+      'process_text_file': 'معالجة ملف النص',
+      'generate_dataset': 'إنشاء مجموعة بيانات',
+      'analyze_data': 'تحليل البيانات',
+      'perform_clustering': 'تنفيذ التجميع',
+      'compress_data': 'ضغط البيانات',
+      'processing': 'جاري المعالجة...',
+      'result': 'النتيجة',
+      'time': 'الوقت',
+      'analysis': 'التحليل',
+      'generated_records': 'السجلات المُنشأة',
+
+      // Background Tasks
+      'matrix_multiplication': 'ضرب المصفوفات',
+      'sort_large_array': 'ترتيب المصفوفة الكبيرة',
+      'complex_calculation': 'الحساب المعقد',
+      'calculating': 'جاري الحساب...',
+      'first_10': 'الأول 10',
+
+      // Navigation Analytics
+      'navigation_analytics': 'تحليلات التنقل',
+      'no_analytics_available': 'لا توجد تحليلات متاحة',
+      'no_screen_visits': 'لا توجد زيارات للشاشة مسجلة',
+      'no_navigation_history': 'لا يوجد سجل تنقل',
+      'navigation_history_cleared': 'تم مسح سجل التنقل',
+
+      // Lifecycle Management
+      'lifecycle_management': 'إدارة دورة الحياة',
+      'clear_all': 'مسح الكل',
+      'close': 'إغلاق',
+
+      // Detail Screen
+      'detail': 'التفاصيل',
+
+      // UI Elements
+      'elevated_button': 'زر مرتفع',
+      'outlined_button': 'زر محدد',
+      'checkbox': 'صندوق اختيار',
+      'radio': 'زر راديو',
+      'primary_action': 'الإجراء الأساسي',
+      'tap_to_navigate': 'انقر للانتقال إلى',
+      'navigating_to': 'الانتقال إلى',
+
+      // About Section
+      'app_version_info': 'عرض ميزات Flutter الأساسية v1.0.0',
+      'app_description':
+          'هذا التطبيق يوضح ميزات Flutter الأساسية المختلفة بما في ذلك:',
+      'feature_navigation': '• التنقل والتوجيه',
+      'feature_theme': '• إدارة المظهر',
+      'feature_method_channels': '• قنوات الطريقة',
+      'feature_isolates': '• العزلات',
+      'feature_localization': '• التوطين',
+      'feature_semantic_ui': '• واجهة المستخدم الدلالية',
+      'feature_file_storage': '• تخزين الملفات',
+
+      // File Management
+      'create_sample_files': 'إنشاء ملفات نموذجية',
+
+      // Additional UI Strings
+      'navigation_number': 'التنقل',
+      'current_scale': 'المقياس الحالي:',
+      'switch_between_rtl_ltr': 'التبديل بين RTL و LTR',
+      'enable_voice_feedback_for_ui':
+          'تمكين التغذية الراجعة الصوتية لعناصر واجهة المستخدم',
+      'increase_text_size_for_readability': 'زيادة حجم النص لقراءة أفضل',
 
       // RTL Support
       'text_direction': 'اتجاه النص',
@@ -731,6 +1122,74 @@ class AppLocalizations {
       'no_files_found': 'ファイルが見つかりません',
       'enter_file_name': 'ファイル名を入力',
       'enter_file_content': 'ファイル内容を入力',
+
+      // Advanced Processing
+      'advanced_processing': '高度な処理',
+      'download_image': '画像をダウンロード',
+      'process_image': '画像を処理',
+      'generate_thumbnail': 'サムネイルを生成',
+      'process_text_file': 'テキストファイルを処理',
+      'generate_dataset': 'データセットを生成',
+      'analyze_data': 'データを分析',
+      'perform_clustering': 'クラスタリングを実行',
+      'compress_data': 'データを圧縮',
+      'processing': '処理中...',
+      'result': '結果',
+      'time': '時間',
+      'analysis': '分析',
+      'generated_records': '生成されたレコード',
+
+      // Background Tasks
+      'matrix_multiplication': '行列乗算',
+      'sort_large_array': '大きな配列をソート',
+      'complex_calculation': '複雑な計算',
+      'calculating': '計算中...',
+      'first_10': '最初の10',
+
+      // Navigation Analytics
+      'navigation_analytics': 'ナビゲーション分析',
+      'no_analytics_available': '分析データがありません',
+      'no_screen_visits': '画面訪問記録がありません',
+      'no_navigation_history': 'ナビゲーション履歴がありません',
+      'navigation_history_cleared': 'ナビゲーション履歴がクリアされました',
+
+      // Lifecycle Management
+      'lifecycle_management': 'ライフサイクル管理',
+      'clear_all': 'すべてクリア',
+      'close': '閉じる',
+
+      // Detail Screen
+      'detail': '詳細',
+
+      // UI Elements
+      'elevated_button': 'エレベーテッドボタン',
+      'outlined_button': 'アウトラインボタン',
+      'checkbox': 'チェックボックス',
+      'radio': 'ラジオボタン',
+      'primary_action': 'プライマリアクション',
+      'tap_to_navigate': 'タップしてナビゲート',
+      'navigating_to': 'ナビゲート中',
+
+      // About Section
+      'app_version_info': 'Flutterコア機能デモ v1.0.0',
+      'app_description': 'このアプリは、Flutterの様々なコア機能をデモンストレーションします：',
+      'feature_navigation': '• ナビゲーションとルーティング',
+      'feature_theme': '• テーマ管理',
+      'feature_method_channels': '• メソッドチャンネル',
+      'feature_isolates': '• アイソレート',
+      'feature_localization': '• ローカライゼーション',
+      'feature_semantic_ui': '• セマンティックUI',
+      'feature_file_storage': '• ファイルストレージ',
+
+      // File Management
+      'create_sample_files': 'サンプルファイルを作成',
+
+      // Additional UI Strings
+      'navigation_number': 'ナビゲーション',
+      'current_scale': '現在のスケール:',
+      'switch_between_rtl_ltr': 'RTLとLTRを切り替え',
+      'enable_voice_feedback_for_ui': 'UI要素の音声フィードバックを有効にする',
+      'increase_text_size_for_readability': '可読性向上のためテキストサイズを大きくする',
 
       // RTL Support
       'text_direction': 'テキスト方向',

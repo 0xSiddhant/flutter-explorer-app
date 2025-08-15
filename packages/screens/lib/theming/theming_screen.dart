@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import 'package:common/common.dart';
 
 class ThemingScreen extends StatefulWidget {
   const ThemingScreen({super.key});
@@ -48,7 +49,7 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Theming'),
+        title: Text(AppLocalizations.getString('theming', 'en')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(
@@ -83,23 +84,33 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
             ),
             const SizedBox(height: 16),
             SwitchListTile(
-              title: const Text('Dark Mode'),
-              subtitle: const Text('Switch between light and dark themes'),
+              title: Text(AppLocalizations.getString('dark_mode', 'en')),
+              subtitle: Text(
+                AppLocalizations.getString(
+                  'switch_between_light_and_dark_themes',
+                  'en',
+                ),
+              ),
               value: _themeProvider.isDarkMode,
               onChanged: (value) {
                 _themeProvider.setDarkMode(value);
               },
             ),
             SwitchListTile(
-              title: const Text('High Contrast'),
-              subtitle: const Text('Increase contrast for better visibility'),
+              title: Text(AppLocalizations.getString('high_contrast', 'en')),
+              subtitle: Text(
+                AppLocalizations.getString(
+                  'increase_contrast_for_better_visibility',
+                  'en',
+                ),
+              ),
               value: _themeProvider.isHighContrast,
               onChanged: (value) {
                 _themeProvider.setHighContrast(value);
               },
             ),
             ListTile(
-              title: const Text('Text Scale'),
+              title: Text(AppLocalizations.getString('text_scale', 'en')),
               subtitle: Text(
                 'Current: ${_themeProvider.textScaleFactor.toStringAsFixed(1)}x',
               ),
@@ -152,14 +163,18 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {},
-                    child: const Text('Elevated Button'),
+                    child: Text(
+                      AppLocalizations.getString('elevated_button', 'en'),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () {},
-                    child: const Text('Outlined Button'),
+                    child: Text(
+                      AppLocalizations.getString('outlined_button', 'en'),
+                    ),
                   ),
                 ),
               ],
@@ -178,14 +193,14 @@ class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
             Row(
               children: [
                 Checkbox(value: true, onChanged: (value) {}),
-                const Text('Checkbox'),
+                Text(AppLocalizations.getString('checkbox', 'en')),
                 const SizedBox(width: 16),
                 Radio<bool>(
                   value: true,
                   groupValue: true,
                   onChanged: (value) {},
                 ),
-                const Text('Radio'),
+                Text(AppLocalizations.getString('radio', 'en')),
               ],
             ),
           ],

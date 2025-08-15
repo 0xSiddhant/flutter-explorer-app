@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:common/common.dart';
 import '../models/lifecycle_card_model.dart';
 
 /// Widget for displaying a lifecycle phase card
@@ -153,7 +154,7 @@ class LifecycleCard extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
+            child: Text(AppLocalizations.getString('close', 'en')),
           ),
         ],
       ),

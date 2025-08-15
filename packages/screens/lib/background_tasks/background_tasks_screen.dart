@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import 'package:common/common.dart';
 
 /// Demo screen for isolate operations
 class BackgroundTasksScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _BackgroundTasksScreenState extends State<BackgroundTasksScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Background Tasks'),
+        title: Text(AppLocalizations.getString('background_tasks', 'en')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(
@@ -87,29 +88,41 @@ class _BackgroundTasksScreenState extends State<BackgroundTasksScreen> {
               children: [
                 ElevatedButton(
                   onPressed: _isCalculating ? null : _calculateFibonacci,
-                  child: const Text('Fibonacci (UI Thread)'),
+                  child: Text(
+                    AppLocalizations.getString('fibonacci_ui_thread', 'en'),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: _isCalculating
                       ? null
                       : _calculateFibonacciInIsolate,
-                  child: const Text('Fibonacci (Isolate)'),
+                  child: Text(
+                    AppLocalizations.getString('fibonacci_isolate', 'en'),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: _isCalculating ? null : _findPrimeNumbers,
-                  child: const Text('Find Prime Numbers'),
+                  child: Text(
+                    AppLocalizations.getString('find_prime_numbers', 'en'),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: _isCalculating ? null : _multiplyMatrices,
-                  child: const Text('Matrix Multiplication'),
+                  child: Text(
+                    AppLocalizations.getString('matrix_multiplication', 'en'),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: _isCalculating ? null : _sortLargeArray,
-                  child: const Text('Sort Large Array'),
+                  child: Text(
+                    AppLocalizations.getString('sort_large_array', 'en'),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: _isCalculating ? null : _complexCalculation,
-                  child: const Text('Complex Calculation'),
+                  child: Text(
+                    AppLocalizations.getString('complex_calculation', 'en'),
+                  ),
                 ),
               ],
             ),
@@ -126,24 +139,35 @@ class _BackgroundTasksScreenState extends State<BackgroundTasksScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Results', style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              AppLocalizations.getString('results', 'en'),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             const SizedBox(height: 12),
             if (_isCalculating) ...[
               LinearProgressIndicator(value: _progress),
               const SizedBox(height: 8),
-              Text('Calculating... ${(_progress * 100).toInt()}%'),
+              Text(
+                '${AppLocalizations.getString('calculating', 'en')} ${(_progress * 100).toInt()}%',
+              ),
             ],
             const SizedBox(height: 12),
-            Text('Result: $_result'),
+            Text('${AppLocalizations.getString('result', 'en')}: $_result'),
             if (_calculationTime > 0) ...[
               const SizedBox(height: 8),
-              Text('Time: ${_calculationTime}ms'),
+              Text(
+                '${AppLocalizations.getString('time', 'en')}: ${_calculationTime}ms',
+              ),
             ],
             if (_primeNumbers.isNotEmpty) ...[
               const SizedBox(height: 8),
-              Text('Prime numbers found: ${_primeNumbers.length}'),
+              Text(
+                '${AppLocalizations.getString('prime_numbers_found', 'en')} ${_primeNumbers.length}',
+              ),
               const SizedBox(height: 4),
-              Text('First 10: ${_primeNumbers.take(10).join(', ')}'),
+              Text(
+                '${AppLocalizations.getString('first_10', 'en')}: ${_primeNumbers.take(10).join(', ')}',
+              ),
             ],
             const SizedBox(height: 16),
             Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import 'package:common/common.dart';
 import 'data/native_features_data.dart';
 import 'widgets/native_feature_card.dart';
 import 'models/native_feature_model.dart';
@@ -22,7 +23,7 @@ class _NativeCommunicationScreenState extends State<NativeCommunicationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Native Communication'),
+        title: Text(AppLocalizations.getString('native_communication', 'en')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: SafeArea(
@@ -77,12 +78,15 @@ class _NativeCommunicationScreenState extends State<NativeCommunicationScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Results', style: Theme.of(context).textTheme.titleMedium),
+          Text(
+            AppLocalizations.getString('results', 'en'),
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           const SizedBox(height: 8),
           if (_isLoading) ...[
             const LinearProgressIndicator(),
             const SizedBox(height: 8),
-            const Text('Processing...'),
+            Text(AppLocalizations.getString('processing', 'en')),
           ],
           const SizedBox(height: 8),
           Container(

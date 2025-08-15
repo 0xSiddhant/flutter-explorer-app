@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:common/common.dart';
+import 'data/accessibility_data.dart';
+import 'widgets/accessibility_controls_widget.dart';
+import 'widgets/semantic_examples_widget.dart';
+import 'widgets/action_feedback_widget.dart';
 
 class AccessibilityScreen extends StatefulWidget {
   const AccessibilityScreen({super.key});
@@ -16,243 +21,103 @@ class _AccessibilityScreenState extends State<AccessibilityScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Accessibility'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildAccessibilityControls(),
-              const SizedBox(height: 16),
-              _buildSemanticExamples(),
-              const SizedBox(height: 16),
-              _buildActionFeedback(),
-              const SizedBox(height: 24), // Add bottom padding
-            ],
-          ),
-        ),
-      ),
+    // Apply accessibility features to the theme
+    final theme = Theme.of(context).copyWith(
+      textTheme: _isLargeTextEnabled
+          ? Theme.of(context).textTheme.apply(fontSizeFactor: 1.2)
+          : Theme.of(context).textTheme,
+      colorScheme: _isHighContrastEnabled
+          ? Theme.of(context).colorScheme.copyWith(
+              primary: Colors.yellow,
+              onPrimary: Colors.black,
+              surface: Colors.black,
+              onSurface: Colors.yellow,
+              background: Colors.black,
+              onBackground: Colors.yellow,
+              surfaceContainerHighest: Colors.grey[900]!,
+            )
+          : Theme.of(context).colorScheme,
     );
-  }
 
-  Widget _buildAccessibilityControls() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Accessibility Controls',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            SwitchListTile(
-              title: const Text('Screen Reader Mode'),
-              subtitle: const Text('Enable voice feedback for UI elements'),
-              value: _isScreenReaderEnabled,
-              onChanged: (value) {
-                setState(() {
-                  _isScreenReaderEnabled = value;
-                  _lastAction =
-                      'Screen reader ${value ? 'enabled' : 'disabled'}';
-                });
-              },
-            ),
-            SwitchListTile(
-              title: const Text('High Contrast'),
-              subtitle: const Text('Increase contrast for better visibility'),
-              value: _isHighContrastEnabled,
-              onChanged: (value) {
-                setState(() {
-                  _isHighContrastEnabled = value;
-                  _lastAction =
-                      'High contrast ${value ? 'enabled' : 'disabled'}';
-                });
-              },
-            ),
-            SwitchListTile(
-              title: const Text('Large Text'),
-              subtitle: const Text('Increase text size for better readability'),
-              value: _isLargeTextEnabled,
-              onChanged: (value) {
-                setState(() {
-                  _isLargeTextEnabled = value;
-                  _lastAction = 'Large text ${value ? 'enabled' : 'disabled'}';
-                });
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSemanticExamples() {
-    return Expanded(
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Semantic UI Examples',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    final accessibilityFeatures = AccessibilityData.getAccessibilityFeatures(
+      isScreenReaderEnabled: _isScreenReaderEnabled,
+      isHighContrastEnabled: _isHighContrastEnabled,
+      isLargeTextEnabled: _isLargeTextEnabled,
+      onScreenReaderChanged: (value) {
+        setState(() {
+          _isScreenReaderEnabled = value;
+          _lastAction = 'Screen reader ${value ? 'enabled' : 'disabled'}';
+        });
+        // Show screen reader demo message
+        if (value) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Screen reader mode enabled. Use your device\'s accessibility features to navigate.',
               ),
-              const SizedBox(height: 16),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      _buildSemanticButton(),
-                      const SizedBox(height: 16),
-                      _buildSemanticImage(),
-                      const SizedBox(height: 16),
-                      _buildSemanticTabBar(),
-                      const SizedBox(height: 16),
-                      _buildSemanticForm(),
-                      const SizedBox(height: 16),
-                      _buildSemanticList(),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSemanticButton() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Semantic Button',
-          style: TextStyle(fontWeight: FontWeight.w500),
-        ),
-        const SizedBox(height: 8),
-        Semantics(
-          label: 'Primary action button',
-          hint: 'Double tap to perform the main action',
-          button: true,
-          child: ElevatedButton(
-            onPressed: () {
-              setState(() {
-                _lastAction = 'Primary button pressed';
-              });
-            },
-            child: const Text('Primary Action'),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSemanticImage() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Semantic Image',
-          style: TextStyle(fontWeight: FontWeight.w500),
-        ),
-        const SizedBox(height: 8),
-        Semantics(
-          label: 'Flutter logo showing the Flutter framework mascot',
-          image: true,
-          child: Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(8),
+              duration: const Duration(seconds: 3),
             ),
-            child: const Icon(Icons.flutter_dash, size: 60, color: Colors.blue),
-          ),
-        ),
-      ],
+          );
+        }
+      },
+      onHighContrastChanged: (value) {
+        setState(() {
+          _isHighContrastEnabled = value;
+          _lastAction = 'High contrast ${value ? 'enabled' : 'disabled'}';
+        });
+      },
+      onLargeTextChanged: (value) {
+        setState(() {
+          _isLargeTextEnabled = value;
+          _lastAction = 'Large text ${value ? 'enabled' : 'disabled'}';
+        });
+      },
     );
-  }
 
-  Widget _buildSemanticTabBar() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Semantic Tab Bar',
-          style: TextStyle(fontWeight: FontWeight.w500),
+    return Theme(
+      data: theme,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(AppLocalizations.getString('accessibility', 'en')),
+          backgroundColor: theme.colorScheme.inversePrimary,
         ),
-        const SizedBox(height: 8),
-        Semantics(
-          label: 'Tab navigation with $_selectedTab tabs',
-          child: Row(
-            children: [
-              _buildSemanticTab('Home', 0, Icons.home),
-              _buildSemanticTab('Profile', 1, Icons.person),
-              _buildSemanticTab('Settings', 2, Icons.settings),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSemanticTab(String label, int index, IconData icon) {
-    final isSelected = _selectedTab == index;
-    return Expanded(
-      child: Semantics(
-        label: '$label tab',
-        selected: isSelected,
-        button: true,
-        child: GestureDetector(
-          onTap: () {
-            setState(() {
-              _selectedTab = index;
-              _lastAction = '$label tab selected';
-            });
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            decoration: BoxDecoration(
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primaryContainer
-                  : Colors.transparent,
-              border: Border(
-                bottom: BorderSide(
-                  color: isSelected
-                      ? Theme.of(context).colorScheme.primary
-                      : Colors.transparent,
-                  width: 2,
-                ),
-              ),
-            ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  icon,
-                  color: isSelected
-                      ? Theme.of(context).colorScheme.primary
-                      : Theme.of(context).colorScheme.onSurfaceVariant,
+                AccessibilityControlsWidget(features: accessibilityFeatures),
+                const SizedBox(height: 16),
+                // Show accessibility status
+                if (_isScreenReaderEnabled ||
+                    _isHighContrastEnabled ||
+                    _isLargeTextEnabled) ...[
+                  _buildAccessibilityStatus(),
+                  const SizedBox(height: 16),
+                ],
+                // Show screen reader demo when enabled
+                if (_isScreenReaderEnabled) ...[
+                  _buildScreenReaderDemo(),
+                  const SizedBox(height: 16),
+                ],
+                SemanticExamplesWidget(
+                  selectedTab: _selectedTab,
+                  onTabChanged: (index) {
+                    setState(() {
+                      _selectedTab = index;
+                    });
+                  },
+                  onActionPerformed: (action) {
+                    setState(() {
+                      _lastAction = action;
+                    });
+                  },
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: isSelected
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ),
+                const SizedBox(height: 16),
+                ActionFeedbackWidget(lastAction: _lastAction),
+                const SizedBox(height: 24), // Add bottom padding
               ],
             ),
           ),
@@ -261,135 +126,138 @@ class _AccessibilityScreenState extends State<AccessibilityScreen> {
     );
   }
 
-  Widget _buildSemanticForm() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Semantic Form',
-          style: TextStyle(fontWeight: FontWeight.w500),
-        ),
-        const SizedBox(height: 8),
-        Semantics(
-          label: 'Contact form',
+  Widget _buildAccessibilityStatus() {
+    final List<String> activeFeatures = [];
+    if (_isScreenReaderEnabled) {
+      activeFeatures.add(AppLocalizations.getString('screen_reader', 'en'));
+    }
+    if (_isHighContrastEnabled) {
+      activeFeatures.add(AppLocalizations.getString('high_contrast', 'en'));
+    }
+    if (_isLargeTextEnabled) {
+      activeFeatures.add(AppLocalizations.getString('large_text', 'en'));
+    }
+
+    return Semantics(
+      label:
+          '${AppLocalizations.getString('active_accessibility_features', 'en')}: ${activeFeatures.join(', ')}',
+      child: Card(
+        color: Theme.of(context).colorScheme.primaryContainer,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Semantics(
-                label: 'Name input field',
-                textField: true,
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+              Row(
+                children: [
+                  Icon(
+                    Icons.accessibility_new,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      AppLocalizations.getString(
+                        'active_accessibility_features',
+                        'en',
+                      ),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      _lastAction = 'Name field updated: $value';
-                    });
-                  },
-                ),
+                ],
               ),
               const SizedBox(height: 8),
-              Semantics(
-                label: 'Email input field',
-                textField: true,
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      _lastAction = 'Email field updated: $value';
-                    });
-                  },
+              Text(
+                activeFeatures.join(', '),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
               ),
             ],
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildSemanticList() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Semantic List',
-          style: TextStyle(fontWeight: FontWeight.w500),
-        ),
-        const SizedBox(height: 8),
-        Semantics(
-          label: 'List of items',
-          child: Column(
-            children: [
-              _buildSemanticListItem(
-                'First item',
-                'This is the first item in the list',
-              ),
-              _buildSemanticListItem(
-                'Second item',
-                'This is the second item in the list',
-              ),
-              _buildSemanticListItem(
-                'Third item',
-                'This is the third item in the list',
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSemanticListItem(String title, String subtitle) {
-    return Semantics(
-      label: '$title, $subtitle',
-      button: true,
-      child: ListTile(
-        title: Text(title),
-        subtitle: Text(subtitle),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-        onTap: () {
-          setState(() {
-            _lastAction = '$title selected';
-          });
-        },
       ),
     );
   }
 
-  Widget _buildActionFeedback() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Last Action',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  Widget _buildScreenReaderDemo() {
+    return Container(
+      key: const ValueKey('screen_reader_demo'),
+      child: Semantics(
+        label:
+            'Screen reader demo section. This section demonstrates how screen readers interpret different UI elements.',
+        child: Card(
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.hearing,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Screen Reader Demo',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSecondaryContainer,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Semantics(
+                  label: 'Demo button. Double tap to activate.',
+                  button: true,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _lastAction = 'Screen reader demo button pressed';
+                        });
+                      },
+                      child: const Text('Demo Button'),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Semantics(
+                  label: 'Demo text field. Enter your name.',
+                  textField: true,
+                  child: TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Enter your name',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _lastAction = 'Text field updated: $value';
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 12),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                _lastAction,
-                style: const TextStyle(fontFamily: 'monospace'),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

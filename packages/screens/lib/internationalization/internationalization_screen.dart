@@ -53,7 +53,9 @@ class _InternationalizationScreenState
     // TODO: Implement navigation to respective features
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Navigating to $route'),
+        content: Text(
+          '${AppLocalizations.getString('navigating_to', 'en')} $route',
+        ),
         duration: const Duration(seconds: 2),
       ),
     );

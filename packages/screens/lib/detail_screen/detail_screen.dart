@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:common/common.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key});
@@ -10,7 +11,9 @@ class DetailScreen extends StatelessWidget {
       body: SafeArea(
         child: Container(
           color: Colors.redAccent,
-          child: Center(child: Text("Detail")),
+          child: Center(
+            child: Text(AppLocalizations.getString('detail', 'en')),
+          ),
         ),
       ),
     );
