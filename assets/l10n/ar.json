@@ -1,0 +1,10 @@
+{
+  "app_title": "مستكشف Flutter",
+  "settings": "الإعدادات",
+  "ok": "موافق",
+  "cancel": "إلغاء",
+  "initialization_failed": "فشل في التهيئة",
+  "failed_to_initialize_service": "فشل في تهيئة {serviceName}.",
+  "error_label": "خطأ: {error}",
+  "initialization_error_message": "لا يمكن تشغيل التطبيق بدون هذه الخدمة. يرجى إعادة تشغيل التطبيق أو الاتصال بالدعم إذا استمرت المشكلة."
+}

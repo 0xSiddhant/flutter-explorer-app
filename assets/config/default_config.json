@@ -1,0 +1,111 @@
+{
+  "app": {
+    "name": "Flutter Explorer",
+    "version": "1.0.0",
+    "buildNumber": "1",
+    "environment": "development"
+  },
+  "theme": {
+    "isDarkMode": false,
+    "isHighContrast": false,
+    "textScaleFactor": 1.0,
+    "primaryColor": "#2196F3",
+    "secondaryColor": "#FF9800",
+    "accentColor": "#4CAF50"
+  },
+  "navigation": {
+    "enableAnalytics": true,
+    "enableRouteTracking": true,
+    "enablePerformanceMonitoring": true,
+    "enableErrorTracking": true,
+    "maxNavigationHistory": 50,
+    "sessionTimeoutMinutes": 30
+  },
+  "internationalization": {
+    "defaultLanguage": "en",
+    "supportedLanguages": ["en", "es", "fr", "de", "ar", "jp"],
+    "enableRTL": false,
+    "enableAutoLanguageDetection": true,
+    "dateFormat": "MM/dd/yyyy",
+    "timeFormat": "HH:mm",
+    "currencyCode": "USD"
+  },
+  "accessibility": {
+    "enableScreenReader": false,
+    "enableHighContrast": false,
+    "enableLargeText": false,
+    "enableReducedMotion": false,
+    "enableColorBlindSupport": false,
+    "minTouchTargetSize": 48.0
+  },
+  "performance": {
+    "enableIsolateProcessing": true,
+    "maxIsolateThreads": 4,
+    "enableCaching": true,
+    "cacheExpirationHours": 24,
+    "enableImageCompression": true,
+    "maxImageSizeMB": 10
+  },
+  "storage": {
+    "enableLocalStorage": true,
+    "maxStorageSizeMB": 100,
+    "enableAutoBackup": false,
+    "backupIntervalHours": 24,
+    "enableEncryption": false
+  },
+  "network": {
+    "enableOfflineMode": false,
+    "requestTimeoutSeconds": 30,
+    "enableRetryOnFailure": true,
+    "maxRetryAttempts": 3,
+    "enableCaching": true,
+    "cacheExpirationMinutes": 60
+  },
+  "notifications": {
+    "enablePushNotifications": false,
+    "enableLocalNotifications": true,
+    "enableSound": true,
+    "enableVibration": true,
+    "enableBadgeCount": false,
+    "quietHoursStart": "22:00",
+    "quietHoursEnd": "08:00"
+  },
+  "privacy": {
+    "enableAnalytics": true,
+    "enableCrashReporting": true,
+    "enableUserTracking": false,
+    "enableLocationTracking": false,
+    "enableCameraAccess": false,
+    "enableMicrophoneAccess": false,
+    "dataRetentionDays": 90
+  },
+  "features": {
+    "enableTheming": true,
+    "enableNativeCommunication": true,
+    "enableBackgroundTasks": true,
+    "enableInternationalization": true,
+    "enableAccessibility": true,
+    "enableFileManagement": true,
+    "enableAdvancedProcessing": true,
+    "enableNavigationAnalytics": true,
+    "enableLifecycleManagement": true,
+    "enableTypographyShowcase": true
+  },
+  "debug": {
+    "enableLogging": true,
+    "logLevel": "info",
+    "enablePerformanceProfiling": false,
+    "enableMemoryProfiling": false,
+    "enableNetworkLogging": false,
+    "enableErrorReporting": true
+  },
+  "experimental": {
+    "enableNewUI": false,
+    "enableBetaFeatures": false,
+    "enableExperimentalAnimations": false,
+    "enableCustomFonts": true,
+    "enableAdvancedGestures": false
+  },
+  "lastUpdated": "2024-01-15T10:30:00Z",
+  "version": 1
+}

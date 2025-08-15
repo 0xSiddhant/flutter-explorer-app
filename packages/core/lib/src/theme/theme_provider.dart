@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app_theme.dart';
+import '../config/app_config_service.dart';
 
 /// Provider for managing application theme state
 class ThemeProvider {
@@ -48,9 +49,16 @@ class ThemeProvider {
   }
 
   /// Set dark mode
-  void setDarkMode(bool value) {
+  void setDarkMode(bool value) async {
     _isDarkMode = value;
     _notifyThemeChanged();
+
+    // Update configuration service
+    try {
+      await AppConfigService.instance.setValue('theme.isDarkMode', value);
+    } catch (e) {
+      // Silently handle errors to avoid breaking theme changes
+    }
   }
 
   /// Toggle high contrast
@@ -60,15 +68,29 @@ class ThemeProvider {
   }
 
   /// Set high contrast
-  void setHighContrast(bool value) {
+  void setHighContrast(bool value) async {
     _isHighContrast = value;
     _notifyThemeChanged();
+
+    // Update configuration service
+    try {
+      await AppConfigService.instance.setValue('theme.isHighContrast', value);
+    } catch (e) {
+      // Silently handle errors to avoid breaking theme changes
+    }
   }
 
   /// Set text scale factor
-  void setTextScaleFactor(double value) {
+  void setTextScaleFactor(double value) async {
     _textScaleFactor = value;
     _notifyThemeChanged();
+
+    // Update configuration service
+    try {
+      await AppConfigService.instance.setValue('theme.textScaleFactor', value);
+    } catch (e) {
+      // Silently handle errors to avoid breaking theme changes
+    }
   }
 
   /// Reset all theme settings to default
@@ -77,5 +99,37 @@ class ThemeProvider {
     _isHighContrast = false;
     _textScaleFactor = 1.0;
     _notifyThemeChanged();
+  }
+
+  /// Load theme settings from configuration service
+  Future<void> loadFromConfig() async {
+    try {
+      final isDarkMode =
+          AppConfigService.instance.getValue<bool>(
+            'theme.isDarkMode',
+            defaultValue: false,
+          ) ??
+          false;
+      final isHighContrast =
+          AppConfigService.instance.getValue<bool>(
+            'theme.isHighContrast',
+            defaultValue: false,
+          ) ??
+          false;
+      final textScaleFactor =
+          AppConfigService.instance.getValue<double>(
+            'theme.textScaleFactor',
+            defaultValue: 1.0,
+          ) ??
+          1.0;
+
+      _isDarkMode = isDarkMode;
+      _isHighContrast = isHighContrast;
+      _textScaleFactor = textScaleFactor;
+      _notifyThemeChanged();
+    } catch (e) {
+      // Silently handle errors to avoid breaking theme initialization
+      debugPrint('Error loading theme from config: $e');
+    }
   }
 }

@@ -1,0 +1,10 @@
+{
+  "app_title": "Explorador Flutter",
+  "settings": "Configuración",
+  "ok": "Aceptar",
+  "cancel": "Cancelar",
+  "initialization_failed": "Error de Inicialización",
+  "failed_to_initialize_service": "Error al inicializar {serviceName}.",
+  "error_label": "Error: {error}",
+  "initialization_error_message": "La aplicación no puede iniciar sin este servicio. Por favor, reinicie la aplicación o contacte con soporte si el problema persiste."
+}

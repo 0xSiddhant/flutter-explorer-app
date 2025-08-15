@@ -10,3 +10,6 @@ export 'src/isolate/examples/examples.dart';
 
 // Method channel exports
 export 'src/method_channel/method_channel.dart';
+
+// Configuration exports
+export 'src/config/app_config_service.dart';

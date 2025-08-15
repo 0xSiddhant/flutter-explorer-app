@@ -197,6 +197,12 @@ class AppLocalizations {
           'settings': 'Settings',
           'ok': 'OK',
           'cancel': 'Cancel',
+          // Initialization error handler strings
+          'initialization_failed': 'Initialization Failed',
+          'failed_to_initialize_service': 'Failed to initialize {serviceName}.',
+          'error_label': 'Error: {error}',
+          'initialization_error_message':
+              'The app cannot start without this service. Please restart the app or contact support if the problem persists.',
         };
         _isInitialized = true;
         debugPrint(

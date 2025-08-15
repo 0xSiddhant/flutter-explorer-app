@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
 import 'package:common/common.dart';
+import 'widgets/config_viewer_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -43,6 +44,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _buildSectionHeader('Accessibility'),
               _buildRTLToggle(),
               _buildAccessibilitySettings(),
+              const SizedBox(height: 24),
+              _buildSectionHeader('Configuration'),
+              _buildConfigurationSection(),
               const SizedBox(height: 24),
               _buildSectionHeader('About'),
               _buildAboutSection(),
@@ -177,6 +181,117 @@ class _SettingsScreenState extends State<SettingsScreen> {
           },
         ),
       ],
+    );
+  }
+
+  Widget _buildConfigurationSection() {
+    return Card(
+      child: Column(
+        children: [
+          ListTile(
+            leading: Icon(
+              Icons.code,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            title: const Text('Configuration Viewer'),
+            subtitle: const Text('View raw JSON configuration file'),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ConfigViewerWidget(),
+                ),
+              );
+            },
+          ),
+          const Divider(height: 1),
+          ListTile(
+            leading: Icon(
+              Icons.refresh,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            title: const Text('Reload Configuration'),
+            subtitle: const Text('Refresh configuration from file'),
+            onTap: () async {
+              try {
+                await AppConfigService.instance.reload();
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Configuration reloaded successfully'),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                }
+              } catch (e) {
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Error reloading configuration: $e'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              }
+            },
+          ),
+          const Divider(height: 1),
+          ListTile(
+            leading: Icon(
+              Icons.restore,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            title: const Text('Reset to Default'),
+            subtitle: const Text('Reset all settings to default values'),
+            onTap: () async {
+              final confirmed = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Reset Configuration'),
+                  content: const Text(
+                    'Are you sure you want to reset all configuration to default values? '
+                    'This action cannot be undone.',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: const Text('Reset'),
+                    ),
+                  ],
+                ),
+              );
+
+              if (confirmed == true) {
+                try {
+                  await AppConfigService.instance.resetToDefault();
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Configuration reset to default'),
+                        backgroundColor: Colors.orange,
+                      ),
+                    );
+                  }
+                } catch (e) {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Error resetting configuration: $e'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                }
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 

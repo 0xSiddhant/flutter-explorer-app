@@ -1,0 +1,10 @@
+{
+  "app_title": "Flutter Explorer",
+  "settings": "Settings",
+  "ok": "OK",
+  "cancel": "Cancel",
+  "initialization_failed": "Initialization Failed",
+  "failed_to_initialize_service": "Failed to initialize {serviceName}.",
+  "error_label": "Error: {error}",
+  "initialization_error_message": "The app cannot start without this service. Please restart the app or contact support if the problem persists."
+}
