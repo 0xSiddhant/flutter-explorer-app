@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'navigation_observer.dart';
+import 'comprehensive_navigation_observer.dart';
 import 'route_observer.dart';
+import '../page_transitions/page_transitions.dart';
 import 'package:screens/detail_screen/detail_screen.dart';
 import 'package:screens/tab_screen/tab_screen.dart';
 import 'package:screens/theming/theming_screen.dart';
@@ -20,13 +21,19 @@ class AppRouteManager {
 
   // Create custom route observer instance
   static final AppRouteObserver _routeObserver = AppRouteObserver();
+  static final ComprehensiveNavigationObserver _comprehensiveObserver =
+      ComprehensiveNavigationObserver();
 
   /// Get the route observer instance
   static AppRouteObserver get routeObserver => _routeObserver;
 
+  /// Get the comprehensive navigation observer instance
+  static ComprehensiveNavigationObserver get comprehensiveObserver =>
+      _comprehensiveObserver;
+
   static final GoRouter router = GoRouter(
     observers: [
-      MyNavigatorObserver(),
+      _comprehensiveObserver, // Add comprehensive navigation observer
       _routeObserver, // Add custom route observer
     ],
     initialLocation: '/splash',
@@ -48,71 +55,101 @@ class AppRouteManager {
           GoRoute(
             path: 'details',
             name: 'details',
-            builder: (BuildContext context, GoRouterState state) {
-              return const DetailScreen();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return SlideUpAnimation.buildPage(
+                child: const DetailScreen(),
+                state: state,
+              );
             },
           ),
           GoRoute(
             path: 'theming',
             name: 'theming',
-            builder: (BuildContext context, GoRouterState state) {
-              return const ThemingScreen();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return SlideRightAnimation.buildPage(
+                child: const ThemingScreen(),
+                state: state,
+              );
             },
           ),
           GoRoute(
             path: 'native-communication',
             name: 'native-communication',
-            builder: (BuildContext context, GoRouterState state) {
-              return const NativeCommunicationScreen();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return ScaleAnimation.buildPage(
+                child: const NativeCommunicationScreen(),
+                state: state,
+              );
             },
           ),
           GoRoute(
             path: 'background-tasks',
             name: 'background-tasks',
-            builder: (BuildContext context, GoRouterState state) {
-              return const BackgroundTasksScreen();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return RotationAnimation.buildPage(
+                child: const BackgroundTasksScreen(),
+                state: state,
+              );
             },
           ),
           GoRoute(
             path: 'internationalization',
             name: 'internationalization',
-            builder: (BuildContext context, GoRouterState state) {
-              return const InternationalizationScreen();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return FadeScaleAnimation.buildPage(
+                child: const InternationalizationScreen(),
+                state: state,
+              );
             },
           ),
           GoRoute(
             path: 'accessibility',
             name: 'accessibility',
-            builder: (BuildContext context, GoRouterState state) {
-              return const AccessibilityScreen();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return SlideDiagonalAnimation.buildPage(
+                child: const AccessibilityScreen(),
+                state: state,
+              );
             },
           ),
           GoRoute(
             path: 'file-management',
             name: 'file-management',
-            builder: (BuildContext context, GoRouterState state) {
-              return const FileManagementScreen();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return BounceAnimation.buildPage(
+                child: const FileManagementScreen(),
+                state: state,
+              );
             },
           ),
           GoRoute(
             path: 'advanced-processing',
             name: 'advanced-processing',
-            builder: (BuildContext context, GoRouterState state) {
-              return const AdvancedProcessingScreen();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return FlipAnimation.buildPage(
+                child: const AdvancedProcessingScreen(),
+                state: state,
+              );
             },
           ),
           GoRoute(
             path: 'navigation-analytics',
             name: 'navigation-analytics',
-            builder: (BuildContext context, GoRouterState state) {
-              return const NavigationAnalyticsScreen();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return SlideFadeAnimation.buildPage(
+                child: const NavigationAnalyticsScreen(),
+                state: state,
+              );
             },
           ),
           GoRoute(
             path: 'lifecycle-management',
             name: 'lifecycle-management',
-            builder: (BuildContext context, GoRouterState state) {
-              return const LifecycleManagementScreen();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return SlideLeftAnimation.buildPage(
+                child: const LifecycleManagementScreen(),
+                state: state,
+              );
             },
           ),
         ],

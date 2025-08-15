@@ -7,3 +7,4 @@ export 'src/theme/theme_provider.dart';
 export 'src/isolate/isolate_manager.dart';
 export 'src/isolate/examples/examples.dart';
 export 'src/method_channel/method_channel.dart';
+export 'src/page_transitions/page_transitions.dart';

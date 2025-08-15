@@ -193,10 +193,21 @@ class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
     Duration? timeSpent,
   ]) {
     final timestamp = DateTime.now().toIso8601String();
-    final timeSpentStr = timeSpent != null ? ' (${timeSpent.inSeconds}s)' : '';
+    final actionIcon =
+        {'PUSH': '➡️', 'POP': '⬅️', 'REPLACE': '♻️', 'REMOVE': '🗑️'}[action] ??
+        '🔄';
+
+    final prev = previousRoute?.isNotEmpty == true ? previousRoute : '-';
+    final curr = currentRoute?.isNotEmpty == true ? currentRoute : '-';
+    final visitCount = currentRoute != null
+        ? (_screenVisitCount[currentRoute] ?? 0)
+        : 0;
+    final timePart = timeSpent != null
+        ? ' | timeSpent=${timeSpent.inSeconds}s'
+        : '';
 
     print(
-      '🔄 Navigation: $action | Current: $currentRoute | Previous: $previousRoute$timeSpentStr | Time: $timestamp',
+      '$actionIcon $action: $prev → $curr | visit#$visitCount | @ $timestamp$timePart',
     );
   }
 }

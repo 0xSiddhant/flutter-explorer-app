@@ -24,6 +24,61 @@ class AnalyticsData {
     AppRouteManager.clearNavigationHistory();
   }
 
+  // New comprehensive analytics methods
+  static Map<String, List<Duration>> getScreenPerformanceData() {
+    return AppRouteManager.comprehensiveObserver.screenPerformanceData;
+  }
+
+  static Map<String, int> getNavigationErrors() {
+    return AppRouteManager.comprehensiveObserver.navigationErrors;
+  }
+
+  static Map<String, List<Duration>> getTimeSpentPerScreen() {
+    return AppRouteManager.comprehensiveObserver.timeSpentPerScreen;
+  }
+
+  static List<String> getNavigationPatterns() {
+    return AppRouteManager.comprehensiveObserver.navigationPatterns;
+  }
+
+  static Duration? getSessionDuration() {
+    return AppRouteManager.comprehensiveObserver.sessionDuration;
+  }
+
+  static List<MapEntry<String, Duration>> getScreensWithHighestTimeSpent() {
+    return AppRouteManager.comprehensiveObserver
+        .getScreensWithHighestTimeSpent();
+  }
+
+  static Duration getAverageTimeSpentOnScreen(String routeName) {
+    return AppRouteManager.comprehensiveObserver.getAverageTimeSpentOnScreen(
+      routeName,
+    );
+  }
+
+  static void recordNavigationError(String routeName, String error) {
+    AppRouteManager.comprehensiveObserver.recordNavigationError(
+      routeName,
+      error,
+    );
+  }
+
+  static void startSession() {
+    AppRouteManager.comprehensiveObserver.startSession();
+  }
+
+  static void endSession() {
+    AppRouteManager.comprehensiveObserver.endSession();
+  }
+
+  static Map<String, dynamic> getComprehensiveAnalytics() {
+    return AppRouteManager.comprehensiveObserver.getComprehensiveAnalytics();
+  }
+
+  static void clearComprehensiveData() {
+    AppRouteManager.comprehensiveObserver.clearComprehensiveData();
+  }
+
   static String formatRouteName(String routeName) {
     switch (routeName) {
       case 'home':

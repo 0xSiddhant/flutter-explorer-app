@@ -3,6 +3,11 @@ import 'package:core/core.dart';
 import 'package:common/common.dart';
 import 'data/analytics_data.dart';
 import 'models/analytics_model.dart';
+import 'widgets/overview_tab_widget.dart';
+import 'widgets/performance_tab_widget.dart';
+import 'widgets/user_behavior_tab_widget.dart';
+import 'widgets/session_data_tab_widget.dart';
+import 'widgets/errors_tab_widget.dart';
 
 class NavigationAnalyticsScreen extends StatefulWidget {
   const NavigationAnalyticsScreen({super.key});
@@ -13,21 +18,39 @@ class NavigationAnalyticsScreen extends StatefulWidget {
 }
 
 class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
-    with RouteAwareMixin {
+    with RouteAwareMixin, TickerProviderStateMixin {
   AnalyticsModel? _analytics;
   List<String> _navigationHistory = [];
   List<MapEntry<String, int>> _mostVisitedScreens = [];
+  final String _currentRoute = 'navigation-analytics';
+  DateTime? _screenEntryTime;
+  late TabController _tabController;
+  Map<String, dynamic>? _comprehensiveAnalytics;
 
   @override
   void initState() {
     super.initState();
+    _screenEntryTime = DateTime.now();
+    _tabController = TabController(length: 5, vsync: this);
     _loadAnalytics();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
   void onScreenVisible() {
     super.onScreenVisible();
+    _screenEntryTime = DateTime.now();
     _loadAnalytics();
+  }
+
+  @override
+  void onScreenInvisible() {
+    super.onScreenInvisible();
   }
 
   void _loadAnalytics() {
@@ -35,6 +58,7 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
       _analytics = AnalyticsData.getAnalytics();
       _navigationHistory = AnalyticsData.getNavigationHistory();
       _mostVisitedScreens = AnalyticsData.getMostVisitedScreens();
+      _comprehensiveAnalytics = AnalyticsData.getComprehensiveAnalytics();
     });
   }
 
@@ -44,227 +68,81 @@ class _NavigationAnalyticsScreenState extends State<NavigationAnalyticsScreen>
       appBar: AppBar(
         title: Text(AppLocalizations.getString('navigation_analytics', 'en')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        bottom: TabBar(
+          controller: _tabController,
+          isScrollable: true,
+          tabs: [
+            Tab(text: AppLocalizations.getString('overview', 'en')),
+            Tab(text: AppLocalizations.getString('performance', 'en')),
+            Tab(text: AppLocalizations.getString('user_behavior', 'en')),
+            Tab(text: AppLocalizations.getString('session_data', 'en')),
+            Tab(text: AppLocalizations.getString('errors', 'en')),
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: _loadAnalytics,
-            tooltip: 'Refresh Analytics',
+            tooltip: AppLocalizations.getString('refresh_analytics', 'en'),
           ),
           IconButton(
             icon: const Icon(Icons.clear_all),
             onPressed: _clearHistory,
-            tooltip: 'Clear History',
+            tooltip: AppLocalizations.getString('clear_analytics', 'en'),
           ),
         ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildOverviewCard(),
-              const SizedBox(height: 16),
-              _buildScreenVisitCard(),
-              const SizedBox(height: 16),
-              _buildNavigationHistoryCard(),
-              const SizedBox(height: 16),
-              _buildCurrentScreenInfo(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOverviewCard() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Navigation Overview',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 12),
-            if (_analytics != null) ...[
-              _buildStatRow(
-                'Total Navigations',
-                _analytics!.totalNavigations.toString(),
-              ),
-              _buildStatRow(
-                'Unique Screens',
-                _analytics!.uniqueScreens.toString(),
-              ),
-              _buildStatRow(
-                'Most Visited',
-                _analytics!.mostVisitedScreen ?? 'None',
-              ),
-            ] else ...[
-              Text(AppLocalizations.getString('no_analytics_available', 'en')),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildScreenVisitCard() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Screen Visit Count',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 12),
-            if (_mostVisitedScreens.isNotEmpty) ...[
-              ..._mostVisitedScreens.map(
-                (entry) => _buildVisitCountRow(entry.key, entry.value),
-              ),
-            ] else ...[
-              Text(AppLocalizations.getString('no_screen_visits', 'en')),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavigationHistoryCard() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Navigation History',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 12),
-            if (_navigationHistory.isNotEmpty) ...[
-              SizedBox(
-                height: 200,
-                child: ListView.builder(
-                  itemCount: _navigationHistory.length,
-                  itemBuilder: (context, index) {
-                    final route = _navigationHistory[index];
-                    return ListTile(
-                      leading: CircleAvatar(child: Text('${index + 1}')),
-                      title: Text(_formatRouteName(route)),
-                      subtitle: Text(
-                        '${AppLocalizations.getString('navigation_number', 'en')} ${index + 1}',
-                      ),
-                      dense: true,
-                    );
-                  },
-                ),
-              ),
-            ] else ...[
-              Text(AppLocalizations.getString('no_navigation_history', 'en')),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCurrentScreenInfo() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Current Screen Info',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 12),
-            _buildStatRow('Current Route', currentRouteName ?? 'Unknown'),
-            if (timeSpentOnScreen != null) ...[
-              _buildStatRow(
-                'Time Spent',
-                '${timeSpentOnScreen!.inSeconds} seconds',
-              ),
-            ],
-            _buildStatRow(
-              'Visit Count',
-              getScreenVisitCount(currentRouteName ?? '').toString(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStatRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: TabBarView(
+        controller: _tabController,
         children: [
-          Text(label, style: Theme.of(context).textTheme.bodyMedium),
-          Text(
-            value,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+          OverviewTabWidget(
+            analytics: _analytics,
+            navigationHistory: _navigationHistory,
+            mostVisitedScreens: _mostVisitedScreens,
+            currentRoute: _currentRoute,
+            screenEntryTime: _screenEntryTime,
           ),
+          PerformanceTabWidget(comprehensiveAnalytics: _comprehensiveAnalytics),
+          UserBehaviorTabWidget(
+            comprehensiveAnalytics: _comprehensiveAnalytics,
+          ),
+          SessionDataTabWidget(comprehensiveAnalytics: _comprehensiveAnalytics),
+          ErrorsTabWidget(comprehensiveAnalytics: _comprehensiveAnalytics),
         ],
       ),
     );
-  }
-
-  Widget _buildVisitCountRow(String routeName, int count) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Text(
-              _formatRouteName(routeName),
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              count.toString(),
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  String _formatRouteName(String routeName) {
-    return AnalyticsData.formatRouteName(routeName);
   }
 
   void _clearHistory() {
-    AnalyticsData.clearHistory();
-    _loadAnalytics();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.getString('clear_analytics', 'en')),
         content: Text(
-          AppLocalizations.getString('navigation_history_cleared', 'en'),
+          AppLocalizations.getString('clear_analytics_confirmation', 'en'),
         ),
-        duration: const Duration(seconds: 2),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(AppLocalizations.getString('cancel', 'en')),
+          ),
+          TextButton(
+            onPressed: () {
+              AnalyticsData.clearHistory();
+              AnalyticsData.clearComprehensiveData();
+              Navigator.of(context).pop();
+              _loadAnalytics();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    AppLocalizations.getString('analytics_cleared', 'en'),
+                  ),
+                ),
+              );
+            },
+            child: Text(AppLocalizations.getString('clear', 'en')),
+          ),
+        ],
       ),
     );
   }

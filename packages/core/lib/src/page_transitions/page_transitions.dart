@@ -1,0 +1,10 @@
+export 'slide_up_animation.dart';
+export 'slide_right_animation.dart';
+export 'scale_animation.dart';
+export 'rotation_animation.dart';
+export 'fade_scale_animation.dart';
+export 'slide_diagonal_animation.dart';
+export 'bounce_animation.dart';
+export 'flip_animation.dart';
+export 'slide_fade_animation.dart';
+export 'slide_left_animation.dart';
