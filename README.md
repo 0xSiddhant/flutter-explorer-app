@@ -161,7 +161,19 @@ the_router/
   - **Modular Architecture**: Organized into models, data, and widgets
   - **Performance Optimized**: Smooth animations with accessibility
 
-### 6. **Theming System**
+### 6. **Scroll State Preservation** 🆕
+
+- **Technology**: `AutomaticKeepAliveClientMixin` with `PageStorageKey`
+- **Features**:
+  - **Tab Scroll Preservation**: Maintains scroll position when switching between tabs
+  - **AutomaticKeepAliveClientMixin**: Keeps widget instances alive during tab switches
+  - **PageStorageKey**: Flutter automatically saves and restores scroll positions
+  - **ScrollController Management**: Proper scroll state management with disposal
+  - **Language Change Compatible**: Preserves scroll state during language switches
+  - **RTL Support Compatible**: Works with both LTR and RTL layouts
+  - **Memory Efficient**: Only keeps necessary widgets alive, proper resource disposal
+
+### 7. **Theming System**
 
 - **Technology**: Material 3 theming with custom provider
 - **Features**:
@@ -172,7 +184,7 @@ the_router/
   - Real-time theme preview
   - Theme persistence
 
-### 7. **Background Processing**
+### 8. **Background Processing**
 
 - **Technology**: Dart Isolates with comprehensive examples
 - **Features**:
@@ -184,7 +196,7 @@ the_router/
   - **Data Processor**: File and data analysis
   - Progress tracking and performance benchmarking
 
-### 8. **File Management**
+### 9. **File Management**
 
 - **Technology**: `path_provider` and `dart:io`
 - **Features**:
@@ -194,7 +206,7 @@ the_router/
   - Error handling and user feedback
   - Sample file creation and processing
 
-### 9. **Lifecycle Management**
+### 10. **Lifecycle Management**
 
 - **Technology**: Widget lifecycle tracking with RouteAware
 - **Features**:
@@ -205,7 +217,7 @@ the_router/
   - **Performance Metrics**: Screen-specific performance data
   - **Memory Management**: Resource allocation tracking
 
-### 10. **Comprehensive Navigation Analytics** 🆕
+### 11. **Comprehensive Navigation Analytics** 🆕
 
 - **Technology**: Dual RouteObserver system with modular architecture
 - **Features**:
@@ -234,7 +246,7 @@ the_router/
     - Centralized data management
     - Clean separation of concerns
 
-### 11. **Main.dart Refactoring & Asset-Based Configuration** 🆕
+### 12. **Main.dart Refactoring & Asset-Based Configuration** 🆕
 
 - **Technology**: Modular architecture with asset-based configuration system
 - **Features**:
@@ -348,6 +360,7 @@ the_router/
 - **Code Organization**: Separated concerns with dedicated utility files
 - **Internationalization**: Complete RTL support with clean architecture
 - **Import Management**: Optimized imports with no unused dependencies
+- **Scroll State Management**: AutomaticKeepAliveClientMixin for preserving tab scroll positions
 
 ### Advanced Features
 
@@ -367,6 +380,7 @@ the_router/
 - **Robust Initialization**: Multi-layer error handling for critical services
 - **Modular Main Entry**: Clean separation of app initialization and widget logic
 - **RTL Support**: Complete Right-to-Left text direction with automatic UI adaptation
+- **Scroll State Preservation**: AutomaticKeepAliveClientMixin with PageStorageKey for tab scroll preservation
 
 ### Accessibility
 
@@ -406,6 +420,7 @@ the_router/
 13. Test asset access across packages
 14. Ensure RTL compatibility for internationalization features
 15. Test import dependencies and remove unused imports
+16. Implement scroll state preservation for tab screens using AutomaticKeepAliveClientMixin
 
 ### Modular Architecture Guidelines
 
@@ -438,6 +453,7 @@ the_router/
 - Configuration viewer functionality testing
 - Import dependency testing (no unused imports)
 - RTL UI adaptation testing for Arabic language
+- Scroll state preservation testing for tab screens
 
 ## 📚 Dependencies
 
@@ -783,6 +799,53 @@ Text(
 // No manual RTL handling needed in individual widgets
 ```
 
+### Scroll State Preservation
+
+```dart
+// Tab screens with AutomaticKeepAliveClientMixin
+class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin {
+  late ScrollController _scrollController;
+  
+  @override
+  bool get wantKeepAlive => true;
+  
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+  
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    super.build(context); // Required for AutomaticKeepAliveClientMixin
+    return GridView.builder(
+      controller: _scrollController,
+      key: const PageStorageKey<String>('home_screen_grid'),
+      // ... rest of implementation
+    );
+  }
+}
+
+// TabBarView with PageStorageKey
+TabBarView(
+  controller: _tabController,
+  children: _tabItems.asMap().entries.map((entry) {
+    final index = entry.key;
+    final tab = entry.value;
+    return KeyedSubtree(
+      key: PageStorageKey<String>('tab_$index'),
+      child: tab.screen,
+    );
+  }).toList(),
+)
+```
+
 ### Localization Architecture
 
 The project implements a clean localization architecture:
@@ -830,4 +893,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**Note**: This project demonstrates enterprise-level Flutter development with comprehensive navigation analytics (dual observer system), lifecycle management, advanced background processing, custom page transitions, enhanced native communication, animated splash screen, advanced internationalization with complete RTL support, comprehensive accessibility features, optimized package exports, RouteModel architecture, tab-based navigation with proper back button support, modular architecture, asset-based configuration system, robust initialization with error handling, cross-package asset access, and clean dependency management with no unused imports. It serves as a reference for building production-ready Flutter applications with professional architecture and best practices.
+**Note**: This project demonstrates enterprise-level Flutter development with comprehensive navigation analytics (dual observer system), lifecycle management, advanced background processing, custom page transitions, enhanced native communication, animated splash screen, advanced internationalization with complete RTL support, comprehensive accessibility features, optimized package exports, RouteModel architecture, tab-based navigation with proper back button support, modular architecture, asset-based configuration system, robust initialization with error handling, cross-package asset access, clean dependency management with no unused imports, and scroll state preservation with AutomaticKeepAliveClientMixin. It serves as a reference for building production-ready Flutter applications with professional architecture and best practices.

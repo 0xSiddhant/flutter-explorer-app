@@ -13,17 +13,23 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _SettingsScreenState extends State<SettingsScreen>
+    with AutomaticKeepAliveClientMixin {
   final ThemeProvider _themeProvider = ThemeProvider.instance;
+
+  @override
+  bool get wantKeepAlive => true;
   Map<String, dynamic> _config = {};
   bool _isLoading = true;
   String? _selectedLanguage;
   Map<String, dynamic>? _appInfo;
   List<SettingsSection> _sections = [];
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController();
     _initializeSettings();
 
     // Set up callback to rebuild screen when theme changes
@@ -97,7 +103,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _themeProvider.setTextScaleFactor(value as double);
       }
     } catch (e) {
-      SettingsService.showErrorMessage(context, 'Error updating setting: $e');
+      if (mounted) {
+        SettingsService.showErrorMessage(context, 'Error updating setting: $e');
+      }
     }
   }
 
@@ -112,12 +120,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
       // The LanguageChangeListener will automatically notify all listeners
       // including HomeScreen and other screens
 
-      SettingsService.showSuccessMessage(
-        context,
-        'Language changed to ${AppLocalizations.getLanguageByCode(languageCode)?.name ?? languageCode}',
-      );
+      if (mounted) {
+        SettingsService.showSuccessMessage(
+          context,
+          'Language changed to ${AppLocalizations.getLanguageByCode(languageCode)?.name ?? languageCode}',
+        );
+      }
     } catch (e) {
-      SettingsService.showErrorMessage(context, 'Error changing language: $e');
+      if (mounted) {
+        SettingsService.showErrorMessage(
+          context,
+          'Error changing language: $e',
+        );
+      }
     }
   }
 
@@ -127,15 +142,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
       await _loadConfiguration();
       _buildSections();
 
-      SettingsService.showSuccessMessage(
-        context,
-        'Configuration reloaded successfully',
-      );
+      if (mounted) {
+        SettingsService.showSuccessMessage(
+          context,
+          'Configuration reloaded successfully',
+        );
+      }
     } catch (e) {
-      SettingsService.showErrorMessage(
-        context,
-        'Error reloading configuration: $e',
-      );
+      if (mounted) {
+        SettingsService.showErrorMessage(
+          context,
+          'Error reloading configuration: $e',
+        );
+      }
     }
   }
 
@@ -150,15 +169,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
         await _loadConfiguration();
         _buildSections();
 
-        SettingsService.showSuccessMessage(
-          context,
-          'Configuration reset to default',
-        );
+        if (mounted) {
+          SettingsService.showSuccessMessage(
+            context,
+            'Configuration reset to default',
+          );
+        }
       } catch (e) {
-        SettingsService.showErrorMessage(
-          context,
-          'Error resetting configuration: $e',
-        );
+        if (mounted) {
+          SettingsService.showErrorMessage(
+            context,
+            'Error resetting configuration: $e',
+          );
+        }
       }
     }
   }
@@ -171,7 +194,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context); // Required for AutomaticKeepAliveClientMixin
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(
@@ -189,6 +219,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          controller: _scrollController,
+          key: const PageStorageKey<String>('settings_screen_scroll'),
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: _sections.map((section) {

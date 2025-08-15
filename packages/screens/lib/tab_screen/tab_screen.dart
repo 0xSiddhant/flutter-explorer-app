@@ -77,7 +77,14 @@ class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
     return Scaffold(
       body: TabBarView(
         controller: _tabController,
-        children: _tabItems.map((tab) => tab.screen).toList(),
+        children: _tabItems.asMap().entries.map((entry) {
+          final index = entry.key;
+          final tab = entry.value;
+          return KeyedSubtree(
+            key: PageStorageKey<String>('tab_$index'),
+            child: tab.screen,
+          );
+        }).toList(),
       ),
       bottomNavigationBar: TabNavigationWidget(
         currentIndex: _currentIndex,
