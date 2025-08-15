@@ -1,4 +1,3 @@
-import 'package:core/core.dart';
 // Main screens
 export './splash_screen/splash_screen.dart';
 export './home_screen/home_screen.dart';

@@ -1,4 +1,3 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:screens/tab_screen/widgets/tab_item_widget.dart';
 import '../services/tab_service.dart';

@@ -1,4 +1,3 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import '../data/tab_data.dart';
 import '../models/tab_item_model.dart';

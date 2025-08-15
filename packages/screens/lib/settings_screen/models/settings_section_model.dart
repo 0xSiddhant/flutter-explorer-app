@@ -1,4 +1,3 @@
-import 'package:core/core.dart';
 /// Model representing a settings section
 class SettingsSection {
   final String title;
@@ -34,10 +33,4 @@ class SettingsItem {
 }
 
 /// Types of settings items
-enum SettingsItemType {
-  switch_,
-  slider,
-  dropdown,
-  button,
-  info,
-}
+enum SettingsItemType { switch_, slider, dropdown, button, info }

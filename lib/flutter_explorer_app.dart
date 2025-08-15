@@ -42,11 +42,20 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
       theme: _themeProvider.currentTheme,
       routerConfig: AppRouteManager.router,
       builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            textScaler: TextScaler.linear(_themeProvider.textScaleFactor),
+        // Get current language from LanguageChangeListener
+        final currentLanguage = LanguageChangeListener.instance.currentLanguage;
+        final textDirection = AppLocalizations.getTextDirectionForLocale(
+          Locale(currentLanguage),
+        );
+
+        return Directionality(
+          textDirection: textDirection,
+          child: MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaler: TextScaler.linear(_themeProvider.textScaleFactor),
+            ),
+            child: child!,
           ),
-          child: child!,
         );
       },
     );

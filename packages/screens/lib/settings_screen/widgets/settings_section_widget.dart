@@ -1,4 +1,3 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import '../models/settings_section_model.dart';
 import 'settings_item_widget.dart';
