@@ -1,8 +1,11 @@
+// Main screens
 export './splash_screen/splash_screen.dart';
 export './home_screen/home_screen.dart';
 export './settings_screen/settings_screen.dart';
 export './tab_screen/tab_screen.dart';
 export './detail_screen/detail_screen.dart';
+
+// Feature screens
 export './theming/theming_screen.dart';
 export './native_communication/native_communication_screen.dart';
 export './background_tasks/background_tasks_screen.dart';

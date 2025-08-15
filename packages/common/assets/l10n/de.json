@@ -150,5 +150,9 @@
   "select_font": "Schriftart auswählen",
   "font_information": "Schriftart-Information",
   "font_support_description": "Noto Sans bietet ausgezeichnete Unterstützung für alle unterstützten Sprachen einschließlich arabischer und japanischer Skripte.",
-  "typography_description": "Entdecken Sie sprachspezifische Typografie mit Noto Sans-Schriftarten. Wechseln Sie zwischen Sprachen und Schriftarten, um zu sehen, wie die Textdarstellung sich an verschiedene Skripte und Schriftsysteme anpasst."
+  "typography_description": "Entdecken Sie sprachspezifische Typografie mit Noto Sans-Schriftarten. Wechseln Sie zwischen Sprachen und Schriftarten, um zu sehen, wie die Textdarstellung sich an verschiedene Skripte und Schriftsysteme anpasst.",
+  "error_screen_title": "Seite Nicht Gefunden",
+  "error_screen_message": "Die gesuchte Seite existiert nicht.",
+  "error_screen_action": "Erneut Versuchen",
+  "error_screen_go_home": "Zur Startseite"
 }

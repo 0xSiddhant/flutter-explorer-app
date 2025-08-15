@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
   screens:
     path: ../screens
+  common:
+    path: ../common
   go_router: ^16.1.0
 
 dev_dependencies:

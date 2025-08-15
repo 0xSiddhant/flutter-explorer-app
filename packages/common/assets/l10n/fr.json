@@ -150,5 +150,9 @@
   "select_font": "Sélectionner la Police",
   "font_information": "Informations sur la Police",
   "font_support_description": "Noto Sans fournit un excellent support pour toutes les langues prises en charge, y compris les scripts arabes et japonais.",
-  "typography_description": "Explorez la typographie spécifique à la langue avec les polices Noto Sans. Changez entre les langues et les polices pour voir comment le rendu du texte s'adapte aux différents scripts et systèmes d'écriture."
+  "typography_description": "Explorez la typographie spécifique à la langue avec les polices Noto Sans. Changez entre les langues et les polices pour voir comment le rendu du texte s'adapte aux différents scripts et systèmes d'écriture.",
+  "error_screen_title": "Page Non Trouvée",
+  "error_screen_message": "La page que vous recherchez n'existe pas.",
+  "error_screen_action": "Réessayer",
+  "error_screen_go_home": "Aller à l'Accueil"
 }

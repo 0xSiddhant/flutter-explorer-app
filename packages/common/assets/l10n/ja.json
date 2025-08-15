@@ -150,5 +150,9 @@
   "select_font": "フォントを選択",
   "font_information": "フォント情報",
   "font_support_description": "Noto Sansは、アラビア語や日本語のスクリプトを含む、すべてのサポートされている言語に対して優れたサポートを提供します。",
-  "typography_description": "Noto Sansフォントを使用した言語固有のタイポグラフィを探索します。言語とフォントを切り替えて、テキストレンダリングが異なるスクリプトと書記体系にどのように適応するかを確認してください。"
+  "typography_description": "Noto Sansフォントを使用した言語固有のタイポグラフィを探索します。言語とフォントを切り替えて、テキストレンダリングが異なるスクリプトと書記体系にどのように適応するかを確認してください。",
+  "error_screen_title": "ページが見つかりません",
+  "error_screen_message": "お探しのページは存在しません。",
+  "error_screen_action": "再試行",
+  "error_screen_go_home": "ホームに戻る"
 }

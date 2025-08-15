@@ -150,7 +150,7 @@ class _SplashScreenState extends State<SplashScreen>
   void _navigateToHome() async {
     await _fadeController.forward();
     if (mounted) {
-      AppRouteManager.navigateToHome(context);
+      AppRouteManager.navigateToTabScreen(context);
     }
   }
 

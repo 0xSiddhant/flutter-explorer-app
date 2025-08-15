@@ -150,5 +150,9 @@
   "select_font": "Seleccionar Fuente",
   "font_information": "Información de Fuente",
   "font_support_description": "Noto Sans proporciona excelente soporte para todos los idiomas soportados incluyendo scripts árabes y japoneses.",
-  "typography_description": "Explora la tipografía específica del idioma con fuentes Noto Sans. Cambia entre idiomas y fuentes para ver cómo la renderización del texto se adapta a diferentes scripts y sistemas de escritura."
+  "typography_description": "Explora la tipografía específica del idioma con fuentes Noto Sans. Cambia entre idiomas y fuentes para ver cómo la renderización del texto se adapta a diferentes scripts y sistemas de escritura.",
+  "error_screen_title": "Página No Encontrada",
+  "error_screen_message": "La página que buscas no existe.",
+  "error_screen_action": "Intentar de Nuevo",
+  "error_screen_go_home": "Ir al Inicio"
 }
