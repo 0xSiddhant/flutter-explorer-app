@@ -145,5 +145,10 @@
   "theming": "السمات",
   "background_tasks": "المهام الخلفية",
   "accessibility": "إمكانية الوصول",
-  "file_management": "إدارة الملفات"
+  "file_management": "إدارة الملفات",
+  "typography_showcase": "عرض الطباعة",
+  "select_font": "اختر الخط",
+  "font_information": "معلومات الخط",
+  "font_support_description": "يوفر Noto Sans دعمًا ممتازًا لجميع اللغات المدعومة بما في ذلك النصوص العربية واليابانية.",
+  "typography_description": "استكشف الطباعة الخاصة باللغة مع خطوط Noto Sans. انتقل بين اللغات والخطوط لترى كيف يتكيف عرض النص مع النصوص وأنظمة الكتابة المختلفة."
 }

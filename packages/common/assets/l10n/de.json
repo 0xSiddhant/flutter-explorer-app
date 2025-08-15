@@ -145,5 +145,10 @@
   "theming": "Themen",
   "background_tasks": "Hintergrundaufgaben",
   "accessibility": "Barrierefreiheit",
-  "file_management": "Dateiverwaltung"
+  "file_management": "Dateiverwaltung",
+  "typography_showcase": "Typografie-Vorschau",
+  "select_font": "Schriftart auswählen",
+  "font_information": "Schriftart-Information",
+  "font_support_description": "Noto Sans bietet ausgezeichnete Unterstützung für alle unterstützten Sprachen einschließlich arabischer und japanischer Skripte.",
+  "typography_description": "Entdecken Sie sprachspezifische Typografie mit Noto Sans-Schriftarten. Wechseln Sie zwischen Sprachen und Schriftarten, um zu sehen, wie die Textdarstellung sich an verschiedene Skripte und Schriftsysteme anpasst."
 }

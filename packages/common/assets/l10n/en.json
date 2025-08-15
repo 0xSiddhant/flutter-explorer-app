@@ -145,5 +145,10 @@
   "theming": "Theming",
   "background_tasks": "Background Tasks",
   "accessibility": "Accessibility",
-  "file_management": "File Management"
+  "file_management": "File Management",
+  "typography_showcase": "Typography Showcase",
+  "select_font": "Select Font",
+  "font_information": "Font Information",
+  "font_support_description": "Noto Sans provides excellent support for all supported languages including Arabic and Japanese scripts.",
+  "typography_description": "Explore language-specific typography with Noto Sans fonts. Switch between languages and fonts to see how text rendering adapts to different scripts and writing systems."
 }

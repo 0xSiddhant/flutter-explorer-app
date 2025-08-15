@@ -23,36 +23,54 @@ class AppLocalizations {
       name: 'English',
       nativeName: 'English',
       textDirection: TextDirection.ltr,
+      primaryFontFamily: 'NotoSans',
+      secondaryFontFamily: 'Roboto',
+      availableFontFamilies: ['NotoSans', 'Roboto', 'Inter'],
     ),
     LanguageModel(
       code: 'es',
       name: 'Spanish',
       nativeName: 'Español',
       textDirection: TextDirection.ltr,
+      primaryFontFamily: 'NotoSans',
+      secondaryFontFamily: 'Roboto',
+      availableFontFamilies: ['NotoSans', 'Roboto', 'Inter'],
     ),
     LanguageModel(
       code: 'fr',
       name: 'French',
       nativeName: 'Français',
       textDirection: TextDirection.ltr,
+      primaryFontFamily: 'NotoSans',
+      secondaryFontFamily: 'Roboto',
+      availableFontFamilies: ['NotoSans', 'Roboto', 'Inter'],
     ),
     LanguageModel(
       code: 'de',
       name: 'German',
       nativeName: 'Deutsch',
       textDirection: TextDirection.ltr,
+      primaryFontFamily: 'NotoSans',
+      secondaryFontFamily: 'Roboto',
+      availableFontFamilies: ['NotoSans', 'Roboto', 'Inter'],
     ),
     LanguageModel(
       code: 'ar',
       name: 'Arabic',
       nativeName: 'العربية',
       textDirection: TextDirection.rtl,
+      primaryFontFamily: 'NotoSansArabic',
+      secondaryFontFamily: 'NotoSans',
+      availableFontFamilies: ['NotoSansArabic', 'NotoSans'],
     ),
     LanguageModel(
       code: 'ja',
       name: 'Japanese',
       nativeName: '日本語',
       textDirection: TextDirection.ltr,
+      primaryFontFamily: 'NotoSansJapanese',
+      secondaryFontFamily: 'NotoSans',
+      availableFontFamilies: ['NotoSansJapanese', 'NotoSans'],
     ),
   ];
 
@@ -286,4 +304,81 @@ class AppLocalizations {
 
   /// Check if translations are initialized
   static bool get isInitialized => _isInitialized;
+
+  // Font-related methods
+
+  /// Get current language's primary font family
+  static String get currentPrimaryFontFamily {
+    final model = currentLanguageModel;
+    return model?.primaryFontFamily ?? 'NotoSans';
+  }
+
+  /// Get current language's secondary font family
+  static String get currentSecondaryFontFamily {
+    final model = currentLanguageModel;
+    return model?.secondaryFontFamily ?? 'NotoSans';
+  }
+
+  /// Get current language's available font families
+  static List<String> get currentAvailableFontFamilies {
+    final model = currentLanguageModel;
+    return model?.availableFontFamilies ?? ['NotoSans'];
+  }
+
+  /// Get font family for a specific language
+  static String getFontFamilyForLanguage(String languageCode) {
+    final model = getLanguageByCode(languageCode);
+    return model?.primaryFontFamily ?? 'NotoSans';
+  }
+
+  /// Get available font families for a specific language
+  static List<String> getAvailableFontFamiliesForLanguage(String languageCode) {
+    final model = getLanguageByCode(languageCode);
+    return model?.availableFontFamilies ?? ['NotoSans'];
+  }
+
+  /// Get text style with language-appropriate font
+  static TextStyle getTextStyleForLanguage(
+    String languageCode, {
+    double? fontSize,
+    FontWeight? fontWeight,
+    FontStyle? fontStyle,
+    Color? color,
+    double? height,
+    TextDecoration? decoration,
+    String? customFontFamily,
+  }) {
+    return LanguageModel.getTextStyleForLanguage(
+      languageCode,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      fontStyle: fontStyle,
+      color: color,
+      height: height,
+      decoration: decoration,
+      customFontFamily: customFontFamily,
+    );
+  }
+
+  /// Get text style with current language's font
+  static TextStyle getTextStyleForCurrentLanguage({
+    double? fontSize,
+    FontWeight? fontWeight,
+    FontStyle? fontStyle,
+    Color? color,
+    double? height,
+    TextDecoration? decoration,
+    String? customFontFamily,
+  }) {
+    return getTextStyleForLanguage(
+      _currentLocale.languageCode,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      fontStyle: fontStyle,
+      color: color,
+      height: height,
+      decoration: decoration,
+      customFontFamily: customFontFamily,
+    );
+  }
 }

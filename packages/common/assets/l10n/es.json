@@ -145,5 +145,10 @@
   "theming": "Temas",
   "background_tasks": "Tareas en Segundo Plano",
   "accessibility": "Accesibilidad",
-  "file_management": "Gestión de Archivos"
+  "file_management": "Gestión de Archivos",
+  "typography_showcase": "Muestra de Tipografía",
+  "select_font": "Seleccionar Fuente",
+  "font_information": "Información de Fuente",
+  "font_support_description": "Noto Sans proporciona excelente soporte para todos los idiomas soportados incluyendo scripts árabes y japoneses.",
+  "typography_description": "Explora la tipografía específica del idioma con fuentes Noto Sans. Cambia entre idiomas y fuentes para ver cómo la renderización del texto se adapta a diferentes scripts y sistemas de escritura."
 }

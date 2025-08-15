@@ -145,5 +145,10 @@
   "theming": "テーマ",
   "background_tasks": "バックグラウンドタスク",
   "accessibility": "アクセシビリティ",
-  "file_management": "ファイル管理"
+  "file_management": "ファイル管理",
+  "typography_showcase": "タイポグラフィショーケース",
+  "select_font": "フォントを選択",
+  "font_information": "フォント情報",
+  "font_support_description": "Noto Sansは、アラビア語や日本語のスクリプトを含む、すべてのサポートされている言語に対して優れたサポートを提供します。",
+  "typography_description": "Noto Sansフォントを使用した言語固有のタイポグラフィを探索します。言語とフォントを切り替えて、テキストレンダリングが異なるスクリプトと書記体系にどのように適応するかを確認してください。"
 }

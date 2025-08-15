@@ -97,7 +97,7 @@ the_router/
 
 ### 4. **Advanced Internationalization** 🆕
 
-- **Technology**: Custom localization system with RTL support
+- **Technology**: Custom localization system with RTL support and Noto Sans fonts
 - **Features**:
   - **Multi-language Support**: English, Spanish, French, German, Arabic, Japanese
   - **RTL/LTR Support**: Right-to-left text direction for Arabic
@@ -106,6 +106,13 @@ the_router/
   - **App-level Direction Control**: Toggle between RTL and LTR
   - **Complete String Localization**: All UI strings internationalized
   - **Cultural Adaptations**: Proper formatting for each locale
+  - **Language-specific Fonts**: Noto Sans fonts for optimal rendering
+    - Noto Sans (Latin scripts: English, Spanish, French, German)
+    - Noto Sans Arabic (Arabic script)
+    - Noto Sans Japanese (Japanese script: Hiragana, Katakana, Kanji)
+  - **FontUtils Class**: Centralized font management with language-specific styling
+  - **JSON-based Localization**: Separate JSON files for each language
+  - **Font Demo Widget**: Visual demonstration of language-specific font rendering
 
 ### 5. **Enhanced Accessibility Features** 🆕
 
@@ -217,7 +224,17 @@ the_router/
    flutter pub get
    ```
 
-3. **Run the app**
+3. **Setup Fonts (Optional but Recommended)**
+
+   ```bash
+   # Download Noto Sans fonts for internationalization support
+   ./download_fonts.sh
+   
+   # Or manually download from Google Fonts:
+   # https://fonts.google.com/noto
+   ```
+
+4. **Run the app**
    ```bash
    flutter run
    ```
@@ -292,6 +309,8 @@ the_router/
 - Use consistent naming conventions
 - Add proper documentation
 - Implement modular architecture (models, data, widgets)
+- Use FontUtils for language-specific font styling
+- Follow internationalization best practices
 
 ### Adding New Features
 
@@ -323,6 +342,8 @@ the_router/
 - Lifecycle tracking verification
 - Custom animations testing
 - Internationalization testing
+- Font rendering across languages
+- RTL/LTR text direction testing
 
 ## 📚 Dependencies
 
@@ -334,6 +355,7 @@ the_router/
 - `path_provider`: File system access
 - `http`: HTTP requests for API calls
 - `shared_preferences`: Local storage
+- `google_fonts`: Dynamic font loading (optional)
 
 ### Development Dependencies
 
@@ -341,6 +363,63 @@ the_router/
 - `flutter_lints`: Code linting
 
 ## 🚀 Advanced Features
+
+### Font Setup and Management
+
+The project includes comprehensive font support for internationalization using Noto Sans fonts:
+
+#### Font Files
+- **Noto Sans**: Latin scripts (English, Spanish, French, German)
+- **Noto Sans Arabic**: Arabic script with RTL support
+- **Noto Sans Japanese**: Japanese script (Hiragana, Katakana, Kanji)
+
+#### Directory Structure
+```
+assets/
+└── fonts/
+    ├── NotoSans-Regular.ttf
+    ├── NotoSans-Bold.ttf
+    ├── NotoSans-Italic.ttf
+    ├── NotoSans-BoldItalic.ttf
+    ├── NotoSansArabic-Regular.ttf
+    ├── NotoSansArabic-Bold.ttf
+    ├── NotoSansJP-Regular.ttf
+    └── NotoSansJP-Bold.ttf
+```
+
+#### Setup Instructions
+1. Run the download script: `./download_fonts.sh`
+2. Or manually download from [Google Fonts](https://fonts.google.com/noto)
+3. Fonts are automatically available to all subprojects
+
+### Font Management
+
+```dart
+// FontUtils provides language-specific font management
+import 'package:common/common.dart';
+
+// Get font family for specific language
+String fontFamily = FontUtils.getFontFamilyForLanguage('ar'); // 'NotoSansArabic'
+
+// Create text style with language-appropriate font
+TextStyle style = FontUtils.getTextStyleForLanguage(
+  'ja',
+  fontSize: 18.0,
+  fontWeight: FontWeight.bold,
+);
+
+// Predefined styles for common use cases
+Text(
+  'Hello World',
+  style: FontUtils.heading1, // Uses default font
+)
+
+// Language-specific predefined styles
+Text(
+  'مرحبا بالعالم',
+  style: FontUtils.getHeading1ForLanguage('ar'),
+)
+```
 
 ### Custom Page Transitions
 
@@ -429,11 +508,24 @@ final imageData = await IsolateManager.downloadImage(url);
 
 ```dart
 // Multi-language support with RTL
-final localizedString = AppLocalizations.getString('welcome_message', 'ar');
-final isRTL = AppLocalizations.isRTL('ar');
+final localizedString = AppLocalizations.getString('welcome_message');
+final isRTL = AppLocalizations.isCurrentLocaleRTL;
 
 // Dynamic language switching
-AppLocalizations.setLanguage(context, 'ja');
+await AppLocalizations.changeLanguage('ja');
+
+// Language-specific fonts
+TextStyle style = FontUtils.getTextStyleForLanguage(
+  'ar', // Arabic
+  fontSize: 16.0,
+  fontWeight: FontWeight.bold,
+);
+
+// Predefined language-specific styles
+Text(
+  'こんにちは',
+  style: FontUtils.getBody1ForLanguage('ja'),
+)
 ```
 
 ## 🤝 Contributing

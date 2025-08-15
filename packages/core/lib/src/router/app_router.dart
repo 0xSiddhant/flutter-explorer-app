@@ -15,6 +15,7 @@ import 'package:screens/advanced_processing/advanced_processing_screen.dart';
 import 'package:screens/navigation_analytics/navigation_analytics_screen.dart';
 import 'package:screens/lifecycle_management/lifecycle_management_screen.dart';
 import 'package:screens/splash_screen/splash_screen.dart';
+import 'package:screens/typography_showcase/typography_showcase_screen.dart';
 
 class AppRouteManager {
   AppRouteManager._();
@@ -152,6 +153,16 @@ class AppRouteManager {
               );
             },
           ),
+          GoRoute(
+            path: 'typography-showcase',
+            name: 'typography-showcase',
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return FadeScaleAnimation.buildPage(
+                child: const TypographyShowcaseScreen(),
+                state: state,
+              );
+            },
+          ),
         ],
       ),
     ],
@@ -262,6 +273,17 @@ class AppRouteManager {
       context.push('/lifecycle-management');
     } else {
       context.go('/lifecycle-management');
+    }
+  }
+
+  static void navigateToTypographyShowcase(
+    BuildContext context, {
+    bool usePush = false,
+  }) {
+    if (usePush) {
+      context.push('/typography-showcase');
+    } else {
+      context.go('/typography-showcase');
     }
   }
 

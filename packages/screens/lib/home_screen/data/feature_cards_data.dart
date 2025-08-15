@@ -76,6 +76,13 @@ class FeatureCardsData {
         color: Colors.amber,
         onTap: () => AppRouteManager.navigateToLifecycleManagement(context),
       ),
+      FeatureCardModel(
+        title: 'Typography Showcase',
+        subtitle: 'Font Rendering',
+        icon: Icons.text_fields,
+        color: Colors.pink,
+        onTap: () => AppRouteManager.navigateToTypographyShowcase(context),
+      ),
     ];
   }
 }

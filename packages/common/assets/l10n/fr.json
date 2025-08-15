@@ -145,5 +145,10 @@
   "theming": "Thèmes",
   "background_tasks": "Tâches en Arrière-plan",
   "accessibility": "Accessibilité",
-  "file_management": "Gestion de Fichiers"
+  "file_management": "Gestion de Fichiers",
+  "typography_showcase": "Aperçu de la Typographie",
+  "select_font": "Sélectionner la Police",
+  "font_information": "Informations sur la Police",
+  "font_support_description": "Noto Sans fournit un excellent support pour toutes les langues prises en charge, y compris les scripts arabes et japonais.",
+  "typography_description": "Explorez la typographie spécifique à la langue avec les polices Noto Sans. Changez entre les langues et les polices pour voir comment le rendu du texte s'adapte aux différents scripts et systèmes d'écriture."
 }
