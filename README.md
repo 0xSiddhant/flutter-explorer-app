@@ -1,6 +1,6 @@
 # Flutter Explorer
 
-A comprehensive Flutter project designed to explore and understand core Flutter features through a modular package architecture. This project demonstrates various Flutter capabilities including navigation, theme switching, native communication, isolates, localization, semantic UI, lifecycle management, navigation analytics, custom page transitions, advanced accessibility features, device date change monitoring, and dynamic feature toggles.
+A comprehensive Flutter project designed to explore and understand core Flutter features through a modular package architecture. This project demonstrates various Flutter capabilities including navigation, dynamic theme switching with single source of truth, native communication, isolates, localization, semantic UI, lifecycle management, navigation analytics, custom page transitions, advanced accessibility features, device date change monitoring, and dynamic feature toggles.
 
 ## 🏗️ Project Structure
 
@@ -175,16 +175,26 @@ the_router/
   - **RTL Support Compatible**: Works with both LTR and RTL layouts
   - **Memory Efficient**: Only keeps necessary widgets alive, proper resource disposal
 
-### 7. **Theming System**
+### 7. **Dynamic Theming System** 🆕
 
-- **Technology**: Material 3 theming with custom provider
+- **Technology**: Material 3 theming with dynamic theme registration
 - **Features**:
-  - Light/Dark theme switching
-  - High contrast mode
-  - Dynamic color schemes
-  - Custom theme configurations
-  - Real-time theme preview
-  - Theme persistence
+  - **Dynamic Theme Registration**: Single source of truth for theme management
+  - **ThemeInfo Model**: Structured theme data with localization support
+  - **Multiple Themes**: Harry Potter, Dark Blue, One Piece themes
+  - **Ultra-Vibrant Light Mode**: Enhanced color saturation for better visual appeal
+  - **Maximum Contrast Dark Mode**: Pure white text for crystal-clear readability
+  - **Real-time Theme Preview**: Isolated preview environment with apply/reset functionality
+  - **Theme Component Showcase**: Dedicated screen for theme component visualization
+  - **Dynamic UI Updates**: All theme selection dropdowns update automatically
+  - **Localization Integration**: Theme names properly localized across all languages
+  - **Theme Validation**: Robust theme ID validation with fallback mechanisms
+  - **Architecture**:
+    - **ThemeManager**: Centralized theme registry with dynamic registration
+    - **ThemeObserver**: ChangeNotifier interface for theme changes
+    - **ThemeInfo Model**: Structured theme information with metadata
+    - **Dynamic Registration**: `registerTheme(ThemeInfo, ThemeData Function(bool))`
+    - **Single Source of Truth**: Adding themes requires changes only in ThemeManager
 
 ### 8. **Background Processing**
 
@@ -348,6 +358,27 @@ the_router/
 - **Non-blocking Startup**: App starts faster with fire-and-forget initialization
 - **Efficient Resource Management**: Proper disposal and cleanup patterns
 - **Optimized Event Handling**: Minimal overhead for date change detection
+
+### Dynamic Theme System Enhancements 🆕
+
+- **Single Source of Truth**: ThemeManager is now the only place to register new themes
+- **Dynamic Theme Registration**: `registerTheme(ThemeInfo, ThemeData Function(bool))` pattern
+- **Automatic UI Updates**: All theme dropdowns and UI components update automatically
+- **ThemeInfo Model**: Structured theme data with localization keys and metadata
+- **Robust Validation**: Theme ID validation with fallback to default theme
+- **Enhanced One Piece Theme**:
+  - **Ultra-Vibrant Light Mode**: More saturated colors (red: `#C62828`, orange: `#FF6F00`, blue: `#1565C0`)
+  - **Maximum Contrast Dark Mode**: Pure white AppBar text (`#FFFFFF`) on very dark background (`#0A0A0A`)
+  - **Crystal Clear Navigation**: Solid white text that's impossible to miss
+  - **Professional Appearance**: Better balance between light and dark modes
+
+### ThemeObserver API Improvements 🆕
+
+- **Type Safety**: All methods now have proper return type annotations
+- **Enhanced Functionality**: New methods for theme validation and management
+- **Backward Compatibility**: All existing usage patterns still work
+- **Rich Theme Data**: Access to structured theme information via `ThemeInfo`
+- **Separate APIs**: Different methods for UI components vs dropdowns
 
 ## 🛠️ Getting Started
 
@@ -668,6 +699,78 @@ await AppConfigService.instance.resetToDefault();
 await AppConfigService.instance.reload();
 ```
 
+### Dynamic Theming System
+
+The project implements a sophisticated dynamic theming system with single source of truth architecture:
+
+#### Theme Registration Architecture
+```dart
+// Dynamic theme registration pattern
+void _registerDefaultThemes() {
+  registerTheme(
+    const ThemeInfo(
+      id: 'harry_potter',
+      name: 'Harry Potter Magical',
+      localizationKey: 'harry_potter_theme',
+      description: 'Magical theme inspired by Harry Potter',
+    ),
+    (isDarkMode) => isDarkMode ? HarryPotterTheme.darkTheme : HarryPotterTheme.lightTheme,
+  );
+  // Add more themes here...
+}
+```
+
+#### ThemeInfo Model
+```dart
+class ThemeInfo {
+  final String id;
+  final String name;
+  final String localizationKey;
+  final String description;
+}
+```
+
+#### Dynamic Theme Management
+```dart
+// Get all available themes for UI components
+List<ThemeInfo> themes = ThemeManager.instance.getAvailableThemesForUI();
+
+// Get theme info by ID
+ThemeInfo? themeInfo = ThemeManager.instance.getThemeInfo('harry_potter');
+
+// Validate theme ID with fallback
+String validThemeId = ThemeManager.instance.getValidThemeId('invalid_theme');
+
+// Set selected theme
+await ThemeManager.instance.setSelectedTheme('one_piece');
+
+// Get theme for preview (isolated environment)
+ThemeData previewTheme = ThemeObserver.instance.getThemeForPreview(
+  themeId, 
+  isDarkMode
+);
+```
+
+#### Theme Observer API
+```dart
+// Enhanced ThemeObserver with type safety
+ThemeData get currentTheme => themeManager.currentTheme;
+String get selectedThemeId => themeManager.selectedThemeId;
+ThemeInfo? get selectedThemeInfo => themeManager.selectedThemeInfo;
+List<ThemeInfo> get availableThemes => themeManager.getAvailableThemesForUI();
+List<MapEntry<String, String>> get availableThemesForDropdown => themeManager.getAvailableThemesForDropdown();
+bool isValidThemeId(String? themeId) => themeManager.isValidThemeId(themeId);
+String getValidThemeId(String? themeId) => themeManager.getValidThemeId(themeId);
+```
+
+#### Benefits
+- **Single Point of Configuration**: Add new themes only in ThemeManager
+- **Automatic UI Updates**: All dropdowns and components update automatically
+- **Localization Integration**: Theme names properly localized
+- **Type Safety**: Proper return type annotations and validation
+- **Backward Compatibility**: All existing usage patterns work
+- **Rich Theme Data**: Access to structured theme information
+
 ### Font Setup and Management
 
 The project includes comprehensive font support for internationalization using Noto Sans fonts:
@@ -982,4 +1085,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**Note**: This project demonstrates enterprise-level Flutter development with comprehensive navigation analytics (dual observer system), lifecycle management, advanced background processing, custom page transitions, enhanced native communication, animated splash screen, advanced internationalization with complete RTL support, comprehensive accessibility features, optimized package exports, RouteModel architecture, tab-based navigation with proper back button support, modular architecture, asset-based configuration system, robust initialization with error handling, cross-package asset access, clean dependency management with no unused imports, and scroll state preservation with AutomaticKeepAliveClientMixin. It serves as a reference for building production-ready Flutter applications with professional architecture and best practices.
+**Note**: This project demonstrates enterprise-level Flutter development with comprehensive navigation analytics (dual observer system), lifecycle management, advanced background processing, custom page transitions, enhanced native communication, animated splash screen, advanced internationalization with complete RTL support, comprehensive accessibility features, optimized package exports, RouteModel architecture, tab-based navigation with proper back button support, modular architecture, asset-based configuration system, robust initialization with error handling, cross-package asset access, clean dependency management with no unused imports, scroll state preservation with AutomaticKeepAliveClientMixin, and dynamic theme system with single source of truth architecture. It serves as a reference for building production-ready Flutter applications with professional architecture and best practices.

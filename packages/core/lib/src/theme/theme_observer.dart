@@ -1,5 +1,6 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'theme_manager.dart';
+import 'models/theme_info.dart';
 
 /// Theme observer that implements ChangeNotifier for theme changes
 class ThemeObserver extends ChangeNotifier {
@@ -13,13 +14,13 @@ class ThemeObserver extends ChangeNotifier {
   ThemeManager get themeManager => ThemeManager.instance;
 
   /// Get current theme data
-  get currentTheme => themeManager.currentTheme;
+  ThemeData get currentTheme => themeManager.currentTheme;
 
   /// Get current selected theme ID
   String get selectedThemeId => themeManager.selectedThemeId;
 
-  /// Get current selected theme name
-  String get selectedThemeName => themeManager.selectedThemeName;
+  /// Get current selected theme info
+  ThemeInfo? get selectedThemeInfo => themeManager.selectedThemeInfo;
 
   /// Get current dark mode state
   bool get isDarkMode => themeManager.isDarkMode;
@@ -27,8 +28,12 @@ class ThemeObserver extends ChangeNotifier {
   /// Get current text scale factor
   double get textScaleFactor => themeManager.textScaleFactor;
 
-  /// Get available themes
-  List<MapEntry<String, String>> get availableThemes => ThemeManager.getAvailableThemes();
+  /// Get available themes for UI components
+  List<ThemeInfo> get availableThemes => themeManager.getAvailableThemesForUI();
+
+  /// Get available themes for dropdowns
+  List<MapEntry<String, String>> get availableThemesForDropdown =>
+      themeManager.getAvailableThemesForDropdown();
 
   /// Initialize theme observer
   void initialize() {
@@ -38,6 +43,7 @@ class ThemeObserver extends ChangeNotifier {
   }
 
   /// Dispose theme observer
+  @override
   void dispose() {
     themeManager.removeListener(_onThemeChanged);
     super.dispose();
@@ -45,7 +51,9 @@ class ThemeObserver extends ChangeNotifier {
 
   /// Handle theme changes
   void _onThemeChanged() {
-    debugPrint('ThemeObserver: Theme changed - Theme: $selectedThemeId, Dark mode: $isDarkMode');
+    debugPrint(
+      'ThemeObserver: Theme changed - Theme: $selectedThemeId, Dark mode: $isDarkMode',
+    );
     notifyListeners();
   }
 
@@ -80,7 +88,17 @@ class ThemeObserver extends ChangeNotifier {
   }
 
   /// Get theme data for preview
-  getThemeForPreview(String themeId, bool isDarkMode) {
+  ThemeData getThemeForPreview(String themeId, bool isDarkMode) {
     return themeManager.getThemeForPreview(themeId, isDarkMode);
+  }
+
+  /// Validate if a theme ID is valid
+  bool isValidThemeId(String? themeId) {
+    return themeManager.isValidThemeId(themeId);
+  }
+
+  /// Get a valid theme ID, defaulting to default if invalid
+  String getValidThemeId(String? themeId) {
+    return themeManager.getValidThemeId(themeId);
   }
 }

@@ -62,9 +62,6 @@ class _HomeScreenState extends State<HomeScreen>
       appBar: AppBar(
         title: Text(
           AppLocalizations.getString('explore_flutter_capabilities'),
-          style: Theme.of(
-            context,
-          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,

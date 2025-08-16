@@ -28,8 +28,7 @@ class LocalizationService {
 
   /// Initialize with a specific language
   Future<void> initializeWithLanguage(String languageCode) async {
-    _currentLocale = Locale(languageCode);
-    await loadTranslations(_currentLocale);
+    await setLocale(Locale(languageCode));
   }
 
   /// Initialize from configuration

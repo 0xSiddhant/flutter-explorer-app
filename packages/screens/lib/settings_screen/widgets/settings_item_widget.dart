@@ -84,21 +84,21 @@ class SettingsItemWidget extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(
-            value: _getValidThemeValue(item.value as String?),
+            value: ThemeManager.instance.getValidThemeId(item.value as String?),
             decoration: InputDecoration(
               labelText: AppLocalizations.getString('select_app_theme'),
               border: const OutlineInputBorder(),
             ),
-            items: [
-              DropdownMenuItem<String>(
-                value: HarryPotterTheme.themeId,
-                child: Text(AppLocalizations.getString('harry_potter_theme')),
-              ),
-              DropdownMenuItem<String>(
-                value: DarkBlueTheme.themeId,
-                child: Text(AppLocalizations.getString('dark_blue_theme')),
-              ),
-            ],
+            items: ThemeManager.instance.getAvailableThemesForUI().map((
+              themeInfo,
+            ) {
+              return DropdownMenuItem<String>(
+                value: themeInfo.id,
+                child: Text(
+                  AppLocalizations.getString(themeInfo.localizationKey),
+                ),
+              );
+            }).toList(),
             onChanged: (String? newValue) {
               if (newValue != null && item.onChanged != null) {
                 item.onChanged!(newValue);
@@ -107,7 +107,7 @@ class SettingsItemWidget extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Current: ${_getThemeDisplayName(item.value as String? ?? ThemeManager.defaultThemeId)}',
+            'Current: ${_getThemeDisplayName(item.value as String? ?? ThemeManager.instance.defaultThemeId)}',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
@@ -182,27 +182,11 @@ class SettingsItemWidget extends StatelessWidget {
   }
 
   String _getThemeDisplayName(String themeId) {
-    switch (themeId) {
-      case ThemeManager.harryPotterThemeId:
-        return AppLocalizations.getString('harry_potter_theme');
-      case ThemeManager.darkBlueThemeId:
-        return AppLocalizations.getString('dark_blue_theme');
-      default:
-        return AppLocalizations.getString('harry_potter_theme');
+    final themeInfo = ThemeManager.instance.getThemeInfo(themeId);
+    if (themeInfo != null) {
+      return AppLocalizations.getString(themeInfo.localizationKey);
     }
-  }
-
-  String? _getValidThemeValue(String? themeId) {
-    if (themeId == null) return ThemeManager.defaultThemeId;
-
-    // Check if the theme ID is valid
-    if (themeId == ThemeManager.harryPotterThemeId ||
-        themeId == ThemeManager.darkBlueThemeId) {
-      return themeId;
-    }
-
-    // If invalid, return default
-    return ThemeManager.defaultThemeId;
+    return AppLocalizations.getString('harry_potter_theme');
   }
 
   Widget _buildButtonTile(BuildContext context) {

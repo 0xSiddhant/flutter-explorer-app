@@ -1,35 +1,39 @@
 import 'package:flutter/material.dart';
 
-/// Harry Potter Magical theme with authentic Gryffindor (light) and Slytherin (dark) colors
-class HarryPotterTheme {
-  static const String themeId = 'harry_potter';
-  static const String themeName = 'Harry Potter Magical';
+/// One Piece anime theme with vibrant colors inspired by Straw Hat Pirates
+class OnePieceTheme {
+  static const String themeId = 'one_piece';
+  static const String themeName = 'One Piece Adventure';
 
-  /// Light theme with authentic Gryffindor colors (Scarlet and Gold)
+  /// Light theme with ultra-vibrant Straw Hat Pirates colors (Red, Orange, Blue)
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
       colorScheme: const ColorScheme.light(
-        primary: Color(0xFFD4AF37), // Rich Gryffindor Gold
-        onPrimary: Color(0xFF000000),
-        secondary: Color(0xFF8B0000), // Deep Gryffindor Scarlet
-        onSecondary: Color(0xFFFFFFFF),
-        tertiary: Color(0xFFB8860B), // Dark Goldenrod
+        primary: Color(0xFFC62828), // Ultra-vibrant Straw Hat Red
+        onPrimary: Color(0xFFFFFFFF),
+        secondary: Color(0xFFFF6F00), // Ultra-vibrant Luffy's Orange
+        onSecondary: Color(0xFF000000),
+        tertiary: Color(0xFF1565C0), // Ultra-vibrant Ocean Blue
         onTertiary: Color(0xFFFFFFFF),
-        surface: Color(0xFFFFFBF0), // Warm parchment-like surface
+        surface: Color(0xFFFFF8E1), // Warm parchment-like surface
         onSurface: Color(0xFF2C1810), // Rich brown text
-        surfaceVariant: Color(0xFFFFF8DC), // Cornsilk variant
+        surfaceVariant: Color(0xFFFFF3E0), // Light orange variant
         onSurfaceVariant: Color(0xFF4A3728), // Darker brown for variants
-        background: Color(0xFFFFFBF0), // Parchment background
+        background: Color(0xFFFFF8E1), // Parchment background
         onBackground: Color(0xFF2C1810), // Rich brown text
         error: Color(0xFFBA1A1A),
         onError: Color(0xFFFFFFFF),
-        outline: Color(0xFFD4AF37), // Gryffindor Gold outline
-        outlineVariant: Color(0xFFB8860B), // Darker gold variant
-        inversePrimary: Color(0xFF8B0000), // Scarlet for inverse
+        outline: Color(0xFFC62828), // Ultra-vibrant Straw Hat Red outline
+        outlineVariant: Color(
+          0xFFFF6F00,
+        ), // Ultra-vibrant Luffy's Orange variant
+        inversePrimary: Color(
+          0xFF1565C0,
+        ), // Ultra-vibrant Ocean Blue for inverse
         inverseSurface: Color(0xFF2C1810),
-        onInverseSurface: Color(0xFFFFFBF0),
+        onInverseSurface: Color(0xFFFFF8E1),
         shadow: Color(0xFF000000),
         scrim: Color(0xFF000000),
       ),
@@ -38,15 +42,15 @@ class HarryPotterTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
-        color: Color(0xFFFFF8DC), // Cornsilk card background
-        shadowColor: Color(0xFFD4AF37),
+        color: Color(0xFFFFF3E0), // Light orange card background
+        shadowColor: Color(0xFFC62828),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFD4AF37),
-          foregroundColor: const Color(0xFF000000),
+          backgroundColor: const Color(0xFFC62828),
+          foregroundColor: const Color(0xFFFFFFFF),
           elevation: 3,
-          shadowColor: const Color(0xFF8B0000),
+          shadowColor: const Color(0xFFFF6F00),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -55,8 +59,8 @@ class HarryPotterTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: const Color(0xFF8B0000),
-          side: const BorderSide(color: Color(0xFF8B0000), width: 2),
+          foregroundColor: const Color(0xFFC62828),
+          side: const BorderSide(color: Color(0xFFC62828), width: 2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -65,77 +69,77 @@ class HarryPotterTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: const Color(0xFF8B0000),
+          foregroundColor: const Color(0xFFC62828),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: Color(0xFFD4AF37),
-        foregroundColor: Color(0xFF000000),
+        backgroundColor: Color(0xFFC62828),
+        foregroundColor: Color(0xFFFFFFFF),
         elevation: 6,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: Color(0xFF8B0000), // Deep Gryffindor Scarlet
-        foregroundColor: Color(0xFFD4AF37), // Gold text/icons
+        backgroundColor: Color(0xFFC62828), // Ultra-vibrant Straw Hat Red
+        foregroundColor: Color(0xFFFFFFFF), // White text/icons
         elevation: 4,
         shadowColor: Color(0xFF000000),
         centerTitle: true,
         titleTextStyle: TextStyle(
-          color: Color(0xFFD4AF37),
+          color: Color(0xFFFFFFFF),
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Color(0xFF8B0000), // Deep Gryffindor Scarlet
-        selectedItemColor: Color(0xFFD4AF37), // Gold for selected
-        unselectedItemColor: Color(0xFFCD853F), // Peru for unselected
+        backgroundColor: Color(0xFFC62828), // Ultra-vibrant Straw Hat Red
+        selectedItemColor: Color(0xFFFFFFFF), // White for selected
+        unselectedItemColor: Color(0xFFFFB74D), // Light orange for unselected
         type: BottomNavigationBarType.fixed,
         elevation: 8,
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.all(const Color(0xFFD4AF37)),
+        thumbColor: MaterialStateProperty.all(const Color(0xFFFF6F00)),
         trackColor: MaterialStateProperty.all(
-          const Color(0xFF8B0000).withOpacity(0.4),
+          const Color(0xFFC62828).withOpacity(0.4),
         ),
-        trackOutlineColor: MaterialStateProperty.all(const Color(0xFF8B0000)),
+        trackOutlineColor: MaterialStateProperty.all(const Color(0xFFC62828)),
       ),
       checkboxTheme: CheckboxThemeData(
-        fillColor: MaterialStateProperty.all(const Color(0xFFD4AF37)),
+        fillColor: MaterialStateProperty.all(const Color(0xFFFF6F00)),
         checkColor: MaterialStateProperty.all(const Color(0xFF000000)),
-        side: const BorderSide(color: Color(0xFF8B0000), width: 2),
+        side: const BorderSide(color: Color(0xFFC62828), width: 2),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
       radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.all(const Color(0xFFD4AF37)),
+        fillColor: MaterialStateProperty.all(const Color(0xFFFF6F00)),
         overlayColor: MaterialStateProperty.all(
-          const Color(0xFF8B0000).withOpacity(0.2),
+          const Color(0xFFC62828).withOpacity(0.2),
         ),
       ),
       sliderTheme: SliderThemeData(
-        thumbColor: const Color(0xFFD4AF37),
-        activeTrackColor: const Color(0xFF8B0000),
-        inactiveTrackColor: const Color(0xFF8B0000).withOpacity(0.3),
-        overlayColor: const Color(0xFFD4AF37).withOpacity(0.2),
+        thumbColor: const Color(0xFFFF6F00),
+        activeTrackColor: const Color(0xFFC62828),
+        inactiveTrackColor: const Color(0xFFC62828).withOpacity(0.3),
+        overlayColor: const Color(0xFFFF6F00).withOpacity(0.2),
         trackHeight: 4,
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
       ),
       progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: Color(0xFFD4AF37),
-        linearTrackColor: Color(0xFF8B0000),
+        color: Color(0xFFFF6F00),
+        linearTrackColor: Color(0xFFC62828),
       ),
       dividerTheme: const DividerThemeData(
-        color: Color(0xFFD4AF37),
+        color: Color(0xFFFF6F00),
         thickness: 1,
         space: 1,
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: const Color(0xFFFFF8DC),
-        selectedColor: const Color(0xFFD4AF37),
-        disabledColor: const Color(0xFFCD853F).withOpacity(0.3),
+        backgroundColor: const Color(0xFFFFF3E0),
+        selectedColor: const Color(0xFFFF6F00),
+        disabledColor: const Color(0xFFFFB74D).withOpacity(0.3),
         labelStyle: const TextStyle(color: Color(0xFF2C1810)),
         secondaryLabelStyle: const TextStyle(color: Color(0xFF000000)),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -144,33 +148,31 @@ class HarryPotterTheme {
     );
   }
 
-  /// Dark theme with authentic Slytherin colors (Emerald and Silver)
+  /// Dark theme with balanced One Piece night colors (Deep Blue, Gold, Dark Red)
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
       colorScheme: const ColorScheme.dark(
-        primary: Color(0xFF1B4D3E), // Deep Slytherin Emerald
-        onPrimary: Color(0xFFE8F5E8), // Light green text
-        secondary: Color(0xFFC0C0C0), // Slytherin Silver
+        primary: Color(0xFF8B0000), // Deep Straw Hat Red
+        onPrimary: Color(0xFFFFFFFF),
+        secondary: Color(0xFFFFD700), // Pirate Gold
         onSecondary: Color(0xFF000000),
-        tertiary: Color(0xFF2E8B57), // Sea Green
+        tertiary: Color(0xFF1E3A8A), // Deep Ocean Blue
         onTertiary: Color(0xFFFFFFFF),
-        surface: Color(0xFF0A1A0A), // Very dark green-tinted surface
-        onSurface: Color(0xFFFFFFFF), // Pure white text (solid contrast)
-        surfaceVariant: Color(0xFF1A2A1A), // Dark green variant
-        onSurfaceVariant: Color(
-          0xFFE0E0E0,
-        ), // Light gray variant text (solid contrast)
-        background: Color(0xFF0A1A0A), // Very dark green background
-        onBackground: Color(0xFFFFFFFF), // Pure white text (solid contrast)
+        surface: Color(0xFF121212), // Dark surface (less harsh than 0A0A0A)
+        onSurface: Color(0xFFFFFFFF), // White text
+        surfaceVariant: Color(0xFF1E1E1E), // Dark variant (less harsh)
+        onSurfaceVariant: Color(0xFFE0E0E0), // Light gray variant text
+        background: Color(0xFF121212), // Dark background (less harsh)
+        onBackground: Color(0xFFFFFFFF), // White text
         error: Color(0xFFBA1A1A),
         onError: Color(0xFFFFFFFF),
-        outline: Color(0xFF2E8B57), // Sea Green outline
-        outlineVariant: Color(0xFF1B4D3E), // Darker emerald variant
-        inversePrimary: Color(0xFFC0C0C0), // Silver for inverse
-        inverseSurface: Color(0xFFE8F5E8),
-        onInverseSurface: Color(0xFF0A1A0A),
+        outline: Color(0xFFFFD700), // Pirate Gold outline
+        outlineVariant: Color(0xFF8B0000), // Deep red variant
+        inversePrimary: Color(0xFFFFD700), // Gold for inverse
+        inverseSurface: Color(0xFFFFFFFF),
+        onInverseSurface: Color(0xFF121212),
         shadow: Color(0xFF000000),
         scrim: Color(0xFF000000),
       ),
@@ -179,13 +181,13 @@ class HarryPotterTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
-        color: Color(0xFF1A2A1A), // Dark green card background
-        shadowColor: Color(0xFF1B4D3E),
+        color: Color(0xFF1E1E1E), // Dark card background (less harsh)
+        shadowColor: Color(0xFF8B0000),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1B4D3E),
-          foregroundColor: const Color(0xFFE8F5E8),
+          backgroundColor: const Color(0xFF8B0000),
+          foregroundColor: const Color(0xFFFFFFFF),
           elevation: 3,
           shadowColor: const Color(0xFF000000),
           shape: RoundedRectangleBorder(
@@ -196,8 +198,8 @@ class HarryPotterTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: const Color(0xFFC0C0C0),
-          side: const BorderSide(color: Color(0xFFC0C0C0), width: 2),
+          foregroundColor: const Color(0xFFFFD700),
+          side: const BorderSide(color: Color(0xFFFFD700), width: 2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -206,85 +208,89 @@ class HarryPotterTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: const Color(0xFFC0C0C0),
+          foregroundColor: const Color(0xFFFFD700),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: Color(0xFF1B4D3E),
-        foregroundColor: Color(0xFFE8F5E8),
+        backgroundColor: Color(0xFF8B0000),
+        foregroundColor: Color(0xFFFFFFFF),
         elevation: 6,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: Color(0xFF0A1A0A), // Very dark green
+        backgroundColor: Color(
+          0xFF0A0A0A,
+        ), // Very dark background for maximum contrast
         foregroundColor: Color(
           0xFFFFFFFF,
-        ), // Pure white text/icons (solid contrast)
+        ), // Pure white text/icons for maximum contrast
         elevation: 4,
         shadowColor: Color(0xFF000000),
         centerTitle: true,
         titleTextStyle: TextStyle(
-          color: Color(0xFFFFFFFF), // Pure white title (solid contrast)
+          color: Color(0xFFFFFFFF), // Pure white title for maximum contrast
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Color(0xFF0A1A0A), // Very dark green
+        backgroundColor: Color(
+          0xFF0A0A0A,
+        ), // Very dark background for maximum contrast
         selectedItemColor: Color(
           0xFFFFFFFF,
-        ), // Pure white for selected (solid contrast)
+        ), // Pure white for selected (maximum contrast)
         unselectedItemColor: Color(
-          0xFFB0B0B0,
-        ), // Light gray for unselected (solid contrast)
+          0xFFCCCCCC,
+        ), // Bright gray for unselected (maximum contrast)
         type: BottomNavigationBarType.fixed,
         elevation: 8,
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.all(const Color(0xFFC0C0C0)),
+        thumbColor: MaterialStateProperty.all(const Color(0xFFFFD700)),
         trackColor: MaterialStateProperty.all(
-          const Color(0xFF1B4D3E).withOpacity(0.4),
+          const Color(0xFF8B0000).withOpacity(0.4),
         ),
-        trackOutlineColor: MaterialStateProperty.all(const Color(0xFF1B4D3E)),
+        trackOutlineColor: MaterialStateProperty.all(const Color(0xFF8B0000)),
       ),
       checkboxTheme: CheckboxThemeData(
-        fillColor: MaterialStateProperty.all(const Color(0xFF1B4D3E)),
-        checkColor: MaterialStateProperty.all(const Color(0xFFE8F5E8)),
-        side: const BorderSide(color: Color(0xFFC0C0C0), width: 2),
+        fillColor: MaterialStateProperty.all(const Color(0xFF8B0000)),
+        checkColor: MaterialStateProperty.all(const Color(0xFFFFFFFF)),
+        side: const BorderSide(color: Color(0xFFFFD700), width: 2),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       ),
       radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.all(const Color(0xFF1B4D3E)),
+        fillColor: MaterialStateProperty.all(const Color(0xFF8B0000)),
         overlayColor: MaterialStateProperty.all(
-          const Color(0xFFC0C0C0).withOpacity(0.2),
+          const Color(0xFFFFD700).withOpacity(0.2),
         ),
       ),
       sliderTheme: SliderThemeData(
-        thumbColor: const Color(0xFFC0C0C0),
-        activeTrackColor: const Color(0xFF1B4D3E),
-        inactiveTrackColor: const Color(0xFF1B4D3E).withOpacity(0.3),
-        overlayColor: const Color(0xFFC0C0C0).withOpacity(0.2),
+        thumbColor: const Color(0xFFFFD700),
+        activeTrackColor: const Color(0xFF8B0000),
+        inactiveTrackColor: const Color(0xFF8B0000).withOpacity(0.3),
+        overlayColor: const Color(0xFFFFD700).withOpacity(0.2),
         trackHeight: 4,
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
       ),
       progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: Color(0xFFC0C0C0),
-        linearTrackColor: Color(0xFF1B4D3E),
+        color: Color(0xFFFFD700),
+        linearTrackColor: Color(0xFF8B0000),
       ),
       dividerTheme: const DividerThemeData(
-        color: Color(0xFF2E8B57),
+        color: Color(0xFFFFD700),
         thickness: 1,
         space: 1,
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: const Color(0xFF1A2A1A),
-        selectedColor: const Color(0xFF1B4D3E),
-        disabledColor: const Color(0xFF2E8B57).withOpacity(0.3),
-        labelStyle: const TextStyle(color: Color(0xFFE8F5E8)),
-        secondaryLabelStyle: const TextStyle(color: Color(0xFFE8F5E8)),
+        backgroundColor: const Color(0xFF1E1E1E),
+        selectedColor: const Color(0xFF8B0000),
+        disabledColor: const Color(0xFF8B0000).withOpacity(0.3),
+        labelStyle: const TextStyle(color: Color(0xFFFFFFFF)),
+        secondaryLabelStyle: const TextStyle(color: Color(0xFFFFFFFF)),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),

@@ -12,7 +12,9 @@ class ThemeComponentShowcaseScreen extends StatefulWidget {
 
 class _ThemeComponentShowcaseScreenState
     extends State<ThemeComponentShowcaseScreen> {
-  String _selectedThemeId = ThemeManager.defaultThemeId;
+  String _selectedThemeId = ThemeManager.instance.getValidThemeId(
+    ThemeManager.instance.defaultThemeId,
+  );
   bool _isDarkMode = false;
 
   @override
@@ -24,14 +26,16 @@ class _ThemeComponentShowcaseScreenState
   void _loadCurrentTheme() {
     final themeObserver = ThemeObserver.instance;
     setState(() {
-      _selectedThemeId = themeObserver.selectedThemeId;
+      _selectedThemeId = ThemeManager.instance.getValidThemeId(
+        themeObserver.selectedThemeId,
+      );
       _isDarkMode = themeObserver.isDarkMode;
     });
   }
 
   void _onThemeChanged(String themeId) {
     setState(() {
-      _selectedThemeId = themeId;
+      _selectedThemeId = ThemeManager.instance.getValidThemeId(themeId);
     });
   }
 
@@ -150,18 +154,16 @@ class _ThemeComponentShowcaseScreenState
                   labelText: AppLocalizations.getString('select_app_theme'),
                   border: const OutlineInputBorder(),
                 ),
-                items: [
-                  DropdownMenuItem<String>(
-                    value: ThemeManager.harryPotterThemeId,
+                items: ThemeManager.instance.getAvailableThemesForUI().map((
+                  themeInfo,
+                ) {
+                  return DropdownMenuItem<String>(
+                    value: themeInfo.id,
                     child: Text(
-                      AppLocalizations.getString('harry_potter_theme'),
+                      AppLocalizations.getString(themeInfo.localizationKey),
                     ),
-                  ),
-                  DropdownMenuItem<String>(
-                    value: ThemeManager.darkBlueThemeId,
-                    child: Text(AppLocalizations.getString('dark_blue_theme')),
-                  ),
-                ],
+                  );
+                }).toList(),
                 onChanged: (String? newValue) {
                   if (newValue != null) {
                     _onThemeChanged(newValue);

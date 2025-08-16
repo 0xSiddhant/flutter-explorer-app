@@ -21,6 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen>
   bool get wantKeepAlive => true;
   Map<String, dynamic> _config = {};
   bool _isLoading = true;
+  bool _isOperationLoading = false; // For reset/reload operations
   String? _selectedLanguage;
   Map<String, dynamic>? _appInfo;
   List<SettingsSection> _sections = [];
@@ -188,12 +189,25 @@ class _SettingsScreenState extends State<SettingsScreen>
   }
 
   Future<void> _handleReloadConfig() async {
+    setState(() {
+      _isOperationLoading = true;
+    });
+
     try {
       await SettingsService.reloadConfiguration();
+
+      // Reload all services after reloading config
+      await ThemeManager.instance.loadFromConfig();
+      await AppLocalizations.initializeFromConfig();
+      await AccessibilityProvider.instance.loadFromConfig();
+
       await _loadConfiguration();
       _buildSections();
 
       if (mounted) {
+        setState(() {
+          _isOperationLoading = false;
+        });
         SettingsService.showSuccessMessage(
           context,
           AppLocalizations.getString('configuration_reloaded_successfully'),
@@ -201,6 +215,9 @@ class _SettingsScreenState extends State<SettingsScreen>
       }
     } catch (e) {
       if (mounted) {
+        setState(() {
+          _isOperationLoading = false;
+        });
         SettingsService.showErrorMessage(
           context,
           '${AppLocalizations.getString('error_reloading_configuration')}: $e',
@@ -215,12 +232,25 @@ class _SettingsScreenState extends State<SettingsScreen>
     );
 
     if (confirmed) {
+      setState(() {
+        _isOperationLoading = true;
+      });
+
       try {
         await SettingsService.resetConfiguration();
+
+        // Reload all services after reset
+        await ThemeManager.instance.loadFromConfig();
+        await AppLocalizations.initializeFromConfig();
+        await AccessibilityProvider.instance.loadFromConfig();
+
         await _loadConfiguration();
         _buildSections();
 
         if (mounted) {
+          setState(() {
+            _isOperationLoading = false;
+          });
           SettingsService.showSuccessMessage(
             context,
             AppLocalizations.getString('configuration_reset_to_default'),
@@ -228,6 +258,9 @@ class _SettingsScreenState extends State<SettingsScreen>
         }
       } catch (e) {
         if (mounted) {
+          setState(() {
+            _isOperationLoading = false;
+          });
           SettingsService.showErrorMessage(
             context,
             '${AppLocalizations.getString('error_resetting_configuration')}: $e',
@@ -269,6 +302,17 @@ class _SettingsScreenState extends State<SettingsScreen>
       appBar: AppBar(
         title: Text(AppLocalizations.getString('settings')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        bottom: _isOperationLoading
+            ? PreferredSize(
+                preferredSize: const Size.fromHeight(4),
+                child: LinearProgressIndicator(
+                  backgroundColor: Colors.transparent,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              )
+            : null,
       ),
       body: SafeArea(
         child: SingleChildScrollView(

@@ -61,9 +61,9 @@ class SettingsData {
           subtitle: AppLocalizations.getString('choose_your_preferred_theme'),
           icon: 'palette',
           type: SettingsItemType.dropdown,
-          value:
-              config['theme']?['selectedThemeId'] ??
-              ThemeManager.defaultThemeId,
+          value: ThemeManager.instance.getValidThemeId(
+            config['theme']?['selectedThemeId'],
+          ),
           onChanged: (value) => onConfigUpdate('theme.selectedThemeId', value),
           configKey: 'theme.selectedThemeId',
         ),
