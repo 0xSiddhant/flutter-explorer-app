@@ -24,7 +24,11 @@
     "enableLargeText": false,
     "enableReducedMotion": false,
     "enableColorBlindSupport": false,
-    "minTouchTargetSize": 48.0
+    "enableLargeTouchTargets": false,
+    "enableHapticFeedback": false,
+    "enableSimplifiedUI": false,
+    "enableEnhancedFocus": false,
+    "minimumTouchTargetSize": 48.0
   },
   "performance": {
     "enableIsolateProcessing": true,

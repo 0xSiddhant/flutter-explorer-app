@@ -100,9 +100,15 @@ class FeatureCardsData {
     ];
 
     // Filter features based on config
-    return allFeatures.where((feature) {
+    final filteredFeatures = allFeatures.where((feature) {
       final isEnabled = features[feature.featureKey] as bool? ?? true;
+      debugPrint(
+        'Feature ${feature.featureKey}: ${isEnabled ? 'enabled' : 'disabled'}',
+      );
       return isEnabled;
     }).toList();
+
+    debugPrint('Filtered features count: ${filteredFeatures.length}');
+    return filteredFeatures;
   }
 }

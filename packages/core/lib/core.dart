@@ -22,3 +22,6 @@ export 'src/localization/models/language_model.dart';
 
 // Platform exports
 export 'src/method_channel/date_change_observer.dart';
+
+// Accessibility exports
+export 'src/accessibility/accessibility_provider.dart';

@@ -48,5 +48,13 @@ void main() async {
     debugPrint('Warning: Failed to load theme from config: $e');
   }
 
+  // Load accessibility settings from configuration
+  try {
+    await AccessibilityProvider.instance.loadFromConfig();
+  } catch (e) {
+    // Log error but continue (accessibility can work with defaults)
+    debugPrint('Warning: Failed to load accessibility from config: $e');
+  }
+
   runApp(const FlutterExplorerApp());
 }

@@ -69,17 +69,7 @@ class SettingsData {
           onChanged: (value) => onConfigUpdate('theme.isDarkMode', value),
           configKey: 'theme.isDarkMode',
         ),
-        SettingsItem(
-          title: AppLocalizations.getString('high_contrast'),
-          subtitle: AppLocalizations.getString(
-            'increase_contrast_for_better_visibility',
-          ),
-          icon: 'contrast',
-          type: SettingsItemType.switch_,
-          value: config['theme']?['isHighContrast'] ?? false,
-          onChanged: (value) => onConfigUpdate('theme.isHighContrast', value),
-          configKey: 'theme.isHighContrast',
-        ),
+
         SettingsItem(
           title: AppLocalizations.getString('text_scale'),
           subtitle:
@@ -140,6 +130,51 @@ class SettingsData {
           onChanged: (value) =>
               onConfigUpdate('accessibility.enableReducedMotion', value),
           configKey: 'accessibility.enableReducedMotion',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('color_blind_support'),
+          subtitle: AppLocalizations.getString('color_blind_friendly_palette'),
+          type: SettingsItemType.switch_,
+          value: config['accessibility']?['enableColorBlindSupport'] ?? false,
+          onChanged: (value) =>
+              onConfigUpdate('accessibility.enableColorBlindSupport', value),
+          configKey: 'accessibility.enableColorBlindSupport',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('large_touch_targets'),
+          subtitle: AppLocalizations.getString('increase_touch_area'),
+          type: SettingsItemType.switch_,
+          value: config['accessibility']?['enableLargeTouchTargets'] ?? false,
+          onChanged: (value) =>
+              onConfigUpdate('accessibility.enableLargeTouchTargets', value),
+          configKey: 'accessibility.enableLargeTouchTargets',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('haptic_feedback'),
+          subtitle: AppLocalizations.getString('vibration_feedback'),
+          type: SettingsItemType.switch_,
+          value: config['accessibility']?['enableHapticFeedback'] ?? false,
+          onChanged: (value) =>
+              onConfigUpdate('accessibility.enableHapticFeedback', value),
+          configKey: 'accessibility.enableHapticFeedback',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('simplified_ui'),
+          subtitle: AppLocalizations.getString('reduce_visual_complexity'),
+          type: SettingsItemType.switch_,
+          value: config['accessibility']?['enableSimplifiedUI'] ?? false,
+          onChanged: (value) =>
+              onConfigUpdate('accessibility.enableSimplifiedUI', value),
+          configKey: 'accessibility.enableSimplifiedUI',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('enhanced_focus'),
+          subtitle: AppLocalizations.getString('improved_focus_indicators'),
+          type: SettingsItemType.switch_,
+          value: config['accessibility']?['enableEnhancedFocus'] ?? false,
+          onChanged: (value) =>
+              onConfigUpdate('accessibility.enableEnhancedFocus', value),
+          configKey: 'accessibility.enableEnhancedFocus',
         ),
       ],
     );

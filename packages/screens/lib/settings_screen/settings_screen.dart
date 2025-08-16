@@ -102,6 +102,43 @@ class _SettingsScreenState extends State<SettingsScreen>
       } else if (key == 'theme.textScaleFactor') {
         _themeProvider.setTextScaleFactor(value as double);
       }
+
+      // Update accessibility provider for accessibility-related changes
+      if (key == 'accessibility.enableScreenReader') {
+        await AccessibilityProvider.instance.setScreenReaderEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableHighContrast') {
+        await AccessibilityProvider.instance.setHighContrastEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableLargeText') {
+        await AccessibilityProvider.instance.setLargeTextEnabled(value as bool);
+      } else if (key == 'accessibility.enableReducedMotion') {
+        await AccessibilityProvider.instance.setReducedMotionEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableColorBlindSupport') {
+        await AccessibilityProvider.instance.setColorBlindSupportEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableLargeTouchTargets') {
+        await AccessibilityProvider.instance.setLargeTouchTargetsEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableHapticFeedback') {
+        await AccessibilityProvider.instance.setHapticFeedbackEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableSimplifiedUI') {
+        await AccessibilityProvider.instance.setSimplifiedUIEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableEnhancedFocus') {
+        await AccessibilityProvider.instance.setEnhancedFocusEnabled(
+          value as bool,
+        );
+      }
     } catch (e) {
       if (mounted) {
         SettingsService.showErrorMessage(

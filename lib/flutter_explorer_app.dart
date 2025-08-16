@@ -12,6 +12,8 @@ class FlutterExplorerApp extends StatefulWidget {
 
 class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
   final ThemeProvider _themeProvider = ThemeProvider.instance;
+  final AccessibilityProvider _accessibilityProvider =
+      AccessibilityProvider.instance;
 
   @override
   void initState() {
@@ -20,6 +22,9 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
     _themeProvider.setThemeChangedCallback(() {
       setState(() {});
     });
+
+    // Listen for accessibility changes to rebuild the app
+    _accessibilityProvider.addListener(_onAccessibilityChanged);
 
     // Listen for language changes to rebuild the app
     LanguageChangeListener.instance.addListener(_onLanguageChanged);
@@ -31,11 +36,16 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
   @override
   void dispose() {
     LanguageChangeListener.instance.removeListener(_onLanguageChanged);
+    _accessibilityProvider.removeListener(_onAccessibilityChanged);
     DateChangeObserver.dispose();
     super.dispose();
   }
 
   void _onLanguageChanged() {
+    setState(() {});
+  }
+
+  void _onAccessibilityChanged() {
     setState(() {});
   }
 
@@ -46,9 +56,14 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
 
   @override
   Widget build(BuildContext context) {
+    // Apply accessibility settings to the theme
+    final accessibleTheme = _accessibilityProvider.getAccessibleTheme(
+      _themeProvider.currentTheme,
+    );
+
     return MaterialApp.router(
       title: 'Flutter Explorer',
-      theme: _themeProvider.currentTheme,
+      theme: accessibleTheme,
       routerConfig: AppRouteManager.router,
       builder: (context, child) {
         // Get current language from LanguageChangeListener
