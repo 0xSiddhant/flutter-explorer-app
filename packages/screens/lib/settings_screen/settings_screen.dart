@@ -32,9 +32,20 @@ class _SettingsScreenState extends State<SettingsScreen>
     _scrollController = ScrollController();
     _initializeSettings();
 
-    // Set up callback to rebuild screen when theme changes
-    _themeProvider.setThemeChangedCallback(() {
-      setState(() {});
+    // Listen for theme changes to rebuild screen
+    _themeProvider.addListener(_onThemeChanged);
+
+    // Listen for config changes to rebuild screen
+    ConfigChangeListener.instance.addListener(_onConfigChanged);
+  }
+
+  void _onThemeChanged() {
+    setState(() {});
+  }
+
+  void _onConfigChanged() {
+    _loadConfiguration().then((_) {
+      _buildSections();
     });
   }
 
@@ -97,8 +108,6 @@ class _SettingsScreenState extends State<SettingsScreen>
       // Update theme provider for theme-related changes
       if (key == 'theme.isDarkMode') {
         _themeProvider.setDarkMode(value as bool);
-      } else if (key == 'theme.isHighContrast') {
-        _themeProvider.setHighContrast(value as bool);
       } else if (key == 'theme.textScaleFactor') {
         _themeProvider.setTextScaleFactor(value as double);
       }
@@ -236,6 +245,8 @@ class _SettingsScreenState extends State<SettingsScreen>
   @override
   void dispose() {
     _scrollController.dispose();
+    _themeProvider.removeListener(_onThemeChanged);
+    ConfigChangeListener.instance.removeListener(_onConfigChanged);
     super.dispose();
   }
 

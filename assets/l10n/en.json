@@ -198,5 +198,14 @@
   "configuration_reloaded_successfully": "Configuration reloaded successfully",
   "error_reloading_configuration": "Error reloading configuration",
   "configuration_reset_to_default": "Configuration reset to default",
-  "error_resetting_configuration": "Error resetting configuration"
+  "error_resetting_configuration": "Error resetting configuration",
+  "theme_preview_mode": "Theme Preview Mode",
+  "theme_preview_description": "Changes are previewed in real-time. Use \"Apply Changes\" to save them permanently.",
+  "apply_changes": "Apply Changes",
+  "theme_preview": "Theme Preview",
+  "theme_information": "Theme Information",
+  "sample_text": "Sample Text",
+  "theme_preview_description_text": "This is how your theme will look with the current settings.",
+  "primary_button": "Primary Button",
+  "secondary_button": "Secondary Button"
 }

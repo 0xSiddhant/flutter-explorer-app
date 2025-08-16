@@ -230,6 +230,17 @@ class AccessibilityProvider extends ChangeNotifier {
 
   /// Get theme with accessibility modifications applied
   ThemeData getAccessibleTheme(ThemeData baseTheme) {
+    debugPrint(
+      'AccessibilityProvider: Applying accessibility theme modifications',
+    );
+    debugPrint(
+      'AccessibilityProvider: Dark mode: ${baseTheme.brightness == Brightness.dark}',
+    );
+    debugPrint('AccessibilityProvider: High contrast: $_isHighContrastEnabled');
+    debugPrint(
+      'AccessibilityProvider: Color blind support: $_isColorBlindSupportEnabled',
+    );
+
     ThemeData accessibleTheme = baseTheme;
 
     // Apply large text scaling
@@ -301,7 +312,22 @@ class AccessibilityProvider extends ChangeNotifier {
       );
     }
 
-    // Apply high contrast colors
+    // Apply color blind support first (alternative color scheme)
+    if (_isColorBlindSupportEnabled) {
+      accessibleTheme = accessibleTheme.copyWith(
+        colorScheme: accessibleTheme.colorScheme.copyWith(
+          primary: Colors.blue,
+          secondary: Colors.orange,
+          tertiary: Colors.green,
+          error: Colors.red,
+          surface: accessibleTheme.brightness == Brightness.dark
+              ? Colors.grey[800]!
+              : Colors.grey[100]!,
+        ),
+      );
+    }
+
+    // Apply high contrast colors (overrides color blind support if both enabled)
     if (_isHighContrastEnabled) {
       accessibleTheme = accessibleTheme.copyWith(
         colorScheme: accessibleTheme.colorScheme.copyWith(
@@ -323,21 +349,6 @@ class AccessibilityProvider extends ChangeNotifier {
           onBackground: accessibleTheme.brightness == Brightness.dark
               ? Colors.white
               : Colors.black,
-        ),
-      );
-    }
-
-    // Apply color blind support (alternative color scheme)
-    if (_isColorBlindSupportEnabled) {
-      accessibleTheme = accessibleTheme.copyWith(
-        colorScheme: accessibleTheme.colorScheme.copyWith(
-          primary: Colors.blue,
-          secondary: Colors.orange,
-          tertiary: Colors.green,
-          error: Colors.red,
-          surface: accessibleTheme.brightness == Brightness.dark
-              ? Colors.grey[800]!
-              : Colors.grey[100]!,
         ),
       );
     }

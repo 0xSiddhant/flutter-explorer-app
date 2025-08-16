@@ -3,7 +3,7 @@ import 'app_theme.dart';
 import '../config/app_config_service.dart';
 
 /// Provider for managing application theme state
-class ThemeProvider {
+class ThemeProvider extends ChangeNotifier {
   static final ThemeProvider _instance = ThemeProvider._internal();
   factory ThemeProvider() => _instance;
   ThemeProvider._internal();
@@ -13,9 +13,6 @@ class ThemeProvider {
   bool _isDarkMode = false;
   bool _isHighContrast = false;
   double _textScaleFactor = 1.0;
-
-  // Callback to notify when theme changes
-  VoidCallback? _onThemeChanged;
 
   /// Current dark mode state
   bool get isDarkMode => _isDarkMode;
@@ -27,19 +24,20 @@ class ThemeProvider {
   double get textScaleFactor => _textScaleFactor;
 
   /// Current theme data based on settings
-  ThemeData get currentTheme => AppTheme.getTheme(
-    isDarkMode: _isDarkMode,
-    isHighContrast: _isHighContrast,
-  );
-
-  /// Set callback for theme changes
-  void setThemeChangedCallback(VoidCallback callback) {
-    _onThemeChanged = callback;
+  ThemeData get currentTheme {
+    final theme = AppTheme.getTheme(
+      isDarkMode: _isDarkMode,
+      isHighContrast: _isHighContrast,
+    );
+    debugPrint(
+      'ThemeProvider: Current theme - Dark mode: $_isDarkMode, High contrast: $_isHighContrast, Brightness: ${theme.brightness}',
+    );
+    return theme;
   }
 
   /// Notify listeners of theme changes
   void _notifyThemeChanged() {
-    _onThemeChanged?.call();
+    notifyListeners();
   }
 
   /// Toggle dark mode
@@ -50,13 +48,16 @@ class ThemeProvider {
 
   /// Set dark mode
   void setDarkMode(bool value) async {
+    debugPrint('ThemeProvider: Setting dark mode to $value');
     _isDarkMode = value;
     _notifyThemeChanged();
 
     // Update configuration service
     try {
       await AppConfigService.instance.setValue('theme.isDarkMode', value);
+      debugPrint('ThemeProvider: Dark mode config updated successfully');
     } catch (e) {
+      debugPrint('ThemeProvider: Error updating dark mode config: $e');
       // Silently handle errors to avoid breaking theme changes
     }
   }

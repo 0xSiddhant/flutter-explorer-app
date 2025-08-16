@@ -185,5 +185,14 @@
   "configuration_reloaded_successfully": "Configuración recargada exitosamente",
   "error_reloading_configuration": "Error al recargar configuración",
   "configuration_reset_to_default": "Configuración restablecida a predeterminado",
-  "error_resetting_configuration": "Error al restablecer configuración"
+  "error_resetting_configuration": "Error al restablecer configuración",
+  "theme_preview_mode": "Modo de Vista Previa de Tema",
+  "theme_preview_description": "Los cambios se muestran en tiempo real. Use \"Aplicar Cambios\" para guardarlos permanentemente.",
+  "apply_changes": "Aplicar Cambios",
+  "theme_preview": "Vista Previa de Tema",
+  "theme_information": "Información del Tema",
+  "sample_text": "Texto de Ejemplo",
+  "theme_preview_description_text": "Así es como se verá su tema con la configuración actual.",
+  "primary_button": "Botón Principal",
+  "secondary_button": "Botón Secundario"
 }

@@ -185,5 +185,14 @@
   "configuration_reloaded_successfully": "Konfiguration erfolgreich neu geladen",
   "error_reloading_configuration": "Fehler beim Neuladen der Konfiguration",
   "configuration_reset_to_default": "Konfiguration auf Standard zurückgesetzt",
-  "error_resetting_configuration": "Fehler beim Zurücksetzen der Konfiguration"
+  "error_resetting_configuration": "Fehler beim Zurücksetzen der Konfiguration",
+  "theme_preview_mode": "Theme-Vorschau-Modus",
+  "theme_preview_description": "Änderungen werden in Echtzeit angezeigt. Verwenden Sie \"Änderungen anwenden\", um sie dauerhaft zu speichern.",
+  "apply_changes": "Änderungen anwenden",
+  "theme_preview": "Theme-Vorschau",
+  "theme_information": "Theme-Informationen",
+  "sample_text": "Beispieltext",
+  "theme_preview_description_text": "So wird Ihr Theme mit den aktuellen Einstellungen aussehen.",
+  "primary_button": "Primärer Button",
+  "secondary_button": "Sekundärer Button"
 }

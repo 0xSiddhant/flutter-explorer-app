@@ -185,5 +185,14 @@
   "configuration_reloaded_successfully": "設定が正常に再読み込みされました",
   "error_reloading_configuration": "設定の再読み込みエラー",
   "configuration_reset_to_default": "設定がデフォルトにリセットされました",
-  "error_resetting_configuration": "設定のリセットエラー"
+  "error_resetting_configuration": "設定のリセットエラー",
+  "theme_preview_mode": "テーマプレビューモード",
+  "theme_preview_description": "変更はリアルタイムでプレビューされます。「変更を適用」を使用して永続的に保存してください。",
+  "apply_changes": "変更を適用",
+  "theme_preview": "テーマプレビュー",
+  "theme_information": "テーマ情報",
+  "sample_text": "サンプルテキスト",
+  "theme_preview_description_text": "現在の設定でテーマがどのように見えるかです。",
+  "primary_button": "プライマリボタン",
+  "secondary_button": "セカンダリボタン"
 }

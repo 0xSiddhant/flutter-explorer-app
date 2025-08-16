@@ -1,5 +1,11 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:core/src/theme/app_theme.dart';
+import 'models/theme_control_model.dart';
+import 'widgets/theme_controls_widget.dart';
+import 'widgets/theme_preview_widget.dart';
+import 'widgets/theme_info_widget.dart';
+import 'data/theme_data.dart';
 
 class ThemingScreen extends StatefulWidget {
   const ThemingScreen({super.key});
@@ -8,257 +14,103 @@ class ThemingScreen extends StatefulWidget {
   State<ThemingScreen> createState() => _ThemingScreenState();
 }
 
-class _ThemingScreenState extends State<ThemingScreen> with RouteAwareMixin {
-  final ThemeProvider _themeProvider = ThemeProvider.instance;
+class _ThemingScreenState extends State<ThemingScreen> {
+  late ScrollController _scrollController;
+
+  // Local theme state for preview (doesn't affect global app)
+  late ThemeControlModel _currentTheme;
+  late ThemeControlModel _originalTheme;
 
   @override
   void initState() {
     super.initState();
-    // Set up callback to rebuild screen when theme changes
-    _themeProvider.setThemeChangedCallback(() {
-      setState(() {});
+    _scrollController = ScrollController();
+    _initializeThemeState();
+
+    // Listen for language changes to rebuild screen
+    LanguageChangeListener.instance.addListener(_onLanguageChanged);
+  }
+
+  void _initializeThemeState() {
+    // Get current theme values
+    _originalTheme = ThemeDataService.getCurrentTheme();
+    _currentTheme = _originalTheme;
+  }
+
+  void _onLanguageChanged() {
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    LanguageChangeListener.instance.removeListener(_onLanguageChanged);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onThemeChanged(ThemeControlModel newTheme) {
+    setState(() {
+      _currentTheme = newTheme;
+    });
+  }
+
+  void _onApplyChanges() {
+    ThemeDataService.applyTheme(_currentTheme);
+    setState(() {
+      _originalTheme = _currentTheme;
+    });
+  }
+
+  void _onReset() {
+    setState(() {
+      _currentTheme = _originalTheme;
     });
   }
 
   @override
-  void onScreenVisible() {
-    super.onScreenVisible();
-    print('🎨 Theming screen became visible');
-  }
-
-  @override
-  void onScreenInvisible() {
-    super.onScreenInvisible();
-    print('🎨 Theming screen became invisible');
-  }
-
-  @override
-  void onScreenPushed() {
-    super.onScreenPushed();
-    print('🎨 Theming screen was pushed');
-  }
-
-  @override
-  void onScreenPopped() {
-    super.onScreenPopped();
-    print('🎨 Theming screen was popped');
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.getString('theming')),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildThemeControls(),
-              const SizedBox(height: 24),
-              _buildThemePreview(),
-              const SizedBox(height: 24),
-              _buildThemeInfo(),
-              const SizedBox(height: 24), // Add bottom padding
-            ],
-          ),
-        ),
-      ),
+    // Create a local theme for preview that doesn't affect global state
+    final localTheme = AppTheme.getTheme(
+      isDarkMode: _currentTheme.isDarkMode,
+      isHighContrast: _currentTheme.isHighContrast,
     );
-  }
 
-  Widget _buildThemeControls() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Theme Controls',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            SwitchListTile(
-              title: Text(AppLocalizations.getString('dark_mode')),
-              subtitle: Text(
-                AppLocalizations.getString(
-                  'switch_between_light_and_dark_themes',
-                ),
-              ),
-              value: _themeProvider.isDarkMode,
-              onChanged: (value) {
-                _themeProvider.setDarkMode(value);
-              },
-            ),
-            SwitchListTile(
-              title: Text(AppLocalizations.getString('high_contrast')),
-              subtitle: Text(
-                AppLocalizations.getString(
-                  'increase_contrast_for_better_visibility',
-                ),
-              ),
-              value: _themeProvider.isHighContrast,
-              onChanged: (value) {
-                _themeProvider.setHighContrast(value);
-              },
-            ),
-            ListTile(
-              title: Text(AppLocalizations.getString('text_scale')),
-              subtitle: Text(
-                'Current: ${_themeProvider.textScaleFactor.toStringAsFixed(1)}x',
-              ),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
+    return Theme(
+      data: localTheme,
+      child: MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+          textScaler: TextScaler.linear(_currentTheme.textScaleFactor),
+        ),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(AppLocalizations.getString('theming')),
+            backgroundColor: localTheme.colorScheme.inversePrimary,
+          ),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              key: const PageStorageKey<String>('theming_screen_scroll'),
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.remove),
-                    onPressed: () {
-                      if (_themeProvider.textScaleFactor > 0.8) {
-                        _themeProvider.setTextScaleFactor(
-                          _themeProvider.textScaleFactor - 0.1,
-                        );
-                      }
-                    },
+                  ThemeControlsWidget(
+                    currentTheme: _currentTheme,
+                    originalTheme: _originalTheme,
+                    onThemeChanged: _onThemeChanged,
+                    onApplyChanges: _onApplyChanges,
+                    onReset: _onReset,
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    onPressed: () {
-                      if (_themeProvider.textScaleFactor < 2.0) {
-                        _themeProvider.setTextScaleFactor(
-                          _themeProvider.textScaleFactor + 0.1,
-                        );
-                      }
-                    },
-                  ),
+                  const SizedBox(height: 24),
+                  const ThemePreviewWidget(),
+                  const SizedBox(height: 24),
+                  ThemeInfoWidget(theme: _currentTheme),
+                  const SizedBox(height: 24), // Add bottom padding
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildThemePreview() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Theme Preview',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(AppLocalizations.getString('elevated_button')),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: Text(AppLocalizations.getString('outlined_button')),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Text Field',
-                hintText: 'Enter some text',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Checkbox(value: true, onChanged: (value) {}),
-                Text(AppLocalizations.getString('checkbox')),
-                const SizedBox(width: 16),
-                Radio<bool>(
-                  value: true,
-                  groupValue: true,
-                  onChanged: (value) {},
-                ),
-                Text(AppLocalizations.getString('radio')),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildThemeInfo() {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Current Theme Info',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            _buildColorInfo('Primary', colorScheme.primary),
-            _buildColorInfo('On Primary', colorScheme.onPrimary),
-            _buildColorInfo('Secondary', colorScheme.secondary),
-            _buildColorInfo('Surface', colorScheme.surface),
-            _buildColorInfo('Surface', colorScheme.surface),
-            _buildColorInfo('Error', colorScheme.error),
-            const SizedBox(height: 16),
-            Text(
-              'Brightness: ${Theme.of(context).brightness.name}',
-              style: const TextStyle(fontWeight: FontWeight.w500),
-            ),
-            Text(
-              'Text Scale: ${_themeProvider.textScaleFactor.toStringAsFixed(1)}x',
-              style: const TextStyle(fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildColorInfo(String label, Color color) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        children: [
-          Container(
-            width: 20,
-            height: 20,
-            decoration: BoxDecoration(
-              color: color,
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(4),
-            ),
           ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              '$label: #${color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}',
-              style: const TextStyle(fontFamily: 'monospace'),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

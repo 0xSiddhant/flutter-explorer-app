@@ -185,5 +185,14 @@
   "configuration_reloaded_successfully": "تم إعادة تحميل الإعدادات بنجاح",
   "error_reloading_configuration": "خطأ في إعادة تحميل الإعدادات",
   "configuration_reset_to_default": "تم إعادة تعيين الإعدادات إلى الافتراضي",
-  "error_resetting_configuration": "خطأ في إعادة تعيين الإعدادات"
+  "error_resetting_configuration": "خطأ في إعادة تعيين الإعدادات",
+  "theme_preview_mode": "وضع معاينة السمة",
+  "theme_preview_description": "يتم عرض التغييرات في الوقت الفعلي. استخدم \"تطبيق التغييرات\" لحفظها بشكل دائم.",
+  "apply_changes": "تطبيق التغييرات",
+  "theme_preview": "معاينة السمة",
+  "theme_information": "معلومات السمة",
+  "sample_text": "نص تجريبي",
+  "theme_preview_description_text": "هذا هو كيف ستظهر سمتك مع الإعدادات الحالية.",
+  "primary_button": "زر أساسي",
+  "secondary_button": "زر ثانوي"
 }

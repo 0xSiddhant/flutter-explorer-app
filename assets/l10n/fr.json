@@ -185,5 +185,14 @@
   "configuration_reloaded_successfully": "Configuration rechargée avec succès",
   "error_reloading_configuration": "Erreur lors du rechargement de la configuration",
   "configuration_reset_to_default": "Configuration réinitialisée aux valeurs par défaut",
-  "error_resetting_configuration": "Erreur lors de la réinitialisation de la configuration"
+  "error_resetting_configuration": "Erreur lors de la réinitialisation de la configuration",
+  "theme_preview_mode": "Mode Aperçu du Thème",
+  "theme_preview_description": "Les modifications sont prévisualisées en temps réel. Utilisez \"Appliquer les Modifications\" pour les sauvegarder définitivement.",
+  "apply_changes": "Appliquer les Modifications",
+  "theme_preview": "Aperçu du Thème",
+  "theme_information": "Informations du Thème",
+  "sample_text": "Texte d'Exemple",
+  "theme_preview_description_text": "Voici comment votre thème apparaîtra avec les paramètres actuels.",
+  "primary_button": "Bouton Principal",
+  "secondary_button": "Bouton Secondaire"
 }
