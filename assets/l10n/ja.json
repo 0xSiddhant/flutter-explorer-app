@@ -189,10 +189,18 @@
   "theme_preview_mode": "テーマプレビューモード",
   "theme_preview_description": "変更はリアルタイムでプレビューされます。「変更を適用」を使用して永続的に保存してください。",
   "apply_changes": "変更を適用",
+  "theme_applied_successfully": "テーマが正常に適用されました！",
   "theme_preview": "テーマプレビュー",
   "theme_information": "テーマ情報",
   "sample_text": "サンプルテキスト",
   "theme_preview_description_text": "現在の設定でテーマがどのように見えるかです。",
   "primary_button": "プライマリボタン",
-  "secondary_button": "セカンダリボタン"
+  "secondary_button": "セカンダリボタン",
+  "theme_selection": "テーマ選択",
+  "select_app_theme": "アプリテーマを選択",
+  "choose_your_preferred_theme": "お好みのテーマを選択してください",
+  "harry_potter_theme": "ハリー・ポッター・マジカル",
+  "dark_blue_theme": "ダークブルーテーマ",
+  "view_components": "コンポーネントを表示",
+  "theme_component_showcase": "テーマコンポーネントショーケース"
 }

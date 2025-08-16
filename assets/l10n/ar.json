@@ -189,10 +189,18 @@
   "theme_preview_mode": "وضع معاينة السمة",
   "theme_preview_description": "يتم عرض التغييرات في الوقت الفعلي. استخدم \"تطبيق التغييرات\" لحفظها بشكل دائم.",
   "apply_changes": "تطبيق التغييرات",
+  "theme_applied_successfully": "تم تطبيق السمة بنجاح!",
   "theme_preview": "معاينة السمة",
   "theme_information": "معلومات السمة",
   "sample_text": "نص تجريبي",
   "theme_preview_description_text": "هذا هو كيف ستظهر سمتك مع الإعدادات الحالية.",
   "primary_button": "زر أساسي",
-  "secondary_button": "زر ثانوي"
+  "secondary_button": "زر ثانوي",
+  "theme_selection": "اختيار السمة",
+  "select_app_theme": "اختر سمة التطبيق",
+  "choose_your_preferred_theme": "اختر السمة المفضلة لديك",
+  "harry_potter_theme": "هاري بوتر السحري",
+  "dark_blue_theme": "السمة الزرقاء الداكنة",
+  "view_components": "عرض المكونات",
+  "theme_component_showcase": "عرض مكونات السمة"
 }

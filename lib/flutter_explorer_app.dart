@@ -11,15 +11,18 @@ class FlutterExplorerApp extends StatefulWidget {
 }
 
 class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
-  final ThemeProvider _themeProvider = ThemeProvider.instance;
+  final ThemeObserver _themeObserver = ThemeObserver.instance;
   final AccessibilityProvider _accessibilityProvider =
       AccessibilityProvider.instance;
 
   @override
   void initState() {
     super.initState();
+    // Initialize theme observer
+    _themeObserver.initialize();
+
     // Listen for theme changes to rebuild the app
-    _themeProvider.addListener(_onThemeChanged);
+    _themeObserver.addListener(_onThemeChanged);
 
     // Listen for accessibility changes to rebuild the app
     _accessibilityProvider.addListener(_onAccessibilityChanged);
@@ -34,7 +37,7 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
   @override
   void dispose() {
     LanguageChangeListener.instance.removeListener(_onLanguageChanged);
-    _themeProvider.removeListener(_onThemeChanged);
+    _themeObserver.removeListener(_onThemeChanged);
     _accessibilityProvider.removeListener(_onAccessibilityChanged);
     DateChangeObserver.dispose();
     super.dispose();
@@ -60,7 +63,7 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
   @override
   Widget build(BuildContext context) {
     // Apply accessibility settings to the theme
-    final baseTheme = _themeProvider.currentTheme;
+    final baseTheme = _themeObserver.currentTheme;
     final accessibleTheme = _accessibilityProvider.getAccessibleTheme(
       baseTheme,
     );
@@ -84,7 +87,7 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
           textDirection: textDirection,
           child: MediaQuery(
             data: MediaQuery.of(context).copyWith(
-              textScaler: TextScaler.linear(_themeProvider.textScaleFactor),
+              textScaler: TextScaler.linear(_themeObserver.textScaleFactor),
             ),
             child: child!,
           ),

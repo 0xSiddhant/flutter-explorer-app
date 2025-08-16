@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:core/src/theme/app_theme.dart';
+
 import 'models/theme_control_model.dart';
 import 'widgets/theme_controls_widget.dart';
 import 'widgets/theme_preview_widget.dart';
@@ -29,6 +29,9 @@ class _ThemingScreenState extends State<ThemingScreen> {
 
     // Listen for language changes to rebuild screen
     LanguageChangeListener.instance.addListener(_onLanguageChanged);
+
+    // Listen for theme changes to update the screen
+    ThemeObserver.instance.addListener(_onGlobalThemeChanged);
   }
 
   void _initializeThemeState() {
@@ -41,9 +44,17 @@ class _ThemingScreenState extends State<ThemingScreen> {
     setState(() {});
   }
 
+  void _onGlobalThemeChanged() {
+    // Update the screen when global theme changes
+    setState(() {
+      _initializeThemeState();
+    });
+  }
+
   @override
   void dispose() {
     LanguageChangeListener.instance.removeListener(_onLanguageChanged);
+    ThemeObserver.instance.removeListener(_onGlobalThemeChanged);
     _scrollController.dispose();
     super.dispose();
   }
@@ -70,9 +81,9 @@ class _ThemingScreenState extends State<ThemingScreen> {
   @override
   Widget build(BuildContext context) {
     // Create a local theme for preview that doesn't affect global state
-    final localTheme = AppTheme.getTheme(
-      isDarkMode: _currentTheme.isDarkMode,
-      isHighContrast: _currentTheme.isHighContrast,
+    final localTheme = ThemeObserver.instance.getThemeForPreview(
+      ThemeObserver.instance.selectedThemeId,
+      _currentTheme.isDarkMode,
     );
 
     return Theme(

@@ -2,7 +2,9 @@
 export 'src/router/router.dart';
 
 // Theme exports
-export 'src/theme/theme_provider.dart';
+export 'src/theme/color_palette/color_palette.dart';
+export 'src/theme/theme_manager.dart';
+export 'src/theme/theme_observer.dart';
 
 // Isolate exports
 export 'src/isolate/isolate_manager.dart';

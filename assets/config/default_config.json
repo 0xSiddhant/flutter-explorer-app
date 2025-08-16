@@ -1,11 +1,8 @@
 {
   "theme": {
+    "selectedThemeId": "harry_potter",
     "isDarkMode": false,
-    "isHighContrast": false,
-    "textScaleFactor": 1.0,
-    "primaryColor": "#2196F3",
-    "secondaryColor": "#FF9800",
-    "accentColor": "#4CAF50"
+    "textScaleFactor": 1.0
   },
   "navigation": {
     "enableAnalytics": true,

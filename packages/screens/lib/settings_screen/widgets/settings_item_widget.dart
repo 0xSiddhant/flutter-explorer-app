@@ -55,6 +55,69 @@ class SettingsItemWidget extends StatelessWidget {
   }
 
   Widget _buildDropdownTile(BuildContext context) {
+    // Check if this is a theme selection dropdown
+    if (item.configKey == 'theme.selectedThemeId') {
+      return _buildThemeDropdownTile(context);
+    }
+
+    // Default language dropdown
+    return _buildLanguageDropdownTile(context);
+  }
+
+  Widget _buildThemeDropdownTile(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.palette, color: Theme.of(context).colorScheme.primary),
+              const SizedBox(width: 8),
+              Text(
+                item.title,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          DropdownButtonFormField<String>(
+            value: _getValidThemeValue(item.value as String?),
+            decoration: InputDecoration(
+              labelText: AppLocalizations.getString('select_app_theme'),
+              border: const OutlineInputBorder(),
+            ),
+            items: [
+              DropdownMenuItem<String>(
+                value: HarryPotterTheme.themeId,
+                child: Text(AppLocalizations.getString('harry_potter_theme')),
+              ),
+              DropdownMenuItem<String>(
+                value: DarkBlueTheme.themeId,
+                child: Text(AppLocalizations.getString('dark_blue_theme')),
+              ),
+            ],
+            onChanged: (String? newValue) {
+              if (newValue != null && item.onChanged != null) {
+                item.onChanged!(newValue);
+              }
+            },
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Current: ${_getThemeDisplayName(item.value as String? ?? ThemeManager.defaultThemeId)}',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLanguageDropdownTile(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -116,6 +179,30 @@ class SettingsItemWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _getThemeDisplayName(String themeId) {
+    switch (themeId) {
+      case ThemeManager.harryPotterThemeId:
+        return AppLocalizations.getString('harry_potter_theme');
+      case ThemeManager.darkBlueThemeId:
+        return AppLocalizations.getString('dark_blue_theme');
+      default:
+        return AppLocalizations.getString('harry_potter_theme');
+    }
+  }
+
+  String? _getValidThemeValue(String? themeId) {
+    if (themeId == null) return ThemeManager.defaultThemeId;
+
+    // Check if the theme ID is valid
+    if (themeId == ThemeManager.harryPotterThemeId ||
+        themeId == ThemeManager.darkBlueThemeId) {
+      return themeId;
+    }
+
+    // If invalid, return default
+    return ThemeManager.defaultThemeId;
   }
 
   Widget _buildButtonTile(BuildContext context) {

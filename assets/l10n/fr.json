@@ -189,10 +189,18 @@
   "theme_preview_mode": "Mode Aperçu du Thème",
   "theme_preview_description": "Les modifications sont prévisualisées en temps réel. Utilisez \"Appliquer les Modifications\" pour les sauvegarder définitivement.",
   "apply_changes": "Appliquer les Modifications",
+  "theme_applied_successfully": "Thème appliqué avec succès !",
   "theme_preview": "Aperçu du Thème",
   "theme_information": "Informations du Thème",
   "sample_text": "Texte d'Exemple",
   "theme_preview_description_text": "Voici comment votre thème apparaîtra avec les paramètres actuels.",
   "primary_button": "Bouton Principal",
-  "secondary_button": "Bouton Secondaire"
+  "secondary_button": "Bouton Secondaire",
+  "theme_selection": "Sélection de Thème",
+  "select_app_theme": "Sélectionner le Thème de l'App",
+  "choose_your_preferred_theme": "Choisissez votre thème préféré",
+  "harry_potter_theme": "Harry Potter Magique",
+  "dark_blue_theme": "Thème Bleu Foncé",
+  "view_components": "Voir les Composants",
+  "theme_component_showcase": "Aperçu des Composants de Thème"
 }

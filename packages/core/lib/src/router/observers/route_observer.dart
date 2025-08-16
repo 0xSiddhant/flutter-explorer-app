@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants/route_constants.dart';
 
 /// Custom route observer for tracking navigation state and analytics
 class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
@@ -179,7 +180,11 @@ class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
       // Extract path from GoRoute
       final pathMatch = RegExp(r"path: '([^']+)'").firstMatch(routeString);
       if (pathMatch != null) {
-        return pathMatch.group(1) ?? 'unknown';
+        final path = pathMatch.group(1);
+        if (path != null) {
+          // Convert path to route name using RouteConstants
+          return RouteConstants.getRouteNameFromPath(path);
+        }
       }
     }
 

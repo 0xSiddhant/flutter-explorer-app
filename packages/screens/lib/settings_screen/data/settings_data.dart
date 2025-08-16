@@ -57,6 +57,18 @@ class SettingsData {
       icon: 'palette',
       items: [
         SettingsItem(
+          title: AppLocalizations.getString('theme_selection'),
+          subtitle: AppLocalizations.getString('choose_your_preferred_theme'),
+          icon: 'palette',
+          type: SettingsItemType.dropdown,
+          value:
+              config['theme']?['selectedThemeId'] ??
+              ThemeManager.defaultThemeId,
+          onChanged: (value) => onConfigUpdate('theme.selectedThemeId', value),
+          configKey: 'theme.selectedThemeId',
+        ),
+
+        SettingsItem(
           title: AppLocalizations.getString('dark_mode'),
           subtitle: AppLocalizations.getString(
             'switch_between_light_and_dark_themes',

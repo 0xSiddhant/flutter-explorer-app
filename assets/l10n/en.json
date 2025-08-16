@@ -202,10 +202,18 @@
   "theme_preview_mode": "Theme Preview Mode",
   "theme_preview_description": "Changes are previewed in real-time. Use \"Apply Changes\" to save them permanently.",
   "apply_changes": "Apply Changes",
+  "theme_applied_successfully": "Theme applied successfully!",
   "theme_preview": "Theme Preview",
   "theme_information": "Theme Information",
   "sample_text": "Sample Text",
   "theme_preview_description_text": "This is how your theme will look with the current settings.",
   "primary_button": "Primary Button",
-  "secondary_button": "Secondary Button"
+  "secondary_button": "Secondary Button",
+  "theme_selection": "Theme Selection",
+  "select_app_theme": "Select App Theme",
+  "choose_your_preferred_theme": "Choose your preferred theme",
+  "harry_potter_theme": "Harry Potter Magical",
+  "dark_blue_theme": "Dark Blue Theme",
+  "view_components": "View Components",
+  "theme_component_showcase": "Theme Component Showcase"
 }

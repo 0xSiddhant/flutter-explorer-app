@@ -160,6 +160,16 @@ class RouteGenerator {
           state: state,
         ),
       ),
+
+      // Theme component showcase route
+      GoRoute(
+        path: RouteConstants.themeComponentShowcase.path,
+        name: RouteConstants.themeComponentShowcase.name,
+        pageBuilder: (context, state) => FadeScaleAnimation.buildPage(
+          child: const ThemeComponentShowcaseScreen(),
+          state: state,
+        ),
+      ),
     ];
   }
 

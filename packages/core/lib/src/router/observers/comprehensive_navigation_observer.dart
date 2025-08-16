@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants/route_constants.dart';
 
 /// Comprehensive navigation observer for advanced analytics and performance tracking
 class ComprehensiveNavigationObserver
@@ -322,7 +323,11 @@ class ComprehensiveNavigationObserver
       // Extract path from GoRoute
       final pathMatch = RegExp(r"path: '([^']+)'").firstMatch(routeString);
       if (pathMatch != null) {
-        return pathMatch.group(1) ?? 'unknown';
+        final path = pathMatch.group(1);
+        if (path != null) {
+          // Convert path to route name using RouteConstants
+          return RouteConstants.getRouteNameFromPath(path);
+        }
       }
     }
 

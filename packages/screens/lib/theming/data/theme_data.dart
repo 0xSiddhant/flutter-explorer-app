@@ -4,23 +4,23 @@ import '../models/theme_control_model.dart';
 
 class ThemeDataService {
   static ThemeControlModel getCurrentTheme() {
-    final themeProvider = ThemeProvider.instance;
+    final themeObserver = ThemeObserver.instance;
     final accessibilityProvider = AccessibilityProvider.instance;
 
     return ThemeControlModel(
-      isDarkMode: themeProvider.isDarkMode,
+      isDarkMode: themeObserver.isDarkMode,
       isHighContrast: accessibilityProvider.isHighContrastEnabled,
-      textScaleFactor: themeProvider.textScaleFactor,
+      textScaleFactor: themeObserver.textScaleFactor,
     );
   }
 
   static void applyTheme(ThemeControlModel theme) {
     debugPrint('🎨 ThemeData: Applying theme changes permanently');
 
-    // Apply to global theme provider
-    ThemeProvider.instance.setDarkMode(theme.isDarkMode);
+    // Apply to global theme observer
+    ThemeObserver.instance.setDarkMode(theme.isDarkMode);
     AccessibilityProvider.instance.setHighContrastEnabled(theme.isHighContrast);
-    ThemeProvider.instance.setTextScaleFactor(theme.textScaleFactor);
+    ThemeObserver.instance.setTextScaleFactor(theme.textScaleFactor);
 
     // Save to configuration
     AppConfigService.instance.setValue('theme.isDarkMode', theme.isDarkMode);

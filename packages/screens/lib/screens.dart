@@ -7,6 +7,7 @@ export './detail_screen/detail_screen.dart';
 
 // Feature screens
 export './theming/theming_screen.dart';
+export './theming/theme_component_showcase_screen.dart';
 export './native_communication/native_communication_screen.dart';
 export './background_tasks/background_tasks_screen.dart';
 export './internationalization/internationalization_screen.dart';
