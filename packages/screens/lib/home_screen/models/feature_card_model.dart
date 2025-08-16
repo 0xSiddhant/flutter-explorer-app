@@ -7,6 +7,7 @@ class FeatureCardModel {
   final IconData icon;
   final Color color;
   final VoidCallback onTap;
+  final String? featureKey;
 
   const FeatureCardModel({
     required this.title,
@@ -14,5 +15,6 @@ class FeatureCardModel {
     required this.icon,
     required this.color,
     required this.onTap,
+    this.featureKey,
   });
 }

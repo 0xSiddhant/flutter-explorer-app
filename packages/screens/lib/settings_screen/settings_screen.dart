@@ -104,7 +104,10 @@ class _SettingsScreenState extends State<SettingsScreen>
       }
     } catch (e) {
       if (mounted) {
-        SettingsService.showErrorMessage(context, 'Error updating setting: $e');
+        SettingsService.showErrorMessage(
+          context,
+          '${AppLocalizations.getString('error_updating_setting')}: $e',
+        );
       }
     }
   }
@@ -123,14 +126,14 @@ class _SettingsScreenState extends State<SettingsScreen>
       if (mounted) {
         SettingsService.showSuccessMessage(
           context,
-          'Language changed to ${AppLocalizations.getLanguageByCode(languageCode)?.name ?? languageCode}',
+          '${AppLocalizations.getString('language_changed_to')} ${AppLocalizations.getLanguageByCode(languageCode)?.name ?? languageCode}',
         );
       }
     } catch (e) {
       if (mounted) {
         SettingsService.showErrorMessage(
           context,
-          'Error changing language: $e',
+          '${AppLocalizations.getString('error_changing_language')}: $e',
         );
       }
     }
@@ -145,14 +148,14 @@ class _SettingsScreenState extends State<SettingsScreen>
       if (mounted) {
         SettingsService.showSuccessMessage(
           context,
-          'Configuration reloaded successfully',
+          AppLocalizations.getString('configuration_reloaded_successfully'),
         );
       }
     } catch (e) {
       if (mounted) {
         SettingsService.showErrorMessage(
           context,
-          'Error reloading configuration: $e',
+          '${AppLocalizations.getString('error_reloading_configuration')}: $e',
         );
       }
     }
@@ -172,14 +175,14 @@ class _SettingsScreenState extends State<SettingsScreen>
         if (mounted) {
           SettingsService.showSuccessMessage(
             context,
-            'Configuration reset to default',
+            AppLocalizations.getString('configuration_reset_to_default'),
           );
         }
       } catch (e) {
         if (mounted) {
           SettingsService.showErrorMessage(
             context,
-            'Error resetting configuration: $e',
+            '${AppLocalizations.getString('error_resetting_configuration')}: $e',
           );
         }
       }

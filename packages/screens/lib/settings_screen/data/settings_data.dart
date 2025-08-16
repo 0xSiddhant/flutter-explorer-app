@@ -19,6 +19,7 @@ class SettingsData {
       _buildLanguageSection(selectedLanguage, onLanguageChange),
       _buildAppearanceSection(config, onConfigUpdate),
       _buildAccessibilitySection(config, onConfigUpdate),
+      _buildFeatureTogglesSection(config, onConfigUpdate),
       _buildConfigurationSection(onReloadConfig, onResetConfig, onViewConfig),
       _buildAboutSection(appInfo),
     ];
@@ -30,12 +31,12 @@ class SettingsData {
     Function(String) onLanguageChange,
   ) {
     return SettingsSection(
-      title: 'Language & Region',
+      title: AppLocalizations.getString('language_and_region'),
       icon: 'language',
       items: [
         SettingsItem(
-          title: 'App Language',
-          subtitle: 'Select your preferred language',
+          title: AppLocalizations.getString('app_language'),
+          subtitle: AppLocalizations.getString('select_preferred_language'),
           icon: 'language',
           type: SettingsItemType.dropdown,
           value: selectedLanguage,
@@ -52,7 +53,7 @@ class SettingsData {
     Function(String, dynamic) onConfigUpdate,
   ) {
     return SettingsSection(
-      title: 'Appearance',
+      title: AppLocalizations.getString('appearance'),
       icon: 'palette',
       items: [
         SettingsItem(
@@ -99,7 +100,7 @@ class SettingsData {
     Function(String, dynamic) onConfigUpdate,
   ) {
     return SettingsSection(
-      title: 'Accessibility',
+      title: AppLocalizations.getString('accessibility'),
       icon: 'accessibility',
       items: [
         SettingsItem(
@@ -144,6 +145,130 @@ class SettingsData {
     );
   }
 
+  /// Build feature toggles section
+  static SettingsSection _buildFeatureTogglesSection(
+    Map<String, dynamic> config,
+    Function(String, dynamic) onConfigUpdate,
+  ) {
+    final features = config['features'] as Map<String, dynamic>? ?? {};
+
+    return SettingsSection(
+      title: AppLocalizations.getString('feature_toggles'),
+      icon: 'featured_play_list',
+      items: [
+        SettingsItem(
+          title: AppLocalizations.getString('navigation'),
+          subtitle: AppLocalizations.getString('route_management'),
+          icon: 'navigation',
+          type: SettingsItemType.switch_,
+          value: features['enableNavigation'] ?? true,
+          onChanged: (value) =>
+              onConfigUpdate('features.enableNavigation', value),
+          configKey: 'features.enableNavigation',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('theming'),
+          subtitle: AppLocalizations.getString('dynamic_themes'),
+          icon: 'palette',
+          type: SettingsItemType.switch_,
+          value: features['enableTheming'] ?? true,
+          onChanged: (value) => onConfigUpdate('features.enableTheming', value),
+          configKey: 'features.enableTheming',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('native_communication'),
+          subtitle: AppLocalizations.getString('platform_integration'),
+          icon: 'phone_android',
+          type: SettingsItemType.switch_,
+          value: features['enableNativeCommunication'] ?? true,
+          onChanged: (value) =>
+              onConfigUpdate('features.enableNativeCommunication', value),
+          configKey: 'features.enableNativeCommunication',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('background_tasks'),
+          subtitle: AppLocalizations.getString('isolate_processing'),
+          icon: 'sync',
+          type: SettingsItemType.switch_,
+          value: features['enableBackgroundTasks'] ?? true,
+          onChanged: (value) =>
+              onConfigUpdate('features.enableBackgroundTasks', value),
+          configKey: 'features.enableBackgroundTasks',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('internationalization'),
+          subtitle: AppLocalizations.getString('multi_language_support'),
+          icon: 'language',
+          type: SettingsItemType.switch_,
+          value: features['enableInternationalization'] ?? true,
+          onChanged: (value) =>
+              onConfigUpdate('features.enableInternationalization', value),
+          configKey: 'features.enableInternationalization',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('accessibility'),
+          subtitle: AppLocalizations.getString('semantic_ui'),
+          icon: 'accessibility',
+          type: SettingsItemType.switch_,
+          value: features['enableAccessibility'] ?? true,
+          onChanged: (value) =>
+              onConfigUpdate('features.enableAccessibility', value),
+          configKey: 'features.enableAccessibility',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('file_management'),
+          subtitle: AppLocalizations.getString('local_storage'),
+          icon: 'folder',
+          type: SettingsItemType.switch_,
+          value: features['enableFileManagement'] ?? true,
+          onChanged: (value) =>
+              onConfigUpdate('features.enableFileManagement', value),
+          configKey: 'features.enableFileManagement',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('advanced_processing'),
+          subtitle: AppLocalizations.getString('complex_operations'),
+          icon: 'science',
+          type: SettingsItemType.switch_,
+          value: features['enableAdvancedProcessing'] ?? true,
+          onChanged: (value) =>
+              onConfigUpdate('features.enableAdvancedProcessing', value),
+          configKey: 'features.enableAdvancedProcessing',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('navigation_analytics'),
+          subtitle: AppLocalizations.getString('route_tracking'),
+          icon: 'analytics',
+          type: SettingsItemType.switch_,
+          value: features['enableNavigationAnalytics'] ?? true,
+          onChanged: (value) =>
+              onConfigUpdate('features.enableNavigationAnalytics', value),
+          configKey: 'features.enableNavigationAnalytics',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('lifecycle_management'),
+          subtitle: AppLocalizations.getString('widget_states'),
+          icon: 'auto_awesome',
+          type: SettingsItemType.switch_,
+          value: features['enableLifecycleManagement'] ?? true,
+          onChanged: (value) =>
+              onConfigUpdate('features.enableLifecycleManagement', value),
+          configKey: 'features.enableLifecycleManagement',
+        ),
+        SettingsItem(
+          title: AppLocalizations.getString('typography_showcase'),
+          subtitle: AppLocalizations.getString('font_rendering'),
+          icon: 'text_fields',
+          type: SettingsItemType.switch_,
+          value: features['enableTypographyShowcase'] ?? true,
+          onChanged: (value) =>
+              onConfigUpdate('features.enableTypographyShowcase', value),
+          configKey: 'features.enableTypographyShowcase',
+        ),
+      ],
+    );
+  }
+
   /// Build configuration section
   static SettingsSection _buildConfigurationSection(
     VoidCallback onReloadConfig,
@@ -151,26 +276,26 @@ class SettingsData {
     VoidCallback onViewConfig,
   ) {
     return SettingsSection(
-      title: 'Configuration',
+      title: AppLocalizations.getString('configuration'),
       icon: 'settings',
       items: [
         SettingsItem(
-          title: 'Configuration Viewer',
-          subtitle: 'View raw JSON configuration file',
+          title: AppLocalizations.getString('configuration_viewer'),
+          subtitle: AppLocalizations.getString('view_raw_json_config'),
           icon: 'code',
           type: SettingsItemType.button,
           onChanged: (_) => onViewConfig(),
         ),
         SettingsItem(
-          title: 'Reload Configuration',
-          subtitle: 'Refresh configuration from file',
+          title: AppLocalizations.getString('reload_configuration'),
+          subtitle: AppLocalizations.getString('refresh_config_from_file'),
           icon: 'refresh',
           type: SettingsItemType.button,
           onChanged: (_) => onReloadConfig(),
         ),
         SettingsItem(
-          title: 'Reset to Default',
-          subtitle: 'Reset all settings to default values',
+          title: AppLocalizations.getString('reset_to_default'),
+          subtitle: AppLocalizations.getString('reset_all_settings'),
           icon: 'restore',
           type: SettingsItemType.button,
           onChanged: (_) => onResetConfig(),
@@ -186,22 +311,22 @@ class SettingsData {
     if (appInfo != null) {
       items.addAll([
         SettingsItem(
-          title: 'Name',
+          title: AppLocalizations.getString('name'),
           type: SettingsItemType.info,
           value: appInfo['name'] ?? 'Unknown',
         ),
         SettingsItem(
-          title: 'Version',
+          title: AppLocalizations.getString('version'),
           type: SettingsItemType.info,
           value: appInfo['version'] ?? 'Unknown',
         ),
         SettingsItem(
-          title: 'Build Number',
+          title: AppLocalizations.getString('build_number'),
           type: SettingsItemType.info,
           value: appInfo['buildNumber'] ?? 'Unknown',
         ),
         SettingsItem(
-          title: 'Environment',
+          title: AppLocalizations.getString('environment'),
           type: SettingsItemType.info,
           value: appInfo['environment'] ?? 'Unknown',
         ),
@@ -209,28 +334,32 @@ class SettingsData {
     } else {
       items.addAll([
         SettingsItem(
-          title: 'Name',
+          title: AppLocalizations.getString('name'),
           type: SettingsItemType.info,
           value: 'Flutter Explorer',
         ),
         SettingsItem(
-          title: 'Version',
+          title: AppLocalizations.getString('version'),
           type: SettingsItemType.info,
           value: '1.0.0',
         ),
         SettingsItem(
-          title: 'Build Number',
+          title: AppLocalizations.getString('build_number'),
           type: SettingsItemType.info,
           value: '1',
         ),
         SettingsItem(
-          title: 'Environment',
+          title: AppLocalizations.getString('environment'),
           type: SettingsItemType.info,
           value: 'development',
         ),
       ]);
     }
 
-    return SettingsSection(title: 'About', icon: 'info', items: items);
+    return SettingsSection(
+      title: AppLocalizations.getString('about'),
+      icon: 'info',
+      items: items,
+    );
   }
 }

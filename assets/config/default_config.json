@@ -68,6 +68,7 @@
     "dataRetentionDays": 90
   },
   "features": {
+    "enableNavigation": true,
     "enableTheming": true,
     "enableNativeCommunication": true,
     "enableBackgroundTasks": true,

@@ -13,6 +13,7 @@ export 'src/method_channel/method_channel.dart';
 
 // Configuration exports
 export 'src/config/app_config_service.dart';
+export 'src/config/config_change_listener.dart';
 
 // Localization exports
 export 'src/localization/app_localizations.dart';

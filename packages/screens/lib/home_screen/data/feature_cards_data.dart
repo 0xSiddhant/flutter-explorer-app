@@ -5,13 +5,17 @@ import '../models/feature_card_model.dart';
 /// Data provider for feature cards on the home screen
 class FeatureCardsData {
   static List<FeatureCardModel> getFeatureCards(BuildContext context) {
-    return [
+    final config = AppConfigService.instance.getAllConfig();
+    final features = config['features'] as Map<String, dynamic>? ?? {};
+
+    final allFeatures = [
       FeatureCardModel(
         title: AppLocalizations.getString('navigation'),
         subtitle: AppLocalizations.getString('route_management'),
         icon: Icons.navigation,
         color: Colors.blue,
         onTap: () => AppRouteManager.navigateToDetailScreen(context),
+        featureKey: 'enableNavigation',
       ),
       FeatureCardModel(
         title: AppLocalizations.getString('theming'),
@@ -19,6 +23,7 @@ class FeatureCardsData {
         icon: Icons.palette,
         color: Colors.purple,
         onTap: () => AppRouteManager.navigateToTheming(context),
+        featureKey: 'enableTheming',
       ),
       FeatureCardModel(
         title: AppLocalizations.getString('native_communication'),
@@ -26,6 +31,7 @@ class FeatureCardsData {
         icon: Icons.phone_android,
         color: Colors.green,
         onTap: () => AppRouteManager.navigateToNativeCommunication(context),
+        featureKey: 'enableNativeCommunication',
       ),
       FeatureCardModel(
         title: AppLocalizations.getString('background_tasks'),
@@ -33,6 +39,7 @@ class FeatureCardsData {
         icon: Icons.sync,
         color: Colors.orange,
         onTap: () => AppRouteManager.navigateToBackgroundTasks(context),
+        featureKey: 'enableBackgroundTasks',
       ),
       FeatureCardModel(
         title: AppLocalizations.getString('internationalization'),
@@ -40,6 +47,7 @@ class FeatureCardsData {
         icon: Icons.language,
         color: Colors.red,
         onTap: () => AppRouteManager.navigateToInternationalization(context),
+        featureKey: 'enableInternationalization',
       ),
       FeatureCardModel(
         title: AppLocalizations.getString('accessibility'),
@@ -47,6 +55,7 @@ class FeatureCardsData {
         icon: Icons.accessibility,
         color: Colors.teal,
         onTap: () => AppRouteManager.navigateToAccessibility(context),
+        featureKey: 'enableAccessibility',
       ),
       FeatureCardModel(
         title: AppLocalizations.getString('file_management'),
@@ -54,6 +63,7 @@ class FeatureCardsData {
         icon: Icons.folder,
         color: Colors.indigo,
         onTap: () => AppRouteManager.navigateToFileManagement(context),
+        featureKey: 'enableFileManagement',
       ),
       FeatureCardModel(
         title: AppLocalizations.getString('advanced_processing'),
@@ -61,6 +71,7 @@ class FeatureCardsData {
         icon: Icons.science,
         color: Colors.deepOrange,
         onTap: () => AppRouteManager.navigateToAdvancedProcessing(context),
+        featureKey: 'enableAdvancedProcessing',
       ),
       FeatureCardModel(
         title: AppLocalizations.getString('navigation_analytics'),
@@ -68,6 +79,7 @@ class FeatureCardsData {
         icon: Icons.analytics,
         color: Colors.cyan,
         onTap: () => AppRouteManager.navigateToNavigationAnalytics(context),
+        featureKey: 'enableNavigationAnalytics',
       ),
       FeatureCardModel(
         title: AppLocalizations.getString('lifecycle_management'),
@@ -75,6 +87,7 @@ class FeatureCardsData {
         icon: Icons.auto_awesome,
         color: Colors.amber,
         onTap: () => AppRouteManager.navigateToLifecycleManagement(context),
+        featureKey: 'enableLifecycleManagement',
       ),
       FeatureCardModel(
         title: AppLocalizations.getString('typography_showcase'),
@@ -82,7 +95,14 @@ class FeatureCardsData {
         icon: Icons.text_fields,
         color: Colors.pink,
         onTap: () => AppRouteManager.navigateToTypographyShowcase(context),
+        featureKey: 'enableTypographyShowcase',
       ),
     ];
+
+    // Filter features based on config
+    return allFeatures.where((feature) {
+      final isEnabled = features[feature.featureKey] as bool? ?? true;
+      return isEnabled;
+    }).toList();
   }
 }

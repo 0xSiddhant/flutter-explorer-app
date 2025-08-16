@@ -27,6 +27,9 @@ class _HomeScreenState extends State<HomeScreen>
 
     // Listen for language changes to update feature cards
     LanguageChangeListener.instance.addListener(_onLanguageChanged);
+
+    // Listen for config changes to update feature cards
+    ConfigChangeListener.instance.addListener(_onConfigChanged);
   }
 
   void _loadFeatureCards() {
@@ -40,9 +43,14 @@ class _HomeScreenState extends State<HomeScreen>
     _loadFeatureCards();
   }
 
+  void _onConfigChanged() {
+    _loadFeatureCards();
+  }
+
   @override
   void dispose() {
     LanguageChangeListener.instance.removeListener(_onLanguageChanged);
+    ConfigChangeListener.instance.removeListener(_onConfigChanged);
     _scrollController.dispose();
     super.dispose();
   }

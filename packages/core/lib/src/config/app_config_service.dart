@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import '../method_channel/method_channel.dart';
+import 'config_change_listener.dart';
 
 /// Service for managing app configuration from JSON file
 /// Acts as an alternative to SharedPreferences for complex configuration
@@ -161,6 +162,9 @@ class AppConfigService {
 
     // Save to file
     await _saveConfig();
+
+    // Notify listeners of config change
+    ConfigChangeListener.instance.notifyConfigChanged();
   }
 
   /// Get the entire configuration as a map
@@ -186,6 +190,8 @@ class AppConfigService {
     try {
       _config = await _getDefaultConfig();
       await _saveConfig();
+      // Notify listeners of config change
+      ConfigChangeListener.instance.notifyConfigChanged();
     } catch (e) {
       debugPrint('Error resetting config to default: $e');
     }
@@ -194,6 +200,8 @@ class AppConfigService {
   /// Reload configuration from file
   Future<void> reload() async {
     await _loadConfig();
+    // Notify listeners of config change
+    ConfigChangeListener.instance.notifyConfigChanged();
   }
 
   /// Check if a feature is enabled

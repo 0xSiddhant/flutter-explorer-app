@@ -72,19 +72,18 @@ class SettingsService {
     return await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Reset Configuration'),
-            content: const Text(
-              'Are you sure you want to reset all configuration to default values? '
-              'This action cannot be undone.',
+            title: Text(AppLocalizations.getString('reset_configuration')),
+            content: Text(
+              AppLocalizations.getString('reset_configuration_confirm'),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
-                child: const Text('Cancel'),
+                child: Text(AppLocalizations.getString('cancel')),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, true),
-                child: const Text('Reset'),
+                child: Text(AppLocalizations.getString('reset')),
               ),
             ],
           ),
