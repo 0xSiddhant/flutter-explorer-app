@@ -23,16 +23,25 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
 
     // Listen for language changes to rebuild the app
     LanguageChangeListener.instance.addListener(_onLanguageChanged);
+
+    // Initialize date change observer
+    _initializeDateChangeObserver();
   }
 
   @override
   void dispose() {
     LanguageChangeListener.instance.removeListener(_onLanguageChanged);
+    DateChangeObserver.dispose();
     super.dispose();
   }
 
   void _onLanguageChanged() {
     setState(() {});
+  }
+
+  void _initializeDateChangeObserver() {
+    DateChangeObserver.initialize(context: context);
+    debugPrint('Date change observer initialization started');
   }
 
   @override

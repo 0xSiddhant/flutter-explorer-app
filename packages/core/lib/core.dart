@@ -19,3 +19,6 @@ export 'src/config/config_change_listener.dart';
 export 'src/localization/app_localizations.dart';
 export 'src/localization/language_change_listener.dart';
 export 'src/localization/models/language_model.dart';
+
+// Platform exports
+export 'src/method_channel/date_change_observer.dart';

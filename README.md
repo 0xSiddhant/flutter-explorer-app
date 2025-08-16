@@ -1,6 +1,6 @@
 # Flutter Explorer
 
-A comprehensive Flutter project designed to explore and understand core Flutter features through a modular package architecture. This project demonstrates various Flutter capabilities including navigation, theme switching, native communication, isolates, localization, semantic UI, lifecycle management, navigation analytics, custom page transitions, and advanced accessibility features.
+A comprehensive Flutter project designed to explore and understand core Flutter features through a modular package architecture. This project demonstrates various Flutter capabilities including navigation, theme switching, native communication, isolates, localization, semantic UI, lifecycle management, navigation analytics, custom page transitions, advanced accessibility features, device date change monitoring, and dynamic feature toggles.
 
 ## 🏗️ Project Structure
 
@@ -29,7 +29,9 @@ the_router/
 │   │   │       │   └── observers/ # Navigation analytics
 │   │   │       ├── theme/        # Theme management
 │   │   │       ├── isolate/      # Background processing
-│   │   │       ├── method_channel/ # Native communication
+│   │   │       ├── method_channel/ # Native communication & platform observers
+│   │   │       │   ├── date_change_observer.dart # Device date change monitoring
+│   │   │       │   └── method_channel.dart # Method channel services
 │   │   │       ├── localization/ # Complete localization system
 │   │   │       │   ├── app_localizations.dart # Central localization logic
 │   │   │       │   ├── localization_service.dart # Business logic
@@ -246,7 +248,44 @@ the_router/
     - Centralized data management
     - Clean separation of concerns
 
-### 12. **Main.dart Refactoring & Asset-Based Configuration** 🆕
+### 12. **Device Date Change Observer** 🆕
+
+- **Technology**: Method Channels with platform-specific implementations
+- **Features**:
+  - **Cross-Platform Monitoring**: Android and iOS date change detection
+  - **Fire-and-Forget Initialization**: Non-blocking app startup
+  - **Automatic Snackbar Notifications**: User-friendly date change alerts
+  - **Memory Leak Prevention**: Proper resource cleanup and disposal
+  - **Hot Restart Protection**: Prevents multiple observers during development
+  - **Platform-Specific Implementation**:
+    - **Android**: BroadcastReceiver for `ACTION_TIME_CHANGED`, `ACTION_TIMEZONE_CHANGED`, `ACTION_DATE_CHANGED`
+    - **iOS**: NotificationCenter for `NSCalendarDayChanged` and `NSSystemTimeZoneDidChange`
+  - **Date Validation**: Only triggers on actual date changes (not just time changes)
+  - **Global Context Management**: Automatic snackbar display without manual context passing
+  - **Error Handling**: Graceful degradation with internal error logging
+  - **Architecture**:
+    - **Flutter Layer**: `DateChangeObserver` in `packages/core/lib/src/method_channel/`
+    - **Android Layer**: `DateChangeObserver.kt` with BroadcastReceiver
+    - **iOS Layer**: `DateChangeObserver.swift` with NotificationCenter
+    - **Integration**: Automatic initialization in `FlutterExplorerApp`
+
+### 13. **Feature Toggle System** 🆕
+
+- **Technology**: Configuration-driven feature management
+- **Features**:
+  - **Dynamic Feature Control**: Enable/disable features via configuration
+  - **Real-time Updates**: Home screen updates immediately when toggles change
+  - **Settings Integration**: Feature toggles available in settings screen
+  - **Configuration Persistence**: Feature states saved to app configuration
+  - **Localized UI**: All feature toggle strings properly internationalized
+  - **Architecture**:
+    - **Configuration**: `assets/config/default_config.json` with features section
+    - **Data Models**: `FeatureCardModel` with optional `featureKey`
+    - **Settings UI**: Dynamic toggle generation in settings screen
+    - **Home Screen**: Automatic filtering based on enabled features
+    - **Change Listeners**: `ConfigChangeListener` for real-time updates
+
+### 14. **Main.dart Refactoring & Asset-Based Configuration** 🆕
 
 - **Technology**: Modular architecture with asset-based configuration system
 - **Features**:
@@ -259,6 +298,56 @@ the_router/
   - **Configuration Viewer**: UI to display and manage app configuration
   - **Robust Initialization**: Multi-layer error handling for critical services
   - **Professional Structure**: Organized file structure with barrel exports
+
+## 🧪 Testing New Features
+
+### Device Date Change Observer Testing
+
+1. **Start the app** - The DateChangeObserver initializes automatically
+2. **Change device date/time** in your device's system settings
+3. **Return to the app** - You should see a snackbar notification showing the new date
+4. **Test different scenarios**:
+   - Change date only (day/month/year)
+   - Change time only (should not trigger notification)
+   - Change timezone (should trigger notification)
+
+### Feature Toggle System Testing
+
+1. **Navigate to Settings tab**
+2. **Find the "Feature Toggles" section**
+3. **Toggle features on/off** - Home screen updates immediately
+4. **Test persistence** - Restart app to verify settings are saved
+5. **Test localization** - Switch languages to see localized toggle names
+
+### Scroll State Preservation Testing
+
+1. **Scroll down on Home screen** to a specific position
+2. **Switch to Settings tab** and scroll there too
+3. **Switch back to Home tab** - Scroll position should be preserved
+4. **Test with language changes** - Scroll state should persist during language switches
+
+## 🔄 Recent Improvements
+
+### Architecture Enhancements
+
+- **Fire-and-Forget Pattern**: DateChangeObserver uses non-blocking initialization
+- **Memory Leak Prevention**: Proper resource cleanup and disposal patterns
+- **Hot Restart Protection**: Prevents multiple observers during development
+- **Global Context Management**: Automatic snackbar display without manual context passing
+- **Error Handling**: Graceful degradation with internal error logging
+
+### Code Quality Improvements
+
+- **Simplified APIs**: Removed unnecessary callback parameters
+- **Better Error Handling**: Comprehensive error handling without affecting app startup
+- **Cleaner Initialization**: Non-blocking service initialization
+- **Improved Testing**: Easy-to-test features with clear testing instructions
+
+### Performance Optimizations
+
+- **Non-blocking Startup**: App starts faster with fire-and-forget initialization
+- **Efficient Resource Management**: Proper disposal and cleanup patterns
+- **Optimized Event Handling**: Minimal overhead for date change detection
 
 ## 🛠️ Getting Started
 
