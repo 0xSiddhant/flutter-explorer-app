@@ -8,7 +8,6 @@ plugins {
 android {
     namespace = "com.siddhant.the_router"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -41,4 +40,8 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 }

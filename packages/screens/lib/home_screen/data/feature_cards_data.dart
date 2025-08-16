@@ -1,0 +1,88 @@
+import 'package:flutter/material.dart';
+import 'package:core/core.dart';
+import '../models/feature_card_model.dart';
+
+/// Data provider for feature cards on the home screen
+class FeatureCardsData {
+  static List<FeatureCardModel> getFeatureCards(BuildContext context) {
+    return [
+      FeatureCardModel(
+        title: 'Navigation',
+        subtitle: 'Route Management',
+        icon: Icons.navigation,
+        color: Colors.blue,
+        onTap: () => AppRouteManager.navigateToDetailScreen(context),
+      ),
+      FeatureCardModel(
+        title: 'Theming',
+        subtitle: 'Dynamic Themes',
+        icon: Icons.palette,
+        color: Colors.purple,
+        onTap: () => AppRouteManager.navigateToTheming(context),
+      ),
+      FeatureCardModel(
+        title: 'Native Communication',
+        subtitle: 'Platform Integration',
+        icon: Icons.phone_android,
+        color: Colors.green,
+        onTap: () => AppRouteManager.navigateToNativeCommunication(context),
+      ),
+      FeatureCardModel(
+        title: 'Background Tasks',
+        subtitle: 'Isolate Processing',
+        icon: Icons.sync,
+        color: Colors.orange,
+        onTap: () => AppRouteManager.navigateToBackgroundTasks(context),
+      ),
+      FeatureCardModel(
+        title: 'Internationalization',
+        subtitle: 'Multi-language Support',
+        icon: Icons.language,
+        color: Colors.red,
+        onTap: () => AppRouteManager.navigateToInternationalization(context),
+      ),
+      FeatureCardModel(
+        title: 'Accessibility',
+        subtitle: 'Semantic UI',
+        icon: Icons.accessibility,
+        color: Colors.teal,
+        onTap: () => AppRouteManager.navigateToAccessibility(context),
+      ),
+      FeatureCardModel(
+        title: 'File Management',
+        subtitle: 'Local Storage',
+        icon: Icons.folder,
+        color: Colors.indigo,
+        onTap: () => AppRouteManager.navigateToFileManagement(context),
+      ),
+      FeatureCardModel(
+        title: 'Advanced Processing',
+        subtitle: 'Complex Operations',
+        icon: Icons.science,
+        color: Colors.deepOrange,
+        onTap: () => AppRouteManager.navigateToAdvancedProcessing(context),
+      ),
+      FeatureCardModel(
+        title: 'Navigation Analytics',
+        subtitle: 'Route Tracking',
+        icon: Icons.analytics,
+        color: Colors.cyan,
+        onTap: () => AppRouteManager.navigateToNavigationAnalytics(context),
+      ),
+      FeatureCardModel(
+        title: 'Lifecycle Management',
+        subtitle: 'Widget States',
+        icon: Icons.auto_awesome,
+        color: Colors.amber,
+        onTap: () => AppRouteManager.navigateToLifecycleManagement(context),
+      ),
+      FeatureCardModel(
+        title: 'Typography Showcase',
+        subtitle: 'Font Rendering',
+        icon: Icons.text_fields,
+        color: Colors.pink,
+        onTap: () => AppRouteManager.navigateToTypographyShowcase(context),
+      ),
+    ];
+  }
+}

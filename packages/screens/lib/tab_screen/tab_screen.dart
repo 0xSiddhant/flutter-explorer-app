@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:screens/tab_screen/tab_item_widget.dart';
 
 import '../home_screen/home_screen.dart';
@@ -16,7 +15,7 @@ class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
   late final TabController _tabController;
   int _currentIndex = 0;
   final List<TabItemWidgetModel> tabList = [
-    TabItemWidgetModel(icon: Icons.wallpaper, label: 'Home', index: 0),
+    TabItemWidgetModel(icon: Icons.home, label: 'Home', index: 0),
     TabItemWidgetModel(icon: Icons.settings, label: 'Settings', index: 1),
   ];
 
