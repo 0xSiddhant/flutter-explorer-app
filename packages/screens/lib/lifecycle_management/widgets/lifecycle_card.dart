@@ -1,5 +1,5 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:common/common.dart';
 import '../models/lifecycle_card_model.dart';
 
 /// Widget for displaying a lifecycle phase card

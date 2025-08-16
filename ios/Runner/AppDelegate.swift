@@ -9,6 +9,7 @@ import UIKit
   private let notificationService = NotificationService()
   private let storageService = StorageService()
   private let networkService = NetworkService()
+  private let dateChangeObserver = DateChangeObserver()
 
   override func application(
     _ application: UIApplication,
@@ -63,6 +64,20 @@ import UIKit
     networkChannel.setMethodCallHandler { call, result in
       self.networkService.handleMethodCall(call: call, result: result, activity: self)
     }
+
+    // Date change observer channel
+    let dateChangeMethodChannel = FlutterMethodChannel(
+      name: "date_change_observer",
+      binaryMessenger: controller.binaryMessenger)
+    dateChangeMethodChannel.setMethodCallHandler { call, result in
+      self.dateChangeObserver.handleMethodCall(call: call, result: result)
+    }
+
+    // Date change event channel
+    let dateChangeEventChannel = FlutterEventChannel(
+      name: "date_change_events",
+      binaryMessenger: controller.binaryMessenger)
+    dateChangeEventChannel.setStreamHandler(self.dateChangeObserver)
 
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)

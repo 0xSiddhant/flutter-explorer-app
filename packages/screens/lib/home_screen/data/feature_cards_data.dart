@@ -1,88 +1,114 @@
-import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import 'package:flutter/material.dart';
 import '../models/feature_card_model.dart';
 
 /// Data provider for feature cards on the home screen
 class FeatureCardsData {
   static List<FeatureCardModel> getFeatureCards(BuildContext context) {
-    return [
+    final config = AppConfigService.instance.getAllConfig();
+    final features = config['features'] as Map<String, dynamic>? ?? {};
+
+    final allFeatures = [
       FeatureCardModel(
-        title: 'Navigation',
-        subtitle: 'Route Management',
+        title: AppLocalizations.getString('navigation'),
+        subtitle: AppLocalizations.getString('route_management'),
         icon: Icons.navigation,
         color: Colors.blue,
         onTap: () => AppRouteManager.navigateToDetailScreen(context),
+        featureKey: 'enableNavigation',
       ),
       FeatureCardModel(
-        title: 'Theming',
-        subtitle: 'Dynamic Themes',
+        title: AppLocalizations.getString('theming'),
+        subtitle: AppLocalizations.getString('dynamic_themes'),
         icon: Icons.palette,
         color: Colors.purple,
         onTap: () => AppRouteManager.navigateToTheming(context),
+        featureKey: 'enableTheming',
       ),
       FeatureCardModel(
-        title: 'Native Communication',
-        subtitle: 'Platform Integration',
+        title: AppLocalizations.getString('native_communication'),
+        subtitle: AppLocalizations.getString('platform_integration'),
         icon: Icons.phone_android,
         color: Colors.green,
         onTap: () => AppRouteManager.navigateToNativeCommunication(context),
+        featureKey: 'enableNativeCommunication',
       ),
       FeatureCardModel(
-        title: 'Background Tasks',
-        subtitle: 'Isolate Processing',
+        title: AppLocalizations.getString('background_tasks'),
+        subtitle: AppLocalizations.getString('isolate_processing'),
         icon: Icons.sync,
         color: Colors.orange,
         onTap: () => AppRouteManager.navigateToBackgroundTasks(context),
+        featureKey: 'enableBackgroundTasks',
       ),
       FeatureCardModel(
-        title: 'Internationalization',
-        subtitle: 'Multi-language Support',
+        title: AppLocalizations.getString('internationalization'),
+        subtitle: AppLocalizations.getString('multi_language_support'),
         icon: Icons.language,
         color: Colors.red,
         onTap: () => AppRouteManager.navigateToInternationalization(context),
+        featureKey: 'enableInternationalization',
       ),
       FeatureCardModel(
-        title: 'Accessibility',
-        subtitle: 'Semantic UI',
+        title: AppLocalizations.getString('accessibility'),
+        subtitle: AppLocalizations.getString('semantic_ui'),
         icon: Icons.accessibility,
         color: Colors.teal,
         onTap: () => AppRouteManager.navigateToAccessibility(context),
+        featureKey: 'enableAccessibility',
       ),
       FeatureCardModel(
-        title: 'File Management',
-        subtitle: 'Local Storage',
+        title: AppLocalizations.getString('file_management'),
+        subtitle: AppLocalizations.getString('local_storage'),
         icon: Icons.folder,
         color: Colors.indigo,
         onTap: () => AppRouteManager.navigateToFileManagement(context),
+        featureKey: 'enableFileManagement',
       ),
       FeatureCardModel(
-        title: 'Advanced Processing',
-        subtitle: 'Complex Operations',
+        title: AppLocalizations.getString('advanced_processing'),
+        subtitle: AppLocalizations.getString('complex_operations'),
         icon: Icons.science,
         color: Colors.deepOrange,
         onTap: () => AppRouteManager.navigateToAdvancedProcessing(context),
+        featureKey: 'enableAdvancedProcessing',
       ),
       FeatureCardModel(
-        title: 'Navigation Analytics',
-        subtitle: 'Route Tracking',
+        title: AppLocalizations.getString('navigation_analytics'),
+        subtitle: AppLocalizations.getString('route_tracking'),
         icon: Icons.analytics,
         color: Colors.cyan,
         onTap: () => AppRouteManager.navigateToNavigationAnalytics(context),
+        featureKey: 'enableNavigationAnalytics',
       ),
       FeatureCardModel(
-        title: 'Lifecycle Management',
-        subtitle: 'Widget States',
+        title: AppLocalizations.getString('lifecycle_management'),
+        subtitle: AppLocalizations.getString('widget_states'),
         icon: Icons.auto_awesome,
         color: Colors.amber,
         onTap: () => AppRouteManager.navigateToLifecycleManagement(context),
+        featureKey: 'enableLifecycleManagement',
       ),
       FeatureCardModel(
-        title: 'Typography Showcase',
-        subtitle: 'Font Rendering',
+        title: AppLocalizations.getString('typography_showcase'),
+        subtitle: AppLocalizations.getString('font_rendering'),
         icon: Icons.text_fields,
         color: Colors.pink,
         onTap: () => AppRouteManager.navigateToTypographyShowcase(context),
+        featureKey: 'enableTypographyShowcase',
       ),
     ];
+
+    // Filter features based on config
+    final filteredFeatures = allFeatures.where((feature) {
+      final isEnabled = features[feature.featureKey] as bool? ?? true;
+      debugPrint(
+        'Feature ${feature.featureKey}: ${isEnabled ? 'enabled' : 'disabled'}',
+      );
+      return isEnabled;
+    }).toList();
+
+    debugPrint('Filtered features count: ${filteredFeatures.length}');
+    return filteredFeatures;
   }
 }

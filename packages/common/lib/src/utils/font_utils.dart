@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../localization/app_localizations.dart';
+import 'package:core/core.dart';
 
 /// Utility class for managing fonts across the application
 /// Provides language-specific font families for better internationalization support

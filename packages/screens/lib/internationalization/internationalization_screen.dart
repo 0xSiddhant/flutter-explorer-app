@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:common/common.dart';
 import 'package:core/core.dart';
+import 'package:flutter/material.dart';
 import 'data/internationalization_data.dart';
 import 'models/formatting_example_model.dart';
 import 'widgets/language_selector_widget.dart';

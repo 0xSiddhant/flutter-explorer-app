@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../localization/app_localizations.dart';
+import 'package:core/core.dart' show AppLocalizations;
 
 /// Reusable error screen widget for handling unknown routes or errors
 class ErrorScreen extends StatelessWidget {

@@ -69,6 +69,16 @@ class AppRouteManager {
     NavigationService.navigateTo(RouteConstants.theming.path, usePush: usePush);
   }
 
+  static void navigateToThemeComponentShowcase(
+    BuildContext context, {
+    bool usePush = true,
+  }) {
+    NavigationService.navigateTo(
+      RouteConstants.themeComponentShowcase.path,
+      usePush: usePush,
+    );
+  }
+
   static void navigateToNativeCommunication(
     BuildContext context, {
     bool usePush = true,

@@ -1,5 +1,5 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:common/common.dart';
 import '../models/formatting_example_model.dart';
 
 /// Data provider for internationalization screen

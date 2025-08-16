@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:core/core.dart';
-import 'package:common/common.dart';
+import 'package:flutter/material.dart';
+import 'widgets/config_viewer_widget.dart';
+import 'models/settings_section_model.dart';
+import 'data/settings_data.dart';
+import 'services/settings_service.dart';
+import 'widgets/settings_section_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -9,204 +13,317 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
-  final ThemeProvider _themeProvider = ThemeProvider.instance;
-  bool _isRTLEnabled = false;
+class _SettingsScreenState extends State<SettingsScreen>
+    with AutomaticKeepAliveClientMixin {
+  final ThemeObserver _themeObserver = ThemeObserver.instance;
+
+  @override
+  bool get wantKeepAlive => true;
+  Map<String, dynamic> _config = {};
+  bool _isLoading = true;
+  bool _isOperationLoading = false; // For reset/reload operations
+  String? _selectedLanguage;
+  Map<String, dynamic>? _appInfo;
+  List<SettingsSection> _sections = [];
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
-    // Set up callback to rebuild screen when theme changes
-    _themeProvider.setThemeChangedCallback(() {
-      setState(() {});
+    _scrollController = ScrollController();
+    _initializeSettings();
+
+    // Listen for theme changes to rebuild screen
+    _themeObserver.addListener(_onThemeChanged);
+
+    // Listen for config changes to rebuild screen
+    ConfigChangeListener.instance.addListener(_onConfigChanged);
+  }
+
+  void _onThemeChanged() {
+    setState(() {});
+  }
+
+  void _onConfigChanged() {
+    _loadConfiguration().then((_) {
+      _buildSections();
     });
+  }
+
+  Future<void> _initializeSettings() async {
+    await _loadConfiguration();
+    await _loadAppInfo();
+    _buildSections();
+  }
+
+  Future<void> _loadConfiguration() async {
+    try {
+      final config = SettingsService.getAllConfig();
+      final languageCode =
+          config['internationalization']?['defaultLanguage'] ?? 'en';
+
+      setState(() {
+        _config = config;
+        _selectedLanguage = languageCode;
+      });
+
+      debugPrint('Settings screen loaded with language: $languageCode');
+    } catch (e) {
+      debugPrint('Error loading configuration: $e');
+    }
+  }
+
+  Future<void> _loadAppInfo() async {
+    try {
+      final appInfo = await SettingsService.getAppInfo();
+      setState(() {
+        _appInfo = appInfo;
+      });
+    } catch (e) {
+      debugPrint('Error loading app info: $e');
+    }
+  }
+
+  void _buildSections() {
+    setState(() {
+      _sections = SettingsData.getSettingsSections(
+        config: _config,
+        selectedLanguage: _selectedLanguage ?? 'en',
+        appInfo: _appInfo,
+        onConfigUpdate: _handleConfigUpdate,
+        onLanguageChange: _handleLanguageChange,
+        onReloadConfig: _handleReloadConfig,
+        onResetConfig: _handleResetConfig,
+        onViewConfig: _handleViewConfig,
+      );
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _handleConfigUpdate(String key, dynamic value) async {
+    try {
+      await SettingsService.updateConfig(key, value);
+      await _loadConfiguration();
+      _buildSections();
+
+      // Update theme observer for theme-related changes
+      if (key == 'theme.selectedThemeId') {
+        await ThemeObserver.instance.setSelectedTheme(value as String);
+      } else if (key == 'theme.isDarkMode') {
+        await ThemeObserver.instance.setDarkMode(value as bool);
+      } else if (key == 'theme.textScaleFactor') {
+        await ThemeObserver.instance.setTextScaleFactor(value as double);
+      }
+
+      // Update accessibility provider for accessibility-related changes
+      if (key == 'accessibility.enableScreenReader') {
+        await AccessibilityProvider.instance.setScreenReaderEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableHighContrast') {
+        await AccessibilityProvider.instance.setHighContrastEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableLargeText') {
+        await AccessibilityProvider.instance.setLargeTextEnabled(value as bool);
+      } else if (key == 'accessibility.enableReducedMotion') {
+        await AccessibilityProvider.instance.setReducedMotionEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableColorBlindSupport') {
+        await AccessibilityProvider.instance.setColorBlindSupportEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableLargeTouchTargets') {
+        await AccessibilityProvider.instance.setLargeTouchTargetsEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableHapticFeedback') {
+        await AccessibilityProvider.instance.setHapticFeedbackEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableSimplifiedUI') {
+        await AccessibilityProvider.instance.setSimplifiedUIEnabled(
+          value as bool,
+        );
+      } else if (key == 'accessibility.enableEnhancedFocus') {
+        await AccessibilityProvider.instance.setEnhancedFocusEnabled(
+          value as bool,
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        SettingsService.showErrorMessage(
+          context,
+          '${AppLocalizations.getString('error_updating_setting')}: $e',
+        );
+      }
+    }
+  }
+
+  Future<void> _handleLanguageChange(String languageCode) async {
+    try {
+      await SettingsService.changeLanguage(languageCode);
+      setState(() {
+        _selectedLanguage = languageCode;
+      });
+      _buildSections();
+
+      // The LanguageChangeListener will automatically notify all listeners
+      // including HomeScreen and other screens
+
+      if (mounted) {
+        SettingsService.showSuccessMessage(
+          context,
+          '${AppLocalizations.getString('language_changed_to')} ${AppLocalizations.getLanguageByCode(languageCode)?.name ?? languageCode}',
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        SettingsService.showErrorMessage(
+          context,
+          '${AppLocalizations.getString('error_changing_language')}: $e',
+        );
+      }
+    }
+  }
+
+  Future<void> _handleReloadConfig() async {
+    setState(() {
+      _isOperationLoading = true;
+    });
+
+    try {
+      await SettingsService.reloadConfiguration();
+
+      // Reload all services after reloading config
+      await ThemeManager.instance.loadFromConfig();
+      await AppLocalizations.initializeFromConfig();
+      await AccessibilityProvider.instance.loadFromConfig();
+
+      await _loadConfiguration();
+      _buildSections();
+
+      if (mounted) {
+        setState(() {
+          _isOperationLoading = false;
+        });
+        SettingsService.showSuccessMessage(
+          context,
+          AppLocalizations.getString('configuration_reloaded_successfully'),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isOperationLoading = false;
+        });
+        SettingsService.showErrorMessage(
+          context,
+          '${AppLocalizations.getString('error_reloading_configuration')}: $e',
+        );
+      }
+    }
+  }
+
+  Future<void> _handleResetConfig() async {
+    final confirmed = await SettingsService.showResetConfirmationDialog(
+      context,
+    );
+
+    if (confirmed) {
+      setState(() {
+        _isOperationLoading = true;
+      });
+
+      try {
+        await SettingsService.resetConfiguration();
+
+        // Reload all services after reset
+        await ThemeManager.instance.loadFromConfig();
+        await AppLocalizations.initializeFromConfig();
+        await AccessibilityProvider.instance.loadFromConfig();
+
+        await _loadConfiguration();
+        _buildSections();
+
+        if (mounted) {
+          setState(() {
+            _isOperationLoading = false;
+          });
+          SettingsService.showSuccessMessage(
+            context,
+            AppLocalizations.getString('configuration_reset_to_default'),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          setState(() {
+            _isOperationLoading = false;
+          });
+          SettingsService.showErrorMessage(
+            context,
+            '${AppLocalizations.getString('error_resetting_configuration')}: $e',
+          );
+        }
+      }
+    }
+  }
+
+  void _handleViewConfig() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ConfigViewerWidget()),
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _themeObserver.removeListener(_onThemeChanged);
+    ConfigChangeListener.instance.removeListener(_onConfigChanged);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context); // Required for AutomaticKeepAliveClientMixin
+    if (_isLoading) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(AppLocalizations.getString('settings')),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        ),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.getString('settings')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        bottom: _isOperationLoading
+            ? PreferredSize(
+                preferredSize: const Size.fromHeight(4),
+                child: LinearProgressIndicator(
+                  backgroundColor: Colors.transparent,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              )
+            : null,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          controller: _scrollController,
+          key: const PageStorageKey<String>('settings_screen_scroll'),
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildSectionHeader('Appearance'),
-              _buildThemeSwitch(),
-              _buildHighContrastSwitch(),
-              _buildTextScaleSlider(),
-              const SizedBox(height: 24),
-              _buildSectionHeader('Accessibility'),
-              _buildRTLToggle(),
-              _buildAccessibilitySettings(),
-              const SizedBox(height: 24),
-              _buildSectionHeader('About'),
-              _buildAboutSection(),
-              const SizedBox(height: 24), // Add bottom padding
-            ],
+            children: _sections.map((section) {
+              return SettingsSectionWidget(section: section);
+            }).toList(),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildThemeSwitch() {
-    return ListTile(
-      leading: Icon(
-        _themeProvider.isDarkMode ? Icons.dark_mode : Icons.light_mode,
-        color: Theme.of(context).colorScheme.primary,
-      ),
-      title: Text(AppLocalizations.getString('dark_mode')),
-      subtitle: Text(
-        AppLocalizations.getString('switch_between_light_and_dark_themes'),
-      ),
-      trailing: Switch(
-        value: _themeProvider.isDarkMode,
-        onChanged: (value) {
-          _themeProvider.setDarkMode(value);
-        },
-      ),
-    );
-  }
-
-  Widget _buildHighContrastSwitch() {
-    return ListTile(
-      leading: Icon(
-        Icons.contrast,
-        color: Theme.of(context).colorScheme.primary,
-      ),
-      title: Text(AppLocalizations.getString('high_contrast')),
-      subtitle: Text(
-        AppLocalizations.getString('increase_contrast_for_better_visibility'),
-      ),
-      trailing: Switch(
-        value: _themeProvider.isHighContrast,
-        onChanged: (value) {
-          _themeProvider.setHighContrast(value);
-        },
-      ),
-    );
-  }
-
-  Widget _buildTextScaleSlider() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ListTile(
-          leading: Icon(
-            Icons.text_fields,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-          title: Text(AppLocalizations.getString('text_scale')),
-          subtitle: Text(
-            '${AppLocalizations.getString('current_scale')} ${_themeProvider.textScaleFactor.toStringAsFixed(1)}x',
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Slider(
-            value: _themeProvider.textScaleFactor,
-            min: 0.8,
-            max: 2.0,
-            divisions: 12,
-            label: '${_themeProvider.textScaleFactor.toStringAsFixed(1)}x',
-            onChanged: (value) {
-              _themeProvider.setTextScaleFactor(value);
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRTLToggle() {
-    return ListTile(
-      leading: Icon(
-        _isRTLEnabled ? Icons.arrow_back : Icons.arrow_forward,
-        color: Theme.of(context).colorScheme.primary,
-      ),
-      title: Text(AppLocalizations.getString('text_direction')),
-      subtitle: Text(AppLocalizations.getString('switch_between_rtl_ltr')),
-      trailing: Switch(
-        value: _isRTLEnabled,
-        onChanged: (value) {
-          setState(() {
-            _isRTLEnabled = value;
-          });
-          // TODO: Implement app-wide RTL/LTR switching
-        },
-      ),
-    );
-  }
-
-  Widget _buildAccessibilitySettings() {
-    return Column(
-      children: [
-        SwitchListTile(
-          title: Text(AppLocalizations.getString('screen_reader')),
-          subtitle: Text(AppLocalizations.getString('enable_voice_feedback')),
-          value: false,
-          onChanged: (value) {
-            // TODO: Implement screen reader logic
-          },
-        ),
-        SwitchListTile(
-          title: Text(AppLocalizations.getString('large_touch_targets')),
-          subtitle: Text(AppLocalizations.getString('increase_button_sizes')),
-          value: false,
-          onChanged: (value) {
-            // TODO: Implement large touch targets logic
-          },
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAboutSection() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.getString('app_version'),
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Text(AppLocalizations.getString('app_version_info')),
-            const SizedBox(height: 16),
-            Text(
-              AppLocalizations.getString('app_description'),
-              style: const TextStyle(fontSize: 14),
-            ),
-            const SizedBox(height: 8),
-            Text(AppLocalizations.getString('feature_navigation')),
-            Text(AppLocalizations.getString('feature_theme')),
-            Text(AppLocalizations.getString('feature_method_channels')),
-            Text(AppLocalizations.getString('feature_isolates')),
-            Text(AppLocalizations.getString('feature_localization')),
-            Text(AppLocalizations.getString('feature_semantic_ui')),
-            Text(AppLocalizations.getString('feature_file_storage')),
-          ],
         ),
       ),
     );
