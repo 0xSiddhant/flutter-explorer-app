@@ -15,8 +15,6 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen>
     with AutomaticKeepAliveClientMixin {
-  final ThemeObserver _themeObserver = ThemeObserver.instance;
-
   @override
   bool get wantKeepAlive => true;
   Map<String, dynamic> _config = {};
@@ -34,7 +32,7 @@ class _SettingsScreenState extends State<SettingsScreen>
     _initializeSettings();
 
     // Listen for theme changes to rebuild screen
-    _themeObserver.addListener(_onThemeChanged);
+    ThemeObserver.instance.addListener(_onThemeChanged);
 
     // Listen for config changes to rebuild screen
     ConfigChangeListener.instance.addListener(_onConfigChanged);
@@ -106,13 +104,13 @@ class _SettingsScreenState extends State<SettingsScreen>
       await _loadConfiguration();
       _buildSections();
 
-      // Update theme observer for theme-related changes
+      // Update theme manager for theme-related changes
       if (key == 'theme.selectedThemeId') {
-        await ThemeObserver.instance.setSelectedTheme(value as String);
+        await ThemeManager.instance.setSelectedTheme(value as String);
       } else if (key == 'theme.isDarkMode') {
-        await ThemeObserver.instance.setDarkMode(value as bool);
+        await ThemeManager.instance.setDarkMode(value as bool);
       } else if (key == 'theme.textScaleFactor') {
-        await ThemeObserver.instance.setTextScaleFactor(value as double);
+        await ThemeManager.instance.setTextScaleFactor(value as double);
       }
 
       // Update accessibility provider for accessibility-related changes
@@ -280,7 +278,7 @@ class _SettingsScreenState extends State<SettingsScreen>
   @override
   void dispose() {
     _scrollController.dispose();
-    _themeObserver.removeListener(_onThemeChanged);
+    ThemeObserver.instance.removeListener(_onThemeChanged);
     ConfigChangeListener.instance.removeListener(_onConfigChanged);
     super.dispose();
   }

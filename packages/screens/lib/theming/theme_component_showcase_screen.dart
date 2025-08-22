@@ -24,12 +24,12 @@ class _ThemeComponentShowcaseScreenState
   }
 
   void _loadCurrentTheme() {
-    final themeObserver = ThemeObserver.instance;
+    final themeManager = ThemeManager.instance;
     setState(() {
       _selectedThemeId = ThemeManager.instance.getValidThemeId(
-        themeObserver.selectedThemeId,
+        themeManager.selectedThemeId,
       );
-      _isDarkMode = themeObserver.isDarkMode;
+      _isDarkMode = themeManager.isDarkMode;
     });
   }
 
@@ -66,7 +66,7 @@ class _ThemeComponentShowcaseScreenState
   @override
   Widget build(BuildContext context) {
     // Get theme for preview
-    final previewTheme = ThemeObserver.instance.getThemeForPreview(
+    final previewTheme = ThemeManager.instance.getThemeForPreview(
       _selectedThemeId,
       _isDarkMode,
     );

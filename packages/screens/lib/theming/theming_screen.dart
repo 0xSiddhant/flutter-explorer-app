@@ -81,8 +81,8 @@ class _ThemingScreenState extends State<ThemingScreen> {
   @override
   Widget build(BuildContext context) {
     // Create a local theme for preview that doesn't affect global state
-    final localTheme = ThemeObserver.instance.getThemeForPreview(
-      ThemeObserver.instance.selectedThemeId,
+    final localTheme = ThemeManager.instance.getThemeForPreview(
+      ThemeManager.instance.selectedThemeId,
       _currentTheme.isDarkMode,
     );
 

@@ -29,6 +29,7 @@ class LanguageModel {
   static String getFontFamilyForLanguage(String languageCode) {
     switch (languageCode.toLowerCase()) {
       case 'ar':
+      case 'eg':
         return 'NotoSansArabic';
       case 'ja':
       case 'jp':

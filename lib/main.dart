@@ -36,12 +36,12 @@ void main() async {
 
   // Load theme settings from configuration
   try {
-    await ThemeObserver.instance.loadFromConfig();
+    await ThemeManager.instance.loadFromConfig();
 
     // Reset text scale factor to default if it's not 1.0
-    if (ThemeObserver.instance.textScaleFactor != 1.0) {
+    if (ThemeManager.instance.textScaleFactor != 1.0) {
       debugPrint('Resetting text scale factor to default (1.0)');
-      await ThemeObserver.instance.resetTextScaleFactor();
+      await ThemeManager.instance.resetTextScaleFactor();
     }
   } catch (e) {
     // Log error but continue (theme can work with defaults)

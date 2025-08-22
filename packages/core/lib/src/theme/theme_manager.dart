@@ -3,9 +3,10 @@ import '../config/app_config_service.dart';
 import '../config/config_change_listener.dart';
 import 'color_palette/color_palette.dart';
 import 'models/theme_info.dart';
+import 'theme_observer.dart';
 
 /// Theme manager responsible for selecting and managing themes
-class ThemeManager extends ChangeNotifier {
+class ThemeManager {
   static final ThemeManager _instance = ThemeManager._internal();
   factory ThemeManager() => _instance;
   ThemeManager._internal() {
@@ -67,6 +68,20 @@ class ThemeManager extends ChangeNotifier {
       ),
       (isDarkMode) =>
           isDarkMode ? OnePieceTheme.darkTheme : OnePieceTheme.lightTheme,
+    );
+
+    // Studio Ghibli Theme
+    registerTheme(
+      const ThemeInfo(
+        id: 'studio_ghibli',
+        name: 'Studio Ghibli',
+        localizationKey: 'studio_ghibli_theme',
+        description:
+            'Nature-inspired theme with forest greens and twinkling skies',
+      ),
+      (isDarkMode) => isDarkMode
+          ? StudioGhibliTheme.darkTheme
+          : StudioGhibliTheme.lightTheme,
     );
   }
 
@@ -211,7 +226,8 @@ class ThemeManager extends ChangeNotifier {
 
   /// Notify listeners of theme changes
   void _notifyThemeChanged() {
-    notifyListeners();
+    // Notify theme observer for UI updates
+    ThemeObserver.instance.onThemeChanged();
     // Also notify config change listeners for UI updates
     ConfigChangeListener.instance.notifyConfigChanged();
   }

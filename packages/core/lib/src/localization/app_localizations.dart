@@ -49,6 +49,13 @@ class AppLocalizations {
       textDirection: TextDirection.ltr,
       fontFamily: 'NotoSansJapanese',
     ),
+    LanguageModel(
+      code: 'eg',
+      name: 'Egyptian Arabic',
+      nativeName: 'مصري',
+      textDirection: TextDirection.rtl,
+      fontFamily: 'NotoSansArabic',
+    ),
   ];
 
   // Delegate business logic to LocalizationService
