@@ -11,9 +11,10 @@ class TabScreen extends StatefulWidget {
   State<TabScreen> createState() => _TabScreenState();
 }
 
-class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
+class _TabScreenState extends State<TabScreen>
+    with TickerProviderStateMixin, AppTabRestorationMixin {
   late final TabController _tabController;
-  int _currentIndex = 0;
+  int _currentIndex = 0; // Will be updated with restored index
   late List<TabItemModel> _tabItems;
 
   @override
@@ -22,6 +23,21 @@ class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
     _initializeTabs();
     _setupTabController();
     _setupLanguageListener();
+    _setupRestorationListener();
+
+    // Listen for restoration completion to update UI
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _updateCurrentIndexAfterRestoration();
+
+        // Add a delay to ensure restoration is complete
+        Future.delayed(const Duration(milliseconds: 300), () {
+          if (mounted) {
+            _updateCurrentIndexAfterRestoration();
+          }
+        });
+      }
+    });
   }
 
   void _initializeTabs() {
@@ -30,12 +46,42 @@ class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
   }
 
   void _setupTabController() {
+    // Initialize current index with restored value
+    _currentIndex = currentTabIndex;
+
     _tabController = TabController(
       length: _tabItems.length,
       vsync: this,
-      initialIndex: _currentIndex,
+      initialIndex: currentTabIndex, // Use restored tab index
     );
     _tabController.addListener(_onTabChanged);
+
+    // Restore tab index and listen for changes
+    restoreTabIndex(_tabController);
+    listenToTabChanges(_tabController);
+
+    // Register for tab index change notifications
+    registerForTabIndexChanges(_tabController);
+
+    // Force update the current index to match the restored tab index
+    // Use multiple post-frame callbacks to ensure the tab controller is ready
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && _tabController.index != currentTabIndex) {
+        _tabController.animateTo(currentTabIndex);
+        setState(() {
+          _currentIndex = currentTabIndex;
+        });
+
+        // Add another post-frame callback to ensure the animation completes
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted && _currentIndex != currentTabIndex) {
+            setState(() {
+              _currentIndex = currentTabIndex;
+            });
+          }
+        });
+      }
+    });
   }
 
   void _setupLanguageListener() {
@@ -43,10 +89,35 @@ class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
     LanguageChangeListener.instance.addListener(_onLanguageChanged);
   }
 
+  void _setupRestorationListener() {
+    // Listen for restoration changes to update tab controller
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && _tabController.index != currentTabIndex) {
+        _tabController.animateTo(currentTabIndex);
+        setState(() {
+          _currentIndex = currentTabIndex;
+        });
+      }
+
+      // Force update current index to match restored value
+      if (mounted && _currentIndex != currentTabIndex) {
+        setState(() {
+          _currentIndex = currentTabIndex;
+        });
+      }
+    });
+  }
+
   void _onTabChanged() {
     setState(() {
       _currentIndex = _tabController.index;
     });
+
+    // Don't save tab index during restoration to avoid conflicts
+    if (!StateRestorationService.instance.isRestoring) {
+      // Explicitly save the tab index
+      saveTabIndex(_currentIndex);
+    }
   }
 
   void _onLanguageChanged() {
@@ -64,10 +135,19 @@ class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
     _tabController.animateTo(index);
   }
 
+  void _updateCurrentIndexAfterRestoration() {
+    if (_currentIndex != currentTabIndex) {
+      setState(() {
+        _currentIndex = currentTabIndex;
+      });
+    }
+  }
+
   @override
   void dispose() {
     LanguageChangeListener.instance.removeListener(_onLanguageChanged);
     _tabController.removeListener(_onTabChanged);
+    unregisterFromTabIndexChanges();
     _tabController.dispose();
     super.dispose();
   }

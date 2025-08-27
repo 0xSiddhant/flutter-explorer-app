@@ -27,7 +27,8 @@ the_router/
 │   │   │       ├── isolate/      # Background processing
 │   │   │       ├── method_channel/ # Native communication & platform observers
 │   │   │       ├── localization/ # Complete localization system
-│   │   │       └── page_transitions/ # Custom page animations
+│   │   │       ├── page_transitions/ # Custom page animations
+│   │   │       └── state_restoration/ # Complete state restoration system
 │   ├── screens/                  # UI screens and components
 │   │   ├── lib/
 │   │   │   ├── screens.dart      # Organized exports
@@ -57,56 +58,74 @@ the_router/
 ## 🚀 Core Features Demonstrated
 
 ### 1. **Route Management & Custom Page Transitions**
+
 - **Technology**: `go_router` package with `CustomTransitionPage`
 - **Features**: Optimized navigation flow, tab-based navigation, proper back button support, route analytics, custom page transitions
 
 ### 2. **Enhanced Native Communication**
+
 - **Technology**: Flutter Platform Channels with modular architecture
 - **Features**: Device info, battery level, native dialogs, vibration, camera, location, notifications, storage, API calls
 
 ### 3. **Animated Splash Screen**
+
 - **Technology**: Custom animations with `AnimationController`
 - **Features**: Beautiful animations, gradient background, logo animation, progress indicator, smooth transitions
 
 ### 4. **Advanced Internationalization with RTL Support**
+
 - **Technology**: Custom localization system with complete RTL support
 - **Features**: Multi-language support (English, Spanish, French, German, Arabic, Japanese, Egyptian Arabic), complete RTL/LTR support, dynamic language switching, locale-specific formatting
 
 ### 5. **Enhanced Accessibility Features**
+
 - **Technology**: Flutter Semantics with comprehensive support
 - **Features**: Screen reader support, high contrast mode, large text support, semantic labels, interactive controls
 
 ### 6. **Scroll State Preservation**
+
 - **Technology**: `AutomaticKeepAliveClientMixin` with `PageStorageKey`
 - **Features**: Tab scroll preservation, automatic widget lifecycle management, scroll position restoration
 
 ### 7. **Dynamic Theming System**
+
 - **Technology**: Material 3 theming with dynamic theme registration
 - **Features**: Dynamic theme registration, multiple themes (Harry Potter, Dark Blue, One Piece, Studio Ghibli), real-time theme preview, theme component showcase
 
 ### 8. **Background Processing**
+
 - **Technology**: Dart Isolates with comprehensive examples
 - **Features**: IsolateManager, Fibonacci calculator, prime calculator, matrix calculator, image downloader, data processor
 
 ### 9. **File Management**
+
 - **Technology**: `path_provider` and `dart:io`
 - **Features**: Local file operations, save/load/delete files, file listing, error handling
 
 ### 10. **Lifecycle Management**
+
 - **Technology**: Widget lifecycle tracking with RouteAware
 - **Features**: Widget lifecycle, app lifecycle, navigation lifecycle, real-time event logging
 
 ### 11. **Comprehensive Navigation Analytics**
+
 - **Technology**: Dual RouteObserver system with modular architecture
 - **Features**: Basic analytics, advanced analytics, modular dashboard, performance tracking, user behavior analysis
 
 ### 12. **Device Date Change Observer**
+
 - **Technology**: Method Channels with platform-specific implementations
 - **Features**: Cross-platform monitoring, automatic notifications, memory leak prevention, platform-specific implementation
 
 ### 13. **Feature Toggle System**
+
 - **Technology**: Configuration-driven feature management
 - **Features**: Dynamic feature control, real-time updates, settings integration, configuration persistence
+
+### 14. **State Restoration System**
+
+- **Technology**: Custom state restoration with navigation stack preservation
+- **Features**: Complete app state restoration, tab index preservation, navigation stack rebuilding, scroll position restoration, robust error handling
 
 ## 🛠️ Getting Started
 
@@ -120,17 +139,20 @@ the_router/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd the_router
    ```
 
 2. **Install dependencies**
+
    ```bash
    flutter pub get
    ```
 
 3. **Setup Fonts (Optional but Recommended)**
+
    ```bash
    # Download Noto Sans fonts for internationalization support
    ./download_fonts.sh
@@ -203,6 +225,7 @@ the_router/
 - **Internationalization**: Complete RTL support with clean architecture
 - **Import Management**: Optimized imports with no unused dependencies
 - **Scroll State Management**: AutomaticKeepAliveClientMixin for preserving tab scroll positions
+- **State Restoration**: Complete app state restoration with navigation stack preservation
 
 ### Advanced Features
 
@@ -223,6 +246,7 @@ the_router/
 - **Modular Main Entry**: Clean separation of app initialization and widget logic
 - **RTL Support**: Complete Right-to-Left text direction with automatic UI adaptation
 - **Scroll State Preservation**: AutomaticKeepAliveClientMixin with PageStorageKey for tab scroll preservation
+- **State Restoration**: Complete app state restoration with navigation stack rebuilding and tab index preservation
 
 ### Accessibility
 
@@ -257,22 +281,22 @@ the_router/
 // Tab screens with AutomaticKeepAliveClientMixin
 class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin {
   late ScrollController _scrollController;
-  
+
   @override
   bool get wantKeepAlive => true;
-  
+
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
   }
-  
+
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     super.build(context); // Required for AutomaticKeepAliveClientMixin

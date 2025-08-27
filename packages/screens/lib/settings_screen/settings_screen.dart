@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'widgets/config_viewer_widget.dart';
 import 'models/settings_section_model.dart';
 import 'data/settings_data.dart';
 import 'services/settings_service.dart';
@@ -14,9 +13,12 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, AppRestorationMixin {
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  String get restorationKey => 'settings_screen';
   Map<String, dynamic> _config = {};
   bool _isLoading = true;
   bool _isOperationLoading = false; // For reset/reload operations
@@ -36,6 +38,17 @@ class _SettingsScreenState extends State<SettingsScreen>
 
     // Listen for config changes to rebuild screen
     ConfigChangeListener.instance.addListener(_onConfigChanged);
+
+    // Setup scroll restoration
+    _setupScrollRestoration();
+  }
+
+  void _setupScrollRestoration() {
+    // Restore scroll position
+    restoreScrollPosition(_scrollController);
+
+    // Listen to scroll changes and save position
+    listenToScrollChanges(_scrollController);
   }
 
   void _onThemeChanged() {
@@ -269,9 +282,9 @@ class _SettingsScreenState extends State<SettingsScreen>
   }
 
   void _handleViewConfig() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ConfigViewerWidget()),
+    NavigationService.navigateTo(
+      RouteConstants.configViewer.path,
+      usePush: true,
     );
   }
 

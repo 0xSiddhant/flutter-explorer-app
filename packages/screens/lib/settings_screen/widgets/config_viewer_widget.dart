@@ -9,16 +9,31 @@ class ConfigViewerWidget extends StatefulWidget {
   State<ConfigViewerWidget> createState() => _ConfigViewerWidgetState();
 }
 
-class _ConfigViewerWidgetState extends State<ConfigViewerWidget> {
+class _ConfigViewerWidgetState extends State<ConfigViewerWidget>
+    with AppRestorationMixin {
+  @override
+  String get restorationKey => 'config_viewer_screen';
+
   String _configJson = '';
   bool _isLoading = true;
   bool _hasError = false;
   String _errorMessage = '';
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController();
     _loadConfig();
+    _setupScrollRestoration();
+  }
+
+  void _setupScrollRestoration() {
+    // Restore scroll position
+    restoreScrollPosition(_scrollController);
+
+    // Listen to scroll changes and save position
+    listenToScrollChanges(_scrollController);
   }
 
   Future<void> _loadConfig() async {
@@ -42,6 +57,12 @@ class _ConfigViewerWidgetState extends State<ConfigViewerWidget> {
         _isLoading = false;
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -234,6 +255,8 @@ class _ConfigViewerWidgetState extends State<ConfigViewerWidget> {
                 ),
               ),
               child: SingleChildScrollView(
+                controller: _scrollController,
+                key: const PageStorageKey<String>('config_viewer_scroll'),
                 padding: const EdgeInsets.all(16.0),
                 child: SelectableText(
                   _configJson,

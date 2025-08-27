@@ -79,6 +79,16 @@ class AppRouteManager {
     );
   }
 
+  static void navigateToConfigViewer(
+    BuildContext context, {
+    bool usePush = true,
+  }) {
+    NavigationService.navigateTo(
+      RouteConstants.configViewer.path,
+      usePush: usePush,
+    );
+  }
+
   static void navigateToNativeCommunication(
     BuildContext context, {
     bool usePush = true,

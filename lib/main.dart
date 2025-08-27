@@ -56,5 +56,14 @@ void main() async {
     debugPrint('Warning: Failed to load accessibility from config: $e');
   }
 
+  // Initialize state restoration service
+  try {
+    await StateRestorationService.instance.initialize();
+    debugPrint('StateRestorationService initialized successfully');
+  } catch (e) {
+    // Log error but continue (state restoration can work with defaults)
+    debugPrint('Warning: Failed to initialize state restoration: $e');
+  }
+
   runApp(const FlutterExplorerApp());
 }

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:screens/screens.dart';
 import 'package:common/common.dart' show ErrorScreen;
+import 'package:screens/settings_screen/widgets/config_viewer_widget.dart';
 import '../constants/route_constants.dart';
 import '../../page_transitions/page_transitions.dart';
+import '../../state_restoration/state_restoration_service.dart';
+import '../../state_restoration/navigation_restoration_service.dart';
 
 /// Route generator that centralizes all route definitions
 class RouteGenerator {
@@ -170,6 +173,16 @@ class RouteGenerator {
           state: state,
         ),
       ),
+
+      // Config viewer route
+      GoRoute(
+        path: RouteConstants.configViewer.path,
+        name: RouteConstants.configViewer.name,
+        pageBuilder: (context, state) => FadeScaleAnimation.buildPage(
+          child: const ConfigViewerWidget(),
+          state: state,
+        ),
+      ),
     ];
   }
 
@@ -194,6 +207,20 @@ class RouteGenerator {
 
   /// Generate redirect function for route protection or custom logic
   static String? redirect(BuildContext context, GoRouterState state) {
+    // Handle state restoration
+    final restorationService = StateRestorationService.instance;
+    final navigationRestorationService = NavigationRestorationService.instance;
+
+    // If this is the initial load and we have a saved navigation stack, restore it
+    if (state.uri.path == RouteConstants.splash.path &&
+        navigationRestorationService.needsRestoration) {
+      final targetRoute = navigationRestorationService.targetRoute;
+      if (restorationService.isValidRestorationRoute(targetRoute)) {
+        debugPrint('RouteGenerator: Restoring to target route: $targetRoute');
+        return targetRoute;
+      }
+    }
+
     // Add any custom redirect logic here
     // For example: authentication checks, route protection, etc.
 

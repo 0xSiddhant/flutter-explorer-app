@@ -96,6 +96,13 @@
     "enableCustomFonts": true,
     "enableAdvancedGestures": false
   },
+  "state_restoration": {
+    "navigation_stack": ["/splash"],
+    "current_route": "/splash",
+    "current_tab_index": 0,
+    "scroll_positions": {},
+    "app_state": {}
+  },
   "lastUpdated": "2024-01-15T10:30:00Z",
   "version": 1
 }

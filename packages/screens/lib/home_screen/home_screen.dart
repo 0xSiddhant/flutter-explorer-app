@@ -12,12 +12,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, AppRestorationMixin {
   List<FeatureCardModel> _featureCards = [];
   late ScrollController _scrollController;
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  String get restorationKey => 'home_screen';
 
   @override
   void initState() {
@@ -30,6 +33,17 @@ class _HomeScreenState extends State<HomeScreen>
 
     // Listen for config changes to update feature cards
     ConfigChangeListener.instance.addListener(_onConfigChanged);
+
+    // Setup scroll restoration
+    _setupScrollRestoration();
+  }
+
+  void _setupScrollRestoration() {
+    // Restore scroll position
+    restoreScrollPosition(_scrollController);
+
+    // Listen to scroll changes and save position
+    listenToScrollChanges(_scrollController);
   }
 
   void _loadFeatureCards() {

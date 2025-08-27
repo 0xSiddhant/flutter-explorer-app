@@ -79,6 +79,10 @@ class RouteConstants {
     path: '/theme-component-showcase',
     name: 'theme-component-showcase',
   );
+  static const RouteModel configViewer = RouteModel(
+    path: '/config-viewer',
+    name: 'config-viewer',
+  );
 
   // List of all routes
   static const List<RouteModel> allRoutes = [
@@ -98,6 +102,7 @@ class RouteConstants {
     lifecycleManagement,
     typographyShowcase,
     themeComponentShowcase,
+    configViewer,
   ];
 
   /// Get route model from path

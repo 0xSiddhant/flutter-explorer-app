@@ -30,6 +30,11 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
 
     // Initialize date change observer
     _initializeDateChangeObserver();
+
+    // Initialize navigation restoration after the widget is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeNavigationRestoration();
+    });
   }
 
   @override
@@ -58,6 +63,16 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
     debugPrint('Date change observer initialization started');
   }
 
+  void _initializeNavigationRestoration() {
+    final navigationRestorationService = NavigationRestorationService.instance;
+    if (navigationRestorationService.needsRestoration) {
+      debugPrint('FlutterExplorerApp: Initializing navigation restoration');
+      navigationRestorationService.restoreNavigationStack(
+        AppRouteManager.router,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // Apply accessibility settings to the theme
@@ -74,6 +89,7 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
       title: 'Flutter Explorer',
       theme: accessibleTheme,
       routerConfig: AppRouteManager.router,
+      restorationScopeId: 'flutter_explorer_app',
       builder: (context, child) {
         // Get current language from LanguageChangeListener
         final currentLanguage = LanguageChangeListener.instance.currentLanguage;

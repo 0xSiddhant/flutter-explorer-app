@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants/route_constants.dart';
+import '../../state_restoration/state_restoration_service.dart';
 
 /// Custom route observer for tracking navigation state and analytics
 class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
@@ -115,6 +116,27 @@ class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
     _screenVisitCount[routeName] = (_screenVisitCount[routeName] ?? 0) + 1;
     _screenEntryTimes[routeName] = DateTime.now();
 
+    // Update state restoration service with current route
+    // Skip splash screen navigation as it's the initial route
+    // Skip during restoration mode to avoid duplicate tracking
+    final currentPath = _getRoutePath(route);
+    if (currentPath != null &&
+        currentPath != RouteConstants.splash.path &&
+        !StateRestorationService.instance.isRestoring) {
+      // Check if this is a push navigation or a go navigation
+      final isPushNavigation = _isPushNavigation(route, previousRoute);
+
+      if (isPushNavigation) {
+        StateRestorationService.instance.pushRoute(currentPath);
+      } else {
+        // This is a go navigation, clear the stack and set new route
+        StateRestorationService.instance.navigateToRoute(currentPath);
+      }
+
+      // Validate navigation stack after navigation
+      StateRestorationService.instance.validateNavigationStack();
+    }
+
     _logNavigation('PUSH', routeName, previousRouteName);
   }
 
@@ -127,10 +149,18 @@ class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
         ? _getRouteName(previousRoute)
         : null;
 
-    final timeSpent = getTimeSpentOnScreen(routeName);
     _screenEntryTimes.remove(routeName);
 
-    _logNavigation('POP', routeName, previousRouteName, timeSpent);
+    // Update state restoration service - pop the route
+    // Only pop if we're not in restoration mode
+    if (!StateRestorationService.instance.isRestoring) {
+      StateRestorationService.instance.popRoute();
+
+      // Validate navigation stack after pop
+      StateRestorationService.instance.validateNavigationStack();
+    }
+
+    _logNavigation('POP', routeName, previousRouteName);
   }
 
   @override
@@ -148,10 +178,19 @@ class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
     }
 
     if (oldRouteName != null) {
-      final timeSpent = getTimeSpentOnScreen(oldRouteName);
       _screenEntryTimes.remove(oldRouteName);
-      _logNavigation('REPLACE', newRouteName, oldRouteName, timeSpent);
     }
+
+    // Update state restoration service - replace the route
+    // Only replace if we're not in restoration mode
+    if (!StateRestorationService.instance.isRestoring) {
+      final newPath = newRoute != null ? _getRoutePath(newRoute) : null;
+      if (newPath != null) {
+        StateRestorationService.instance.replaceRoute(newPath);
+      }
+    }
+
+    _logNavigation('REPLACE', newRouteName, oldRouteName);
   }
 
   @override
@@ -189,6 +228,44 @@ class AppRouteObserver extends RouteObserver<PageRoute<dynamic>> {
     }
 
     return 'unknown';
+  }
+
+  String? _getRoutePath(Route<dynamic> route) {
+    // Extract path from route object
+    final routeString = route.toString();
+    if (routeString.contains('GoRoute')) {
+      // Extract path from GoRoute
+      final pathMatch = RegExp(r"path: '([^']+)'").firstMatch(routeString);
+      if (pathMatch != null) {
+        return pathMatch.group(1);
+      }
+    }
+
+    // Try to get path from route settings
+    if (route.settings.name != null) {
+      final routeModel = RouteConstants.getRouteFromName(route.settings.name!);
+      return routeModel?.path;
+    }
+
+    return null;
+  }
+
+  /// Check if this is a push navigation (adds to stack) vs go navigation (replaces stack)
+  bool _isPushNavigation(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    // If there's no previous route, this is likely a go navigation
+    if (previousRoute == null) {
+      return false;
+    }
+
+    // Check if the previous route is still in the navigation stack
+    final previousPath = _getRoutePath(previousRoute);
+    if (previousPath != null) {
+      final restorationService = StateRestorationService.instance;
+      return restorationService.navigationStack.contains(previousPath);
+    }
+
+    // Default to push navigation for safety
+    return true;
   }
 
   void _logNavigation(
