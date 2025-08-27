@@ -21,3 +21,4 @@ export 'services/deep_link_service.dart';
 
 // Utils
 export 'utils/route_params_utils.dart';
+export 'utils/large_data_handler.dart';

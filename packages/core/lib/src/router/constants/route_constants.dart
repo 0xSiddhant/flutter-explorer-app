@@ -31,7 +31,7 @@ class RouteConstants {
     name: 'settings',
   );
   static const RouteModel tabScreen = RouteModel(
-    path: '/tab-screen',
+    path: '/tab_screen',
     name: 'tab-screen',
   );
   static const RouteModel detail = RouteModel(path: '/detail', name: 'detail');
@@ -40,11 +40,11 @@ class RouteConstants {
     name: 'theming',
   );
   static const RouteModel nativeCommunication = RouteModel(
-    path: '/native-communication',
+    path: '/native_communication',
     name: 'native-communication',
   );
   static const RouteModel backgroundTasks = RouteModel(
-    path: '/background-tasks',
+    path: '/background_tasks',
     name: 'background-tasks',
   );
   static const RouteModel internationalization = RouteModel(
@@ -56,35 +56,35 @@ class RouteConstants {
     name: 'accessibility',
   );
   static const RouteModel fileManagement = RouteModel(
-    path: '/file-management',
+    path: '/file_management',
     name: 'file-management',
   );
   static const RouteModel advancedProcessing = RouteModel(
-    path: '/advanced-processing',
+    path: '/advanced_processing',
     name: 'advanced-processing',
   );
   static const RouteModel navigationAnalytics = RouteModel(
-    path: '/navigation-analytics',
+    path: '/navigation_analytics',
     name: 'navigation-analytics',
   );
   static const RouteModel lifecycleManagement = RouteModel(
-    path: '/lifecycle-management',
+    path: '/lifecycle_management',
     name: 'lifecycle-management',
   );
   static const RouteModel typographyShowcase = RouteModel(
-    path: '/typography-showcase',
+    path: '/typography_showcase',
     name: 'typography-showcase',
   );
   static const RouteModel themeComponentShowcase = RouteModel(
-    path: '/theme-component-showcase',
+    path: '/theme_component_showcase',
     name: 'theme-component-showcase',
   );
   static const RouteModel configViewer = RouteModel(
-    path: '/config-viewer',
+    path: '/config_viewer',
     name: 'config-viewer',
   );
   static const RouteModel deepLinkTest = RouteModel(
-    path: '/deep-link-test',
+    path: '/deep_link_test',
     name: 'deep-link-test',
   );
 
@@ -179,7 +179,7 @@ class RouteConstants {
     'advanced': advancedProcessing,
     'typography_showcase': typographyShowcase,
     'typography': typographyShowcase,
-    'deep-link-test': deepLinkTest,
+    'deep_link_test': deepLinkTest,
   };
 
   // Allowed deep link paths (for validation)
@@ -208,7 +208,7 @@ class RouteConstants {
     'advanced',
     'typography_showcase',
     'typography',
-    'deep-link-test',
+    'deep_link_test',
   };
 
   /// Get route model for a deep link path

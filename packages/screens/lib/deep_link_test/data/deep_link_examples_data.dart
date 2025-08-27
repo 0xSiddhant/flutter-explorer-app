@@ -113,6 +113,171 @@ class DeepLinkExamplesData {
         color: Colors.pink,
         onTap: () => onExampleTap('frouter://typography_showcase'),
       ),
+
+      // Large Data Examples
+      DeepLinkExampleModel(
+        url: _createLargeDataExample('user_preferences'),
+        description: 'User preferences with large data',
+        icon: Icons.person,
+        color: Colors.deepPurple,
+        onTap: () => onExampleTap(_createLargeDataExample('user_preferences')),
+      ),
+      DeepLinkExampleModel(
+        url: _createLargeDataExample('app_config'),
+        description: 'App configuration with complex data',
+        icon: Icons.settings_suggest,
+        color: Colors.brown,
+        onTap: () => onExampleTap(_createLargeDataExample('app_config')),
+      ),
+      DeepLinkExampleModel(
+        url: _createLargeDataExample('theme_palette'),
+        description: 'Complete theme palette data',
+        icon: Icons.palette_outlined,
+        color: Colors.indigo,
+        onTap: () => onExampleTap(_createLargeDataExample('theme_palette')),
+      ),
     ];
+  }
+
+  /// Create example deep links with large data parameters
+  static String _createLargeDataExample(String type) {
+    switch (type) {
+      case 'user_preferences':
+        final userData = {
+          'name': 'John Doe',
+          'email': 'john.doe@example.com',
+          'preferences': {
+            'theme': 'dark',
+            'language': 'en',
+            'notifications': {'push': true, 'email': false, 'sms': true},
+            'accessibility': {
+              'screenReader': false,
+              'highContrast': true,
+              'largeText': false,
+              'textScale': 1.2,
+            },
+            'privacy': {
+              'analytics': true,
+              'crashReports': false,
+              'personalizedAds': false,
+            },
+          },
+          'recentSearches': [
+            'Flutter deep linking',
+            'Material Design 3',
+            'State management',
+            'Navigation patterns',
+            'Accessibility guidelines',
+          ],
+          'favoriteFeatures': [
+            'theme_preview',
+            'accessibility',
+            'internationalization',
+            'file_management',
+          ],
+        };
+        return LargeDataHandler.createDeepLinkWithData('frouter://theming', {
+          'user_preferences': userData,
+        });
+
+      case 'app_config':
+        final configData = {
+          'version': '1.0.0',
+          'buildNumber': 42,
+          'features': {
+            'deepLinking': true,
+            'stateRestoration': true,
+            'accessibility': true,
+            'internationalization': true,
+            'theming': true,
+            'analytics': false,
+          },
+          'api': {
+            'baseUrl': 'https://api.example.com',
+            'timeout': 30000,
+            'retryAttempts': 3,
+            'endpoints': {
+              'users': '/api/v1/users',
+              'themes': '/api/v1/themes',
+              'settings': '/api/v1/settings',
+            },
+          },
+          'ui': {
+            'defaultTheme': 'material_3',
+            'animations': {
+              'enabled': true,
+              'duration': 300,
+              'curve': 'easeInOut',
+            },
+            'layout': {'maxWidth': 1200, 'padding': 16, 'spacing': 8},
+          },
+          'debug': {
+            'enabled': false,
+            'logLevel': 'info',
+            'showPerformanceOverlay': false,
+          },
+        };
+        return LargeDataHandler.createDeepLinkWithData('frouter://config', {
+          'app_config': configData,
+        });
+
+      case 'theme_palette':
+        final paletteData = {
+          'primary': {
+            '50': '#E3F2FD',
+            '100': '#BBDEFB',
+            '200': '#90CAF9',
+            '300': '#64B5F6',
+            '400': '#42A5F5',
+            '500': '#2196F3',
+            '600': '#1E88E5',
+            '700': '#1976D2',
+            '800': '#1565C0',
+            '900': '#0D47A1',
+          },
+          'secondary': {
+            '50': '#F3E5F5',
+            '100': '#E1BEE7',
+            '200': '#CE93D8',
+            '300': '#BA68C8',
+            '400': '#AB47BC',
+            '500': '#9C27B0',
+            '600': '#8E24AA',
+            '700': '#7B1FA2',
+            '800': '#6A1B9A',
+            '900': '#4A148C',
+          },
+          'neutral': {
+            '50': '#FAFAFA',
+            '100': '#F5F5F5',
+            '200': '#EEEEEE',
+            '300': '#E0E0E0',
+            '400': '#BDBDBD',
+            '500': '#9E9E9E',
+            '600': '#757575',
+            '700': '#616161',
+            '800': '#424242',
+            '900': '#212121',
+          },
+          'semantic': {
+            'success': '#4CAF50',
+            'warning': '#FF9800',
+            'error': '#F44336',
+            'info': '#2196F3',
+          },
+          'custom': {
+            'brand': '#FF6B35',
+            'accent': '#F7931E',
+            'highlight': '#FFD23F',
+          },
+        };
+        return LargeDataHandler.createDeepLinkWithData(
+          'frouter://theme_preview',
+          {'theme_palette': paletteData, 'theme': 0, 'mode': 'light'},
+        );
+
+      default:
+        return 'frouter://home';
+    }
   }
 }
