@@ -20,6 +20,7 @@ class _ThemingScreenState extends State<ThemingScreen> {
   // Local theme state for preview (doesn't affect global app)
   late ThemeControlModel _currentTheme;
   late ThemeControlModel _originalTheme;
+  bool _hasHandledParams = false;
 
   @override
   void initState() {
@@ -34,10 +35,80 @@ class _ThemingScreenState extends State<ThemingScreen> {
     ThemeObserver.instance.addListener(_onGlobalThemeChanged);
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_hasHandledParams) {
+      _handleDeepLinkParams();
+      _hasHandledParams = true;
+    }
+  }
+
   void _initializeThemeState() {
     // Get current theme values
     _originalTheme = ThemeDataService.getCurrentTheme();
     _currentTheme = _originalTheme;
+  }
+
+  void _handleDeepLinkParams() {
+    // Get query parameters using core package utility
+    if (!RouteParamsUtils.hasQueryParameters(context)) return;
+
+    // Collect all changes before calling setState once
+    bool? newIsDarkMode;
+    bool? newIsHighContrast;
+    double? newTextScaleFactor;
+
+    // Handle dark mode parameter
+    final darkModeParam = RouteParamsUtils.getBooleanParameter(context, 'dark');
+    if (darkModeParam != null) {
+      newIsDarkMode = darkModeParam;
+      debugPrint('Theming: Dark mode set to $newIsDarkMode');
+    }
+
+    // Handle high contrast parameter
+    final highContrastParam = RouteParamsUtils.getBooleanParameter(
+      context,
+      'high_contrast',
+    );
+    if (highContrastParam != null) {
+      newIsHighContrast = highContrastParam;
+      debugPrint('Theming: High contrast set to $newIsHighContrast');
+    }
+
+    // Handle text scale factor parameter
+    final textScaleParam = RouteParamsUtils.getDoubleParameter(
+      context,
+      'text_scale',
+    );
+    if (textScaleParam != null &&
+        textScaleParam >= 0.5 &&
+        textScaleParam <= 3.0) {
+      newTextScaleFactor = textScaleParam;
+      debugPrint('Theming: Text scale factor set to $newTextScaleFactor');
+    } else if (textScaleParam != null) {
+      debugPrint(
+        'Theming: Invalid text scale factor $textScaleParam, using default',
+      );
+    }
+
+    // Apply all changes in a single setState call
+    if (newIsDarkMode != null ||
+        newIsHighContrast != null ||
+        newTextScaleFactor != null) {
+      setState(() {
+        _currentTheme = ThemeControlModel(
+          isDarkMode: newIsDarkMode ?? _currentTheme.isDarkMode,
+          isHighContrast: newIsHighContrast ?? _currentTheme.isHighContrast,
+          textScaleFactor: newTextScaleFactor ?? _currentTheme.textScaleFactor,
+        );
+      });
+    }
+
+    // Debug all parameters
+    debugPrint(
+      'Theming: Deep link parameters: ${RouteParamsUtils.getParametersDebugString(context)}',
+    );
   }
 
   void _onLanguageChanged() {

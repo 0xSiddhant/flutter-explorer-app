@@ -10,7 +10,7 @@ class DeepLinkExampleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 4.0),
+      margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4),
       child: InkWell(
         onTap: example.onTap,
         borderRadius: BorderRadius.circular(12.0),
@@ -21,7 +21,7 @@ class DeepLinkExampleWidget extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  color: example.color.withOpacity(0.1),
+                  color: example.color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Icon(example.icon, color: example.color, size: 20.0),

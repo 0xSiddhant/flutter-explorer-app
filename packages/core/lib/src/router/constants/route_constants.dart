@@ -179,6 +179,7 @@ class RouteConstants {
     'advanced': advancedProcessing,
     'typography_showcase': typographyShowcase,
     'typography': typographyShowcase,
+    'deep-link-test': deepLinkTest,
   };
 
   // Allowed deep link paths (for validation)
@@ -207,6 +208,7 @@ class RouteConstants {
     'advanced',
     'typography_showcase',
     'typography',
+    'deep-link-test',
   };
 
   /// Get route model for a deep link path

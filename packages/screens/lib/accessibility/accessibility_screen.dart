@@ -18,6 +18,97 @@ class _AccessibilityScreenState extends State<AccessibilityScreen> {
   bool _isLargeTextEnabled = false;
   int _selectedTab = 0;
   String _lastAction = 'No action performed';
+  bool _hasHandledParams = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_hasHandledParams) {
+      _handleDeepLinkParams();
+      _hasHandledParams = true;
+    }
+  }
+
+  void _handleDeepLinkParams() {
+    // Get query parameters using core package utility
+    if (!RouteParamsUtils.hasQueryParameters(context)) return;
+
+    // Collect all changes before calling setState once
+    bool? newScreenReaderEnabled;
+    bool? newHighContrastEnabled;
+    bool? newLargeTextEnabled;
+    int? newSelectedTab;
+
+    // Handle screen reader parameter
+    final screenReaderParam = RouteParamsUtils.getBooleanParameter(
+      context,
+      'screen_reader',
+    );
+    if (screenReaderParam != null) {
+      newScreenReaderEnabled = screenReaderParam;
+      debugPrint('Accessibility: Screen reader set to $newScreenReaderEnabled');
+    }
+
+    // Handle high contrast parameter
+    final highContrastParam = RouteParamsUtils.getBooleanParameter(
+      context,
+      'high_contrast',
+    );
+    if (highContrastParam != null) {
+      newHighContrastEnabled = highContrastParam;
+      debugPrint('Accessibility: High contrast set to $newHighContrastEnabled');
+    }
+
+    // Handle large text parameter
+    final largeTextParam = RouteParamsUtils.getBooleanParameter(
+      context,
+      'large_text',
+    );
+    if (largeTextParam != null) {
+      newLargeTextEnabled = largeTextParam;
+      debugPrint('Accessibility: Large text set to $newLargeTextEnabled');
+    }
+
+    // Handle tab parameter
+    final tabParam = RouteParamsUtils.getIntParameter(context, 'tab');
+    if (tabParam != null && tabParam >= 0 && tabParam <= 2) {
+      newSelectedTab = tabParam;
+      debugPrint('Accessibility: Tab set to $tabParam');
+    } else if (tabParam != null) {
+      debugPrint('Accessibility: Invalid tab index $tabParam, using default');
+    }
+
+    // Apply all changes in a single setState call
+    if (newScreenReaderEnabled != null ||
+        newHighContrastEnabled != null ||
+        newLargeTextEnabled != null ||
+        newSelectedTab != null) {
+      setState(() {
+        if (newScreenReaderEnabled != null) {
+          _isScreenReaderEnabled = newScreenReaderEnabled;
+        }
+        if (newHighContrastEnabled != null) {
+          _isHighContrastEnabled = newHighContrastEnabled;
+        }
+        if (newLargeTextEnabled != null) {
+          _isLargeTextEnabled = newLargeTextEnabled;
+        }
+        if (newSelectedTab != null) {
+          _selectedTab = newSelectedTab;
+        }
+      });
+    }
+
+    // Debug all parameters
+    debugPrint(
+      'Accessibility: Deep link parameters: ${RouteParamsUtils.getParametersDebugString(context)}',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

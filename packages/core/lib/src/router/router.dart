@@ -18,3 +18,6 @@ export 'observers/route_aware_mixin.dart';
 // Deep Link
 export 'deep_link_manager.dart';
 export 'services/deep_link_service.dart';
+
+// Utils
+export 'utils/route_params_utils.dart';

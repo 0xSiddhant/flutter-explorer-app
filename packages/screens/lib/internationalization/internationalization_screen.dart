@@ -19,11 +19,21 @@ class _InternationalizationScreenState
   String _currentLanguage = AppLocalizations.currentLanguageCode;
   FormattingDataModel? _formattingData;
   final String _originalLanguage = AppLocalizations.currentLanguageCode;
+  bool _hasHandledParams = false;
 
   @override
   void initState() {
     super.initState();
     _loadFormattingData();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_hasHandledParams) {
+      _handleDeepLinkParams();
+      _hasHandledParams = true;
+    }
   }
 
   @override
@@ -39,6 +49,46 @@ class _InternationalizationScreenState
     setState(() {
       _formattingData = InternationalizationData.getFormattingData();
     });
+  }
+
+  void _handleDeepLinkParams() async {
+    // Get query parameters using core package utility
+    if (!RouteParamsUtils.hasQueryParameters(context)) return;
+
+    // Handle locale parameter
+    final localeParam = RouteParamsUtils.getQueryParameter(context, 'locale');
+    if (localeParam != null) {
+      // Check if the locale is supported
+      final supportedLanguages = AppLocalizations.supportedLanguages;
+      final language = supportedLanguages.firstWhere(
+        (l) => l.code == localeParam,
+        orElse: () => supportedLanguages.first,
+      );
+
+      if (language.code == localeParam) {
+        // Change app locale for preview purposes
+        await AppLocalizations.changeLanguage(localeParam);
+
+        if (mounted) {
+          setState(() {
+            _currentLanguage = localeParam;
+            _formattingData = InternationalizationData.getFormattingData();
+          });
+        }
+        debugPrint('Internationalization: Locale preview set to $localeParam');
+      } else {
+        debugPrint(
+          'Internationalization: Unsupported locale $localeParam, using default',
+        );
+      }
+    }
+
+    // Debug all parameters
+    if (mounted) {
+      debugPrint(
+        'Internationalization: Deep link parameters: ${RouteParamsUtils.getParametersDebugString(context)}',
+      );
+    }
   }
 
   void _onLanguageChanged(String languageCode) async {

@@ -70,8 +70,13 @@ class _DeepLinkTestScreenState extends State<DeepLinkTestScreen>
   }
 
   void _onExampleTap(String url) {
+    // Navigate immediately without updating the text field
+    _navigateToDeepLink(url);
+  }
+
+  void _onChipTap(String url) {
+    // Only update the text field, don't navigate
     _urlController.text = url;
-    // Only update the text field, don't navigate yet
   }
 
   void _testDeepLink() async {
@@ -80,7 +85,38 @@ class _DeepLinkTestScreenState extends State<DeepLinkTestScreen>
       setState(() {
         _lastDeepLink = url;
       });
-      await AppRouteManager.handleDeepLink(url);
+      await _navigateToDeepLink(url);
+    }
+  }
+
+  /// Shared navigation method for both test button and example taps
+  /// Uses push navigation to preserve the navigation stack
+  Future<void> _navigateToDeepLink(String url) async {
+    // Parse the URL to determine the target route
+    final uri = Uri.parse(url);
+    final path = uri.path.isEmpty ? uri.host : uri.path;
+    final queryParams = uri.queryParameters;
+
+    // Get the mapped route from deep link
+    final routeModel = RouteConstants.getRouteForDeepLink(path);
+    if (routeModel != null) {
+      // Build route with parameters if any
+      String targetRoute = routeModel.path;
+      if (queryParams.isNotEmpty) {
+        final queryString = queryParams.entries
+            .map((e) => '${e.key}=${e.value}')
+            .join('&');
+        targetRoute = '$targetRoute?$queryString';
+      }
+
+      // Use push navigation to preserve the navigation stack
+      NavigationService.navigateTo(targetRoute, usePush: true);
+    } else {
+      // Fallback to home if route not found
+      NavigationService.navigateTo(
+        RouteConstants.tabScreen.path,
+        usePush: true,
+      );
     }
   }
 
@@ -109,7 +145,7 @@ class _DeepLinkTestScreenState extends State<DeepLinkTestScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              DeepLinkInfoWidget(onChipTap: _onExampleTap),
+              DeepLinkInfoWidget(onChipTap: _onChipTap),
               const SizedBox(height: 16.0),
               DeepLinkTestInputWidget(
                 controller: _urlController,
@@ -141,7 +177,6 @@ class _DeepLinkTestScreenState extends State<DeepLinkTestScreen>
                         constraints: const BoxConstraints(maxHeight: 400),
                         child: ListView.builder(
                           shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: _deepLinkExamples.length,
                           itemBuilder: (context, index) {
                             return DeepLinkExampleWidget(

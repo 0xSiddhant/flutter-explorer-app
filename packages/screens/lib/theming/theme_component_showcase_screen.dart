@@ -16,11 +16,21 @@ class _ThemeComponentShowcaseScreenState
     ThemeManager.instance.defaultThemeId,
   );
   bool _isDarkMode = false;
+  bool _hasHandledParams = false;
 
   @override
   void initState() {
     super.initState();
     _loadCurrentTheme();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_hasHandledParams) {
+      _handleDeepLinkParams();
+      _hasHandledParams = true;
+    }
   }
 
   void _loadCurrentTheme() {
@@ -31,6 +41,57 @@ class _ThemeComponentShowcaseScreenState
       );
       _isDarkMode = themeManager.isDarkMode;
     });
+  }
+
+  void _handleDeepLinkParams() {
+    // Get query parameters using core package utility
+    if (!RouteParamsUtils.hasQueryParameters(context)) return;
+
+    // Collect all changes before calling setState once
+    String? newThemeId;
+    bool? newIsDarkMode;
+
+    // Handle theme parameter (0-based index)
+    final themeParam = RouteParamsUtils.getIntParameter(context, 'theme');
+    if (themeParam != null) {
+      final availableThemes = ThemeManager.instance.availableThemes;
+      if (themeParam >= 0 && themeParam < availableThemes.length) {
+        newThemeId = availableThemes[themeParam].id;
+        debugPrint(
+          'ThemeComponentShowcase: Theme set to index $themeParam ($newThemeId)',
+        );
+      } else {
+        debugPrint(
+          'ThemeComponentShowcase: Invalid theme index $themeParam, using default',
+        );
+      }
+    }
+
+    // Handle mode parameter (dark/light)
+    final modeParam = RouteParamsUtils.getQueryParameter(context, 'mode');
+    if (modeParam != null) {
+      newIsDarkMode = modeParam.toLowerCase() == 'dark';
+      debugPrint(
+        'ThemeComponentShowcase: Mode set to ${newIsDarkMode ? 'dark' : 'light'}',
+      );
+    }
+
+    // Apply all changes in a single setState call
+    if (newThemeId != null || newIsDarkMode != null) {
+      setState(() {
+        if (newThemeId != null) {
+          _selectedThemeId = ThemeManager.instance.getValidThemeId(newThemeId);
+        }
+        if (newIsDarkMode != null) {
+          _isDarkMode = newIsDarkMode;
+        }
+      });
+    }
+
+    // Debug all parameters
+    debugPrint(
+      'ThemeComponentShowcase: Deep link parameters: ${RouteParamsUtils.getParametersDebugString(context)}',
+    );
   }
 
   void _onThemeChanged(String themeId) {
