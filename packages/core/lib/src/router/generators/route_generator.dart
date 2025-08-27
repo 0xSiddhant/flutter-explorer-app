@@ -183,6 +183,14 @@ class RouteGenerator {
           state: state,
         ),
       ),
+      GoRoute(
+        path: RouteConstants.deepLinkTest.path,
+        name: RouteConstants.deepLinkTest.name,
+        pageBuilder: (context, state) => FadeScaleAnimation.buildPage(
+          child: const DeepLinkTestScreen(),
+          state: state,
+        ),
+      ),
     ];
   }
 

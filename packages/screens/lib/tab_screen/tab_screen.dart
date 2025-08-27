@@ -42,7 +42,6 @@ class _TabScreenState extends State<TabScreen>
 
   void _initializeTabs() {
     _tabItems = TabService.getCurrentTabItems();
-    debugPrint('Tab screen initialized with ${_tabItems.length} tabs');
   }
 
   void _setupTabController() {

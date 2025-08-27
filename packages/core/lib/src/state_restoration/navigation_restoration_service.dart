@@ -74,11 +74,18 @@ class NavigationRestorationService {
     GoRouter router,
     List<String> navigationStack,
   ) async {
+    // Clean the navigation stack to remove duplicates and invalid routes
+    final cleanedStack = _cleanNavigationStack(navigationStack);
+
+    if (cleanedStack.isEmpty) {
+      debugPrint('NavigationRestorationService: No valid routes to restore');
+      return;
+    }
+
     // Start from the first valid route (skip splash if it's the first)
-    String startRoute = navigationStack.first;
-    if (startRoute == RouteConstants.splash.path &&
-        navigationStack.length > 1) {
-      startRoute = navigationStack[1];
+    String startRoute = cleanedStack.first;
+    if (startRoute == RouteConstants.splash.path && cleanedStack.length > 1) {
+      startRoute = cleanedStack[1];
     }
 
     // Navigate to the start route first
@@ -87,9 +94,15 @@ class NavigationRestorationService {
     }
 
     // Navigate through the rest of the stack using push
-    for (int i = 2; i < navigationStack.length; i++) {
-      final route = navigationStack[i];
-      if (route != RouteConstants.splash.path) {
+    // Start from index 1 after the start route
+    int startIndex = 1;
+    if (startRoute == RouteConstants.splash.path && cleanedStack.length > 1) {
+      startIndex = 2; // Skip splash and the first valid route
+    }
+
+    for (int i = startIndex; i < cleanedStack.length; i++) {
+      final route = cleanedStack[i];
+      if (route != RouteConstants.splash.path && route != startRoute) {
         await _pushRoute(router, route);
       }
     }
@@ -206,6 +219,35 @@ class NavigationRestorationService {
     Future.delayed(const Duration(milliseconds: delayMs), attemptUpdate);
   }
 
+  /// Clean navigation stack by removing duplicates and invalid routes
+  List<String> _cleanNavigationStack(List<String> navigationStack) {
+    final cleanedStack = <String>[];
+    String? lastRoute;
+
+    for (final route in navigationStack) {
+      // Skip invalid routes
+      if (!RouteConstants.isPathValid(route)) {
+        debugPrint(
+          'NavigationRestorationService: Skipping invalid route: $route',
+        );
+        continue;
+      }
+
+      // Skip duplicate consecutive routes
+      if (route != lastRoute) {
+        cleanedStack.add(route);
+        lastRoute = route;
+      } else {
+        debugPrint(
+          'NavigationRestorationService: Skipping duplicate route: $route',
+        );
+      }
+    }
+
+    debugPrint('NavigationRestorationService: Cleaned stack: $cleanedStack');
+    return cleanedStack;
+  }
+
   /// Update tab index based on the restored route
   void _updateTabIndexForRestoredRoute(String route) {
     final restorationService = StateRestorationService.instance;
@@ -234,7 +276,7 @@ class NavigationRestorationService {
     } else {
       // All other routes -> home tab (index 0)
       // This includes: home, theming, theme-component-showcase,
-      // and all feature routes
+      // deep-link-test, and all feature routes
       targetTabIndex = 0;
     }
 

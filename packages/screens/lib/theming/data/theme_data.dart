@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:flutter/foundation.dart';
 import '../models/theme_control_model.dart';
 
 class ThemeDataService {
@@ -15,8 +14,6 @@ class ThemeDataService {
   }
 
   static void applyTheme(ThemeControlModel theme) {
-    debugPrint('🎨 ThemeData: Applying theme changes permanently');
-
     // Apply to global theme manager
     ThemeManager.instance.setDarkMode(theme.isDarkMode);
     AccessibilityProvider.instance.setHighContrastEnabled(theme.isHighContrast);

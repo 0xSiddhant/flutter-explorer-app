@@ -97,18 +97,21 @@ class FeatureCardsData {
         onTap: () => AppRouteManager.navigateToTypographyShowcase(context),
         featureKey: 'enableTypographyShowcase',
       ),
+      FeatureCardModel(
+        title: AppLocalizations.getString('deep_link_test'),
+        subtitle: AppLocalizations.getString('deep_link_test_description'),
+        icon: Icons.link,
+        color: Colors.deepPurple,
+        onTap: () => AppRouteManager.navigateToDeepLinkTest(context),
+        featureKey: 'enableDeepLinkTest',
+      ),
     ];
 
     // Filter features based on config
     final filteredFeatures = allFeatures.where((feature) {
       final isEnabled = features[feature.featureKey] as bool? ?? true;
-      debugPrint(
-        'Feature ${feature.featureKey}: ${isEnabled ? 'enabled' : 'disabled'}',
-      );
       return isEnabled;
     }).toList();
-
-    debugPrint('Filtered features count: ${filteredFeatures.length}');
     return filteredFeatures;
   }
 }

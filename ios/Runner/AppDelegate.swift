@@ -10,6 +10,7 @@ import UIKit
   private let storageService = StorageService()
   private let networkService = NetworkService()
   private let dateChangeObserver = DateChangeObserver()
+  private let deepLinkService = DeepLinkService()
 
   override func application(
     _ application: UIApplication,
@@ -79,8 +80,45 @@ import UIKit
       binaryMessenger: controller.binaryMessenger)
     dateChangeEventChannel.setStreamHandler(self.dateChangeObserver)
 
+    // Deep link channel
+    let deepLinkChannel = FlutterMethodChannel(
+      name: "deep_link_channel",
+      binaryMessenger: controller.binaryMessenger)
+    deepLinkChannel.setMethodCallHandler { call, result in
+      switch call.method {
+      case "getInitialLink":
+        result(self.deepLinkService.getInitialDeepLink())
+      default:
+        result(FlutterMethodNotImplemented)
+      }
+    }
+    self.deepLinkService.setMethodChannel(deepLinkChannel)
+
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
+  // Handle deep links when app is opened via URL
+  override func application(
+    _ app: UIApplication,
+    open url: URL,
+    options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+  ) -> Bool {
+    deepLinkService.handleDeepLink(url: url)
+    return true
+  }
+
+  // Handle deep links when app is already running
+  override func application(
+    _ application: UIApplication,
+    continue userActivity: NSUserActivity,
+    restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
+  ) -> Bool {
+    if userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+      let url = userActivity.webpageURL
+    {
+      deepLinkService.handleDeepLink(url: url)
+    }
+    return true
+  }
 }

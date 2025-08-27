@@ -127,6 +127,12 @@ the_router/
 - **Technology**: Custom state restoration with navigation stack preservation
 - **Features**: Complete app state restoration, tab index preservation, navigation stack rebuilding, scroll position restoration, robust error handling
 
+### 15. **Deep Linking System**
+
+- **Technology**: Custom URL scheme with GoRouter integration
+- **Features**: `frouter://` scheme support, parameter passing, cross-platform compatibility, navigation stack management, validation and fallback handling
+- **Documentation**: See [Deep Linking Guide](packages/core/lib/src/router/DEEP_LINKING.md) for complete implementation details
+
 ## 🛠️ Getting Started
 
 ### Prerequisites
@@ -192,6 +198,7 @@ the_router/
 8. **Advanced Processing** - Complex isolate operations
 9. **Navigation Analytics** - Route tracking and analytics dashboard
 10. **Lifecycle Management** - Widget and app lifecycle monitoring
+11. **Deep Link Test** - Test deep linking functionality with various URLs
 
 ## 🎯 Key Learning Points
 
@@ -226,6 +233,7 @@ the_router/
 - **Import Management**: Optimized imports with no unused dependencies
 - **Scroll State Management**: AutomaticKeepAliveClientMixin for preserving tab scroll positions
 - **State Restoration**: Complete app state restoration with navigation stack preservation
+- **Deep Linking**: Custom URL scheme with parameter passing and cross-platform support
 
 ### Advanced Features
 
@@ -247,6 +255,7 @@ the_router/
 - **RTL Support**: Complete Right-to-Left text direction with automatic UI adaptation
 - **Scroll State Preservation**: AutomaticKeepAliveClientMixin with PageStorageKey for tab scroll preservation
 - **State Restoration**: Complete app state restoration with navigation stack rebuilding and tab index preservation
+- **Deep Linking**: Custom `frouter://` scheme with parameter support, cross-platform compatibility, and navigation stack management
 
 ### Accessibility
 

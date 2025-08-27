@@ -114,16 +114,7 @@ class StateRestorationService {
 
   /// Validate and fix navigation stack
   void validateNavigationStack() {
-    // Remove any duplicate consecutive routes
-    final cleanedStack = <String>[];
-    String? lastRoute;
-
-    for (final route in _navigationStack) {
-      if (route != lastRoute) {
-        cleanedStack.add(route);
-        lastRoute = route;
-      }
-    }
+    final cleanedStack = _cleanNavigationStack(_navigationStack);
 
     if (cleanedStack.length != _navigationStack.length) {
       _navigationStack = cleanedStack;
@@ -191,7 +182,8 @@ class StateRestorationService {
   /// Restore navigation stack from saved data
   void restoreNavigationStack(List<String> savedStack) {
     if (savedStack.isNotEmpty) {
-      _navigationStack = List<String>.from(savedStack);
+      // Clean the navigation stack to remove duplicates
+      _navigationStack = _cleanNavigationStack(savedStack);
       _currentRoute = _navigationStack.last;
       debugPrint(
         'StateRestorationService: Navigation stack restored: $_navigationStack',
@@ -391,5 +383,30 @@ class StateRestorationService {
   /// Get scroll restoration key for a specific screen
   static String getScrollRestorationKey(String screenName) {
     return '${screenName}_scroll';
+  }
+
+  /// Clean navigation stack by removing duplicates and invalid routes
+  List<String> _cleanNavigationStack(List<String> navigationStack) {
+    final cleanedStack = <String>[];
+    String? lastRoute;
+
+    for (final route in navigationStack) {
+      // Skip invalid routes
+      if (!RouteConstants.isPathValid(route)) {
+        debugPrint('StateRestorationService: Skipping invalid route: $route');
+        continue;
+      }
+
+      // Skip duplicate consecutive routes
+      if (route != lastRoute) {
+        cleanedStack.add(route);
+        lastRoute = route;
+      } else {
+        debugPrint('StateRestorationService: Skipping duplicate route: $route');
+      }
+    }
+
+    debugPrint('StateRestorationService: Cleaned stack: $cleanedStack');
+    return cleanedStack;
   }
 }

@@ -50,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen>
     setState(() {
       _featureCards = FeatureCardsData.getFeatureCards(context);
     });
-    debugPrint('Home screen loaded with ${_featureCards.length} feature cards');
   }
 
   void _onLanguageChanged() {

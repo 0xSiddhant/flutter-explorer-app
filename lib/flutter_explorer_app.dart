@@ -88,6 +88,7 @@ class _FlutterExplorerAppState extends State<FlutterExplorerApp> {
     return MaterialApp.router(
       title: 'Flutter Explorer',
       theme: accessibleTheme,
+      debugShowCheckedModeBanner: false,
       routerConfig: AppRouteManager.router,
       restorationScopeId: 'flutter_explorer_app',
       builder: (context, child) {

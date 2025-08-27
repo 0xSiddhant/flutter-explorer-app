@@ -14,3 +14,7 @@ export 'generators/route_generator.dart';
 export 'observers/route_observer.dart';
 export 'observers/comprehensive_navigation_observer.dart';
 export 'observers/route_aware_mixin.dart';
+
+// Deep Link
+export 'deep_link_manager.dart';
+export 'services/deep_link_service.dart';

@@ -17,3 +17,6 @@ export './advanced_processing/advanced_processing_screen.dart';
 export './navigation_analytics/navigation_analytics_screen.dart';
 export './lifecycle_management/lifecycle_management_screen.dart';
 export './typography_showcase/typography_showcase.dart';
+
+// Test screens
+export './deep_link_test/deep_link_test_screen.dart';

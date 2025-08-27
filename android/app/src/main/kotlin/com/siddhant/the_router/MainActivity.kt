@@ -1,5 +1,6 @@
 package com.siddhant.the_router
 
+import android.content.Intent
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
@@ -12,6 +13,7 @@ class MainActivity: FlutterActivity() {
   private val notificationService = NotificationService()
   private val storageService = StorageService()
   private val networkService = NetworkService()
+  private val deepLinkService = DeepLinkService()
   private lateinit var dateChangeObserver: DateChangeObserver
 
   override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
@@ -59,5 +61,19 @@ class MainActivity: FlutterActivity() {
     dateChangeObserver = DateChangeObserver(this, dateChangeMethodChannel, dateChangeEventChannel)
     dateChangeMethodChannel.setMethodCallHandler(dateChangeObserver)
     dateChangeEventChannel.setStreamHandler(dateChangeObserver)
+
+    // Deep link channel
+    val deepLinkChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "deep_link_channel")
+    deepLinkService.initialize(deepLinkChannel)
+  }
+
+  override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    deepLinkService.handleDeepLink(intent)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    deepLinkService.handleDeepLink(intent)
   }
 }

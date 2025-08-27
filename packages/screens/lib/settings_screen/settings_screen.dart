@@ -77,10 +77,8 @@ class _SettingsScreenState extends State<SettingsScreen>
         _config = config;
         _selectedLanguage = languageCode;
       });
-
-      debugPrint('Settings screen loaded with language: $languageCode');
     } catch (e) {
-      debugPrint('Error loading configuration: $e');
+      // Error loading configuration - silently handle
     }
   }
 
@@ -91,7 +89,7 @@ class _SettingsScreenState extends State<SettingsScreen>
         _appInfo = appInfo;
       });
     } catch (e) {
-      debugPrint('Error loading app info: $e');
+      // Error loading app info - silently handle
     }
   }
 

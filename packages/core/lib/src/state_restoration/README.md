@@ -346,6 +346,7 @@ All state is persisted using the `AppConfigService`:
 - Minimal overhead during normal operation
 - Efficient state saving and loading
 - Smart restoration mode management
+- Automatic navigation stack cleaning
 
 ## 🔧 Configuration
 

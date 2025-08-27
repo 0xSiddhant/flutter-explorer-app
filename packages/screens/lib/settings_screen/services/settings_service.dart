@@ -8,7 +8,6 @@ class SettingsService {
     try {
       await AppConfigService.instance.setValue(key, value);
     } catch (e) {
-      debugPrint('Error updating configuration: $e');
       rethrow;
     }
   }
@@ -22,7 +21,6 @@ class SettingsService {
       // The LanguageChangeListener will be notified by AppLocalizations.setLocale()
       // which is called by AppLocalizations.changeLanguage()
     } catch (e) {
-      debugPrint('Error changing language: $e');
       rethrow;
     }
   }
@@ -32,7 +30,6 @@ class SettingsService {
     try {
       await AppConfigService.instance.reload();
     } catch (e) {
-      debugPrint('Error reloading configuration: $e');
       rethrow;
     }
   }

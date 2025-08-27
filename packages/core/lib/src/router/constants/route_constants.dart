@@ -83,6 +83,10 @@ class RouteConstants {
     path: '/config-viewer',
     name: 'config-viewer',
   );
+  static const RouteModel deepLinkTest = RouteModel(
+    path: '/deep-link-test',
+    name: 'deep-link-test',
+  );
 
   // List of all routes
   static const List<RouteModel> allRoutes = [
@@ -103,6 +107,7 @@ class RouteConstants {
     typographyShowcase,
     themeComponentShowcase,
     configViewer,
+    deepLinkTest,
   ];
 
   /// Get route model from path
@@ -143,5 +148,84 @@ class RouteConstants {
   /// Check if a route name exists
   static bool isRouteNameValid(String routeName) {
     return getRouteFromName(routeName) != null;
+  }
+
+  // Deep link constants
+  static const String deepLinkScheme = 'frouter';
+
+  // Deep link path mappings
+  static const Map<String, RouteModel> deepLinkRoutes = {
+    'home': tabScreen,
+    'setting': settings,
+    'settings': settings,
+    'config': configViewer,
+    'i10n': internationalization,
+    'internationalization': internationalization,
+    'theme_preview': themeComponentShowcase,
+    'theme': theming,
+    'theming': theming,
+    'accessibility': accessibility,
+    'file_management': fileManagement,
+    'file': fileManagement,
+    'background_tasks': backgroundTasks,
+    'background': backgroundTasks,
+    'native_communication': nativeCommunication,
+    'native': nativeCommunication,
+    'navigation_analytics': navigationAnalytics,
+    'analytics': navigationAnalytics,
+    'lifecycle_management': lifecycleManagement,
+    'lifecycle': lifecycleManagement,
+    'advanced_processing': advancedProcessing,
+    'advanced': advancedProcessing,
+    'typography_showcase': typographyShowcase,
+    'typography': typographyShowcase,
+  };
+
+  // Allowed deep link paths (for validation)
+  static const Set<String> allowedDeepLinks = {
+    'home',
+    'setting',
+    'settings',
+    'config',
+    'i10n',
+    'internationalization',
+    'theme_preview',
+    'theme',
+    'theming',
+    'accessibility',
+    'file_management',
+    'file',
+    'background_tasks',
+    'background',
+    'native_communication',
+    'native',
+    'navigation_analytics',
+    'analytics',
+    'lifecycle_management',
+    'lifecycle',
+    'advanced_processing',
+    'advanced',
+    'typography_showcase',
+    'typography',
+  };
+
+  /// Get route model for a deep link path
+  static RouteModel? getRouteForDeepLink(String deepLinkPath) {
+    return deepLinkRoutes[deepLinkPath];
+  }
+
+  /// Check if a deep link path is allowed
+  static bool isDeepLinkAllowed(String deepLinkPath) {
+    return allowedDeepLinks.contains(deepLinkPath);
+  }
+
+  /// Get all allowed deep link paths
+  static Set<String> getAllowedDeepLinks() {
+    return Set.unmodifiable(allowedDeepLinks);
+  }
+
+  /// Get deep link scheme
+  static String getDeepLinkScheme() {
+    return deepLinkScheme;
   }
 }

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'constants/route_constants.dart';
 import 'generators/route_generator.dart';
 import 'services/navigation_service.dart';
+import 'services/deep_link_service.dart';
 import 'observers/route_observer.dart';
 import 'observers/comprehensive_navigation_observer.dart';
 
@@ -40,6 +41,16 @@ class AppRouteManager {
     ],
   );
 
+  /// Initialize deep link handling
+  static Future<void> initializeDeepLinks() async {
+    try {
+      await DeepLinkService.instance.initialize(router);
+      debugPrint('AppRouteManager: Deep link handling initialized');
+    } catch (e) {
+      debugPrint('AppRouteManager: Error initializing deep links: $e');
+    }
+  }
+
   // Generic navigation methods using NavigationService and RouteConstants
   static void navigateToRoute(
     BuildContext context,
@@ -57,6 +68,48 @@ class AppRouteManager {
     NavigationService.navigateToByName(routeName, usePush: usePush);
   }
 
+  /// Navigate to a route with parameters
+  static void navigateToRouteWithParams(
+    BuildContext context,
+    String route,
+    Map<String, String> parameters, {
+    bool usePush = false,
+  }) {
+    final routeWithParams = _buildRouteWithParams(route, parameters);
+    NavigationService.navigateTo(routeWithParams, usePush: usePush);
+  }
+
+  /// Navigate to a route by name with parameters
+  static void navigateToRouteByNameWithParams(
+    BuildContext context,
+    String routeName,
+    Map<String, String> parameters, {
+    bool usePush = false,
+  }) {
+    final route = RouteConstants.getPathFromRouteName(routeName);
+    final routeWithParams = _buildRouteWithParams(route, parameters);
+    NavigationService.navigateTo(routeWithParams, usePush: usePush);
+  }
+
+  /// Build route with parameters as query string
+  static String _buildRouteWithParams(
+    String route,
+    Map<String, String> parameters,
+  ) {
+    if (parameters.isEmpty) {
+      return route;
+    }
+
+    final queryParams = parameters.entries
+        .map(
+          (e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+        )
+        .join('&');
+
+    return '$route?$queryParams';
+  }
+
   // Convenience methods for specific routes using RouteConstants
   static void navigateToDetailScreen(
     BuildContext context, {
@@ -72,21 +125,41 @@ class AppRouteManager {
   static void navigateToThemeComponentShowcase(
     BuildContext context, {
     bool usePush = true,
+    Map<String, String>? parameters,
   }) {
-    NavigationService.navigateTo(
-      RouteConstants.themeComponentShowcase.path,
-      usePush: usePush,
-    );
+    if (parameters != null && parameters.isNotEmpty) {
+      navigateToRouteWithParams(
+        context,
+        RouteConstants.themeComponentShowcase.path,
+        parameters,
+        usePush: usePush,
+      );
+    } else {
+      NavigationService.navigateTo(
+        RouteConstants.themeComponentShowcase.path,
+        usePush: usePush,
+      );
+    }
   }
 
   static void navigateToConfigViewer(
     BuildContext context, {
     bool usePush = true,
+    Map<String, String>? parameters,
   }) {
-    NavigationService.navigateTo(
-      RouteConstants.configViewer.path,
-      usePush: usePush,
-    );
+    if (parameters != null && parameters.isNotEmpty) {
+      navigateToRouteWithParams(
+        context,
+        RouteConstants.configViewer.path,
+        parameters,
+        usePush: usePush,
+      );
+    } else {
+      NavigationService.navigateTo(
+        RouteConstants.configViewer.path,
+        usePush: usePush,
+      );
+    }
   }
 
   static void navigateToNativeCommunication(
@@ -112,11 +185,21 @@ class AppRouteManager {
   static void navigateToInternationalization(
     BuildContext context, {
     bool usePush = true,
+    Map<String, String>? parameters,
   }) {
-    NavigationService.navigateTo(
-      RouteConstants.internationalization.path,
-      usePush: usePush,
-    );
+    if (parameters != null && parameters.isNotEmpty) {
+      navigateToRouteWithParams(
+        context,
+        RouteConstants.internationalization.path,
+        parameters,
+        usePush: usePush,
+      );
+    } else {
+      NavigationService.navigateTo(
+        RouteConstants.internationalization.path,
+        usePush: usePush,
+      );
+    }
   }
 
   static void navigateToAccessibility(
@@ -175,6 +258,17 @@ class AppRouteManager {
   }) {
     NavigationService.navigateTo(
       RouteConstants.typographyShowcase.path,
+      usePush: usePush,
+    );
+  }
+
+  /// Navigate to deep link test screen
+  static void navigateToDeepLinkTest(
+    BuildContext context, {
+    bool usePush = true,
+  }) {
+    NavigationService.navigateTo(
+      RouteConstants.deepLinkTest.path,
       usePush: usePush,
     );
   }
@@ -245,5 +339,26 @@ class AppRouteManager {
 
   static void clearStackAndGoToByName(String routeName) {
     NavigationService.clearStackAndGoToByName(routeName);
+  }
+
+  // Deep link methods
+  static Future<void> handleDeepLink(String url) async {
+    try {
+      await DeepLinkService.instance.handleDeepLink(url, router);
+    } catch (e) {
+      debugPrint('AppRouteManager: Error handling deep link: $e');
+    }
+  }
+
+  static String getDeepLinkScheme() {
+    return RouteConstants.getDeepLinkScheme();
+  }
+
+  static Set<String> getAllowedDeepLinks() {
+    return RouteConstants.getAllowedDeepLinks();
+  }
+
+  static bool isDeepLinkAllowed(String path) {
+    return RouteConstants.isDeepLinkAllowed(path);
   }
 }

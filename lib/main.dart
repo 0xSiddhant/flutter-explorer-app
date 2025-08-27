@@ -65,5 +65,14 @@ void main() async {
     debugPrint('Warning: Failed to initialize state restoration: $e');
   }
 
+  // Initialize deep link handling
+  try {
+    await AppRouteManager.initializeDeepLinks();
+    debugPrint('Deep link handling initialized successfully');
+  } catch (e) {
+    // Log error but continue (deep links can work with defaults)
+    debugPrint('Warning: Failed to initialize deep links: $e');
+  }
+
   runApp(const FlutterExplorerApp());
 }
